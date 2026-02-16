@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="es" class="antialiased"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tribu Breed | Evaluación Próximamente</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Iconify Script -->
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.7/dist/iconify-icon.min.js"></script>
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+:root {
+--font-sans: 'Geist', 'Inter', sans-serif;
+--font-serif: 'Instrument Serif', serif;
+}
+body {
+font-family: var(--font-sans);
+background-color: #FAFAFA;
+color: #111;
+}
+.font-serif {
+font-family: var(--font-serif);
+}
+/* Utility for the provided code's font-display preference */
+.font-display {
+font-family: var(--font-serif);
+}
+/* Subtle Grain Animation */
+.bg-grain {
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+opacity: 0.4;
+pointer-events: none;
+}
+/* Marquee Animation */
+.marquee-container {
+mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+}
+.marquee-content {
+animation: scroll 60s linear infinite;
+}
+@keyframes scroll {
+0% { transform: translateX(0); }
+100% { transform: translateX(-50%); }
+}
+/* Fade Up Animation */
+.fade-up {
+opacity: 0;
+transform: translateY(20px);
+animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+@keyframes fadeUp {
+to { opacity: 1; transform: translateY(0); }
+}
+/* Custom scrollbar for overlay */
+.scrollbar-hide::-webkit-scrollbar {
+display: none;
+}
+.scrollbar-hide {
+-ms-overflow-style: none;
+scrollbar-width: none;
+}
+</style></head>
+<body class="min-h-screen flex flex-col relative overflow-x-hidden selection:bg-black selection:text-white">
+
+    <!-- Background Texture -->
+    <div class="fixed inset-0 bg-grain z-0"></div>
+
+    <!-- Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 px-6 py-6 flex justify-center md:justify-between items-center bg-white/0 backdrop-blur-[2px]">
+        <div class="flex items-center gap-2">
+            <span class="text-xs uppercase tracking-[0.2em] font-medium opacity-60">Tribu Breed</span>
+        </div>
+        <div class="hidden md:block">
+            <span class="text-[10px] font-mono border border-zinc-200 bg-white/50 px-2 py-1 rounded text-zinc-500">v1.0 BETA</span>
+        </div>
+    </header>
+
+    <main class="relative z-10 flex-grow flex flex-col items-center justify-start w-full">
+        
+        <!-- Hero Section -->
+        <div class="flex flex-col w-full pt-32 pr-6 pb-12 pl-6 items-center relative overflow-hidden">
+            <div class="absolute inset-0 -z-10 h-full w-full bg-white">
+                <div class="absolute h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+            </div>
+            <div class="text-center w-full max-w-4xl space-y-8">
+                
+                <div class="fade-up inline-flex gap-2 bg-white/80 border-zinc-200 border rounded-full mb-4 pt-1 pr-3 pb-1 pl-3 shadow-sm gap-x-2 gap-y-2 items-center">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-zinc-900"></span>
+                    </span>
+                    <span class="text-[10px] uppercase font-semibold text-zinc-600 tracking-widest">Q3 2026</span>
+                </div>
+
+                <h1 class="fade-up delay-100 md:text-8xl lg:text-9xl leading-[0.9] text-6xl font-medium text-black tracking-tight font-serif">Coming Soon.</h1>
+
+                <p class="fade-up delay-200 md:text-xl leading-relaxed text-lg font-light text-zinc-500 max-w-xl mx-auto">Un test psicométrico diseñado para conocer tu aporte natural dentro de un equipo creativo.</p>
+
+                <div class="fade-up delay-300 flex flex-col sm:flex-row gap-4 pt-8 items-center justify-center">
+                    <a href="tribubreed.html" class="group overflow-hidden hover:shadow-xl transition-all duration-300 text-white bg-black rounded-full pt-4 pr-8 pb-4 pl-8 relative shadow-lg">
+                        <div class="group-hover:translate-y-0 transition-transform duration-300 ease-out bg-zinc-800 w-full h-full absolute top-0 right-0 bottom-0 left-0 translate-y-full" onclick="window.location.href='tribubreed.html'" role="button"></div>
+                        <span class="flex items-center gap-3 uppercase text-sm font-semibold tracking-widest relative" onclick="window.location.href='tribubreed.html'" role="button">Regresar a la Tribu</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Abstract Visual / Hype Section -->
+            <div class="w-full max-w-6xl mx-auto mt-24 mb-12 fade-up delay-300">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-zinc-100 border border-zinc-100 rounded-2xl overflow-hidden shadow-sm">
+                    
+                    <!-- Card 1 -->
+                    <div class="bg-white p-8 md:p-12 flex flex-col items-center text-center gap-6 group hover:bg-zinc-50 transition-colors">
+                        <div class="w-12 h-12 rounded-full bg-zinc-50 border border-zinc-100 flex items-center justify-center text-zinc-600 group-hover:scale-110 transition-transform duration-500">
+                            <iconify-icon icon="solar:atom-linear" width="24" height="24" stroke-width="1.5"></iconify-icon>
+                        </div>
+                        <div class="">
+                            <h3 class="text-lg font-medium tracking-tight mb-2">4 Dimensiones</h3>
+                            <p class="text-sm text-zinc-500 leading-relaxed">
+                                Analizando Energía, Orden, Razón y Acción para mapear tu brújula interna.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-white p-8 md:p-12 flex flex-col items-center text-center gap-6 group hover:bg-zinc-50 transition-colors">
+                        <div class="w-12 h-12 rounded-full bg-zinc-50 border border-zinc-100 flex items-center justify-center text-zinc-600 group-hover:scale-110 transition-transform duration-500">
+                            <iconify-icon icon="solar:users-group-rounded-linear" width="24" height="24" stroke-width="1.5"></iconify-icon>
+                        </div>
+                        <div class="">
+                            <h3 class="text-lg font-medium tracking-tight mb-2">16 Arquetipos</h3>
+                            <p class="text-sm text-zinc-500 leading-relaxed">
+                                Desde la precisión silenciosa del Alquimista hasta el impulso caótico del Cazador.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="md:p-12 flex flex-col gap-6 group hover:bg-zinc-50 transition-colors text-center bg-white pt-8 pr-8 pb-8 pl-8 gap-x-6 gap-y-6 items-center">
+                        <div class="w-12 h-12 rounded-full bg-zinc-50 border border-zinc-100 flex items-center justify-center text-zinc-600 group-hover:scale-110 transition-transform duration-500">
+                            <iconify-icon icon="solar:stars-minimalistic-linear" width="24" height="24" stroke-width="1.5"></iconify-icon>
+                        </div>
+                        <div class="">
+                            <h3 class="text-lg font-medium tracking-tight mb-2">5 Minutos</h3>
+                            <p class="leading-relaxed text-sm text-zinc-500">40 preguntas dinámicas.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ROLES SECTION -->
+        <section class="w-full bg-white border-t border-zinc-200 relative pb-32 pt-24" id="roles">
+            <!-- Subtle Ambient Background -->
+            <div class="absolute inset-0 pointer-events-none opacity-40">
+                <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-purple-100/50 blur-[150px] rounded-full"></div>
+                <div class="absolute bottom-0 left-0 w-[800px] h-[800px] bg-blue-100/50 blur-[150px] rounded-full"></div>
+            </div>
+
+            <!-- Header & Filters -->
+            <div class="z-10 max-w-7xl mx-auto px-6 relative mb-16">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-zinc-100 pb-8">
+                    <div class="">
+                        <h2 class="font-serif text-5xl md:text-6xl text-zinc-900 tracking-tight mb-4">
+                            Los 16 Roles
+                        </h2>
+                        <p class="text-lg font-light text-zinc-500 max-w-xl">
+                            Encuentra tu arquetipo dentro de la tribu. Descubre tu aporte natural dentro de un equipo creativo.
+                        </p>
+                    </div>
+                    <!-- Filters -->
+                    <div class="flex flex-wrap gap-2" id="directory-filters">
+                        <button class="filter-btn px-5 py-2 rounded-full border border-black bg-black text-white text-xs font-medium uppercase tracking-widest transition-all hover:scale-105" data-filter="all">
+                            Todos
+                        </button>
+                        <button class="filter-btn px-5 py-2 rounded-full border border-zinc-200 bg-white text-zinc-500 text-xs font-medium uppercase tracking-widest transition-all hover:border-purple-500 hover:text-purple-600" data-filter="air">
+                            Aire
+                        </button>
+                        <button class="filter-btn px-5 py-2 rounded-full border border-zinc-200 bg-white text-zinc-500 text-xs font-medium uppercase tracking-widest transition-all hover:border-emerald-500 hover:text-emerald-600" data-filter="earth">
+                            Tierra
+                        </button>
+                        <button class="filter-btn px-5 py-2 rounded-full border border-zinc-200 bg-white text-zinc-500 text-xs font-medium uppercase tracking-widest transition-all hover:border-red-500 hover:text-red-600" data-filter="fire">
+                            Fuego
+                        </button>
+                        <button class="filter-btn px-5 py-2 rounded-full border border-zinc-200 bg-white text-zinc-500 text-xs font-medium uppercase tracking-widest transition-all hover:border-blue-500 hover:text-blue-600" data-filter="water">
+                            Agua
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Directory Grid Container -->
+            <div class="flex flex-col w-full z-10 relative max-w-7xl mx-auto px-6" id="roles-directory">
+                
+                <!-- AIR BLOCK (Purple) -->
+                <div class="element-block group relative w-full pt-8 pb-16" id="block-air">
+                    <!-- Air Banner Info (Hidden by default, shown via JS) -->
+                    <div class="element-banner hidden transition-all duration-500 hover:shadow-xl cursor-default relative w-full rounded-2xl overflow-hidden border border-purple-100 bg-purple-50/50 mb-12">
+                        <div class="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-l from-purple-100/50 to-transparent"></div>
+                        <div class="relative z-10 p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-center">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-purple-200 bg-white flex items-center justify-center shrink-0 shadow-sm text-purple-500">
+                                <iconify-icon icon="solar:wind-linear" width="40"></iconify-icon>
+                            </div>
+                            <div class="space-y-3">
+                                <h3 class="text-3xl md:text-4xl font-serif font-medium text-zinc-900 tracking-tight">Arquitectos de lo Invisible</h3>
+                                <p class="text-zinc-600 font-light text-base md:text-lg leading-relaxed max-w-3xl">
+                                    Estrategia, intelecto y visión. Antes de rodar un plano, el Aire ya ha construido la obra maestra en la mente. Tratan con conceptos, patrones y el "por qué".
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+                        <!-- Card Template: Air -->
+                        <div onclick="openRolePage('air', 'explorador')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-purple-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c23dd8b1-9fbf-42b7-b7cc-8b3c1faa3e94_1600w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md" alt="El Explorador">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Explorador</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">El buscador de nuevos caminos y territorios desconocidos.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-purple-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+
+                        <div onclick="openRolePage('air', 'alquimista')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-purple-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/7ab028f7-c488-44cf-ba99-0a3f1ff4a6df_800w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md" alt="El Alquimista">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Alquimista</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">Transforma ideas abstractas en realidades doradas.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-purple-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+
+                        <div onclick="openRolePage('air', 'mago')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-purple-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/faeda750-adcf-476b-9d6d-b7121337ca6f_800w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md" alt="El Mago">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Mago</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">Hace posible lo técnicamente imposible.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-purple-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+
+                        <div onclick="openRolePage('air', 'astronomo')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-purple-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c0ec47c2-3542-4830-b75c-cbf407b59bb0_800w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md" alt="El Astrónomo">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Astrónomo</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">Ve el panorama completo y conecta las estrellas.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-purple-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EARTH BLOCK (Emerald) -->
+                <div class="element-block group relative w-full pt-8 pb-16" id="block-earth">
+                    <!-- Earth Banner Info -->
+                    <div class="element-banner hidden transition-all duration-500 hover:shadow-xl cursor-default relative w-full rounded-2xl overflow-hidden border border-emerald-100 bg-emerald-50/50 mb-12">
+                        <div class="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-l from-emerald-100/50 to-transparent"></div>
+                        <div class="relative z-10 p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-center">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-emerald-200 bg-white flex items-center justify-center shrink-0 shadow-sm text-emerald-500">
+                                <iconify-icon icon="solar:leaf-linear" width="40"></iconify-icon>
+                            </div>
+                            <div class="space-y-3">
+                                <h3 class="text-3xl md:text-4xl font-serif font-medium text-zinc-900 tracking-tight">Constructores de la Realidad</h3>
+                                <p class="text-zinc-600 font-light text-base md:text-lg leading-relaxed max-w-3xl">
+                                    Producción, logística y estructura. La Tierra convierte lo etéreo en tangible, asegurando que el sueño sobreviva al contacto con la realidad.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+                        <!-- Cards Earth -->
+                        <div onclick="openRolePage('earth', 'pescador')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-emerald-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/9475bd29-9876-4966-b62c-aeeee501b8a1_800w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Pescador</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">Paciencia estratégica para capturar valor real.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-emerald-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+                        <div onclick="openRolePage('earth', 'constructor')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-emerald-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/b4b88b8f-1c47-447f-a3b6-445c28227800_800w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Constructor</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">Establece cimientos sólidos y una ejecución impecable.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-emerald-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+                        <div onclick="openRolePage('earth', 'cartografo')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-emerald-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/1fc9ccc6-cdc7-44ac-9154-ff0688d7d405_800w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Cartógrafo</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">Mapea procesos y encuentra la ruta óptima.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-emerald-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+                        <div onclick="openRolePage('earth', 'agricultor')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-emerald-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/e260163e-217e-4b2b-a0ee-644d04efdc87_800w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Agricultor</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">Cultiva recursos y asegura un crecimiento sostenible.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-emerald-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FIRE BLOCK (Red) -->
+                <div class="element-block group relative w-full pt-8 pb-16" id="block-fire">
+                    <!-- Fire Banner Info -->
+                    <div class="element-banner hidden transition-all duration-500 hover:shadow-xl cursor-default relative w-full rounded-2xl overflow-hidden border border-red-100 bg-red-50/50 mb-12">
+                        <div class="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-l from-red-100/50 to-transparent"></div>
+                        <div class="relative z-10 p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-center">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-red-200 bg-white flex items-center justify-center shrink-0 shadow-sm text-red-500">
+                                <iconify-icon icon="solar:flame-linear" width="40"></iconify-icon>
+                            </div>
+                            <div class="space-y-3">
+                                <h3 class="text-3xl md:text-4xl font-serif font-medium text-zinc-900 tracking-tight">Motores de Velocidad</h3>
+                                <p class="text-zinc-600 font-light text-base md:text-lg leading-relaxed max-w-3xl">
+                                    Acción, velocidad y ejecución. El Fuego trae el calor que transforma la materia prima en oro cinematográfico. Se mueven rápido y rompen barreras.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+                        <!-- Cards Fire -->
+                        <div onclick="openRolePage('fire', 'cazador')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-red-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/0509639d-963d-4ec3-a4ee-0cae599f07c7_800w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Cazador</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">Persigue objetivos con precisión letal.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-red-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+                        <div onclick="openRolePage('fire', 'artesano')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-red-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/ca7d7623-3b8b-4e96-a20b-92d22889467d_800w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Artesano</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">Maestría técnica y obsesión por el detalle.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-red-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+                        <div onclick="openRolePage('fire', 'herrero')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-red-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/80983db3-5d24-4904-b6f8-d8c2518da383_800w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Herrero</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">Forja las herramientas que impulsan al equipo.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-red-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+                        <div onclick="openRolePage('fire', 'lenador')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-red-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c3451f24-d838-4cd7-b7c9-67224729f425_800w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Leñador</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">Reúne la materia prima para la transformación.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-red-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WATER BLOCK (Blue) -->
+                <div class="element-block group relative w-full pt-8 pb-16" id="block-water">
+                    <!-- Water Banner Info -->
+                    <div class="element-banner hidden transition-all duration-500 hover:shadow-xl cursor-default relative w-full rounded-2xl overflow-hidden border border-blue-100 bg-blue-50/50 mb-12">
+                        <div class="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-l from-blue-100/50 to-transparent"></div>
+                        <div class="relative z-10 p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-center">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-blue-200 bg-white flex items-center justify-center shrink-0 shadow-sm text-blue-500">
+                                <iconify-icon icon="solar:waterdrops-linear" width="40"></iconify-icon>
+                            </div>
+                            <div class="space-y-3">
+                                <h3 class="text-3xl md:text-4xl font-serif font-medium text-zinc-900 tracking-tight">Tejedores de Narrativa</h3>
+                                <p class="text-zinc-600 font-light text-base md:text-lg leading-relaxed max-w-3xl">
+                                    Historia, emoción y flujo. El Agua conecta las partes inconexas en una narrativa fluida. Protegen el elemento humano y aseguran que el mensaje resuene.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+                        <!-- Cards Water -->
+                        <div onclick="openRolePage('water', 'guardian')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-blue-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/d1aaeb7b-4f2d-4083-a5ef-996ead0603ab_800w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Guardián</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">Protege la integridad y los valores de la tribu.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-blue-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+                        <div onclick="openRolePage('water', 'cocinero')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-blue-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4d2c7a7c-828d-4ab7-88f5-4ce0550bced7_800w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Cocinero</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">Mezcla ingredientes para crear nuevas realidades.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-blue-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+                        <div onclick="openRolePage('water', 'comandante')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-blue-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/ad40cb34-c1a0-4be7-82e1-62924ae25f4e_800w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Comandante</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">Liderazgo decisivo en momentos críticos.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-blue-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+                        <div onclick="openRolePage('water', 'guia')" class="group/card cursor-pointer relative flex flex-col items-center text-center">
+                            <div class="h-48 w-full flex items-center justify-center mb-6 relative">
+                                <div class="absolute inset-0 bg-gradient-to-t from-blue-100/50 to-transparent opacity-0 group-hover/card:opacity-100 rounded-full transition-opacity duration-500 blur-xl"></div>
+                                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/de380cef-89ba-4af1-83cb-e720e001c4e9_800w.png" class="transition-transform duration-500 group-hover/card:scale-110 w-auto h-full object-contain z-10 relative drop-shadow-md">
+                            </div>
+                            <h3 class="text-xl font-medium text-zinc-900 tracking-tight font-serif mb-2">El Guía</h3>
+                            <p class="leading-relaxed text-sm font-light text-zinc-500 mb-4">Ilumina el camino para que otros avancen.</p>
+                            <span class="text-[10px] uppercase flex items-center justify-center gap-1 font-bold text-blue-600 tracking-widest opacity-0 group-hover/card:opacity-100 transform translate-y-2 group-hover/card:translate-y-0 transition-all duration-300">
+                                Ver Perfil <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marquee -->
+        <div class="w-full max-w-full overflow-hidden marquee-container absolute bottom-0 left-0 right-0 h-32 flex items-center opacity-5 pointer-events-none">
+            <div class="marquee-content flex whitespace-nowrap gap-12 text-6xl font-serif italic text-black">
+                <span>Astrónomo</span> <span>Cazador</span> <span>Constructor</span> <span>Alquimista</span> 
+                <span>Comandante</span> <span>Guía</span> <span>Agricultor</span> <span>Guardián</span>
+                <span>Astrónomo</span> <span>Cazador</span> <span>Constructor</span> <span>Alquimista</span> 
+                <span>Comandante</span> <span>Guía</span> <span>Agricultor</span> <span>Guardián</span>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="py-8 text-center border-t border-zinc-100 bg-white relative z-20">
+        <div class="flex flex-col items-center justify-center gap-3 opacity-60 hover:opacity-100 transition-opacity">
+            <span class="text-[10px] uppercase tracking-widest text-zinc-400">Powered by</span>
+            <div class="flex items-center gap-2">
+                 <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/473f36fd-3cb4-4442-9d25-9f57769fa37c_320w.png" alt="BREED" class="h-4 w-auto object-contain mix-blend-multiply grayscale opacity-80">
+            </div>
+        </div>
+    </footer>
+
+    <!-- Full Screen Role Page Overlay -->
+    <div id="role-page-overlay" class="fixed inset-0 z-[100] bg-white transform translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-y-auto hidden">
+        <!-- Close Button -->
+        <button onclick="closeRolePage()" class="fixed top-6 right-6 z-50 p-2 bg-white rounded-full border border-zinc-200 shadow-sm hover:bg-zinc-100 transition-colors">
+            <iconify-icon icon="solar:close-circle-linear" width="32" class="text-zinc-400"></iconify-icon>
+        </button>
+
+        <div class="min-h-screen w-full bg-white text-zinc-900">
+            <!-- Hero Section -->
+            <div id="role-hero" class="relative pt-32 pb-20 px-6 overflow-hidden border-b border-zinc-100">
+                <div id="role-hero-bg" class="absolute inset-0 opacity-30"></div>
+                <div class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center gap-12">
+                    <div class="w-full md:w-1/2 flex justify-center">
+                        <img id="role-hero-img" src="" alt="" class="w-full max-w-sm object-contain drop-shadow-xl">
+                    </div>
+                    <div class="w-full md:w-1/2 text-center md:text-left">
+                        <span id="role-element-tag" class="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6 border"></span>
+                        <h1 id="role-title" class="text-6xl md:text-7xl font-serif font-medium tracking-tight text-zinc-900 mb-6"></h1>
+                        <p id="role-subtitle" class="text-xl md:text-2xl text-zinc-500 font-light leading-relaxed max-w-lg"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Body -->
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    <!-- Sidebar Nav -->
+                    <div class="lg:col-span-3 hidden lg:block">
+                        <div class="sticky top-12 space-y-1">
+                            <a href="#" class="block px-4 py-2 text-sm font-semibold text-zinc-900 border-l-2 border-zinc-900">Introducción</a>
+                            <a href="#" class="block px-4 py-2 text-sm font-medium text-zinc-500 hover:text-zinc-900 hover:border-l-2 hover:border-zinc-300 border-l-2 border-transparent transition-all">Fortalezas</a>
+                            <a href="#" class="block px-4 py-2 text-sm font-medium text-zinc-500 hover:text-zinc-900 hover:border-l-2 hover:border-zinc-300 border-l-2 border-transparent transition-all">Debilidades</a>
+                            <a href="#" class="block px-4 py-2 text-sm font-medium text-zinc-500 hover:text-zinc-900 hover:border-l-2 hover:border-zinc-300 border-l-2 border-transparent transition-all">Camino</a>
+                            <a href="#" class="block px-4 py-2 text-sm font-medium text-zinc-500 hover:text-zinc-900 hover:border-l-2 hover:border-zinc-300 border-l-2 border-transparent transition-all">Cómo unirse</a>
+                        </div>
+                    </div>
+
+                    <!-- Main Content -->
+                    <div class="lg:col-span-6 space-y-12">
+                        <div class="prose prose-lg prose-zinc max-w-none">
+                            <h3 class="font-serif text-3xl font-medium tracking-tight text-zinc-900 mb-4">Introducción</h3>
+                            <p class="text-zinc-600 font-light leading-relaxed mb-4">
+                                <span id="role-name-insert" class="font-medium"></span> juega un papel fundamental en el ecosistema de la tribu. Son los que transforman conceptos abstractos en realidades tangibles. Mientras otros sueñan, este arquetipo ejecuta con precisión.
+                            </p>
+                            <p class="text-zinc-600 font-light leading-relaxed">
+                                Impulsados por su naturaleza elemental, aportan una perspectiva única a cada producción. Ya sea a través de la maestría técnica, la visión creativa o el liderazgo, su impacto se siente en cada momento.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-zinc-50 p-8 rounded-2xl border border-zinc-100">
+                                <iconify-icon icon="solar:star-fall-linear" width="32" class="text-zinc-400 mb-4"></iconify-icon>
+                                <h4 class="font-serif text-lg font-medium mb-2">Fortalezas</h4>
+                                <ul class="text-sm text-zinc-600 space-y-2 list-disc list-inside">
+                                    <li>Alta adaptabilidad</li>
+                                    <li>Pensamiento visionario</li>
+                                    <li>Precisión técnica</li>
+                                </ul>
+                            </div>
+                            <div class="bg-zinc-50 p-8 rounded-2xl border border-zinc-100">
+                                <iconify-icon icon="solar:shield-warning-linear" width="32" class="text-zinc-400 mb-4"></iconify-icon>
+                                <h4 class="font-serif text-lg font-medium mb-2">Debilidades</h4>
+                                <ul class="text-sm text-zinc-600 space-y-2 list-disc list-inside">
+                                    <li>Perfeccionismo</li>
+                                    <li>Sobreanálisis</li>
+                                    <li>Aversión al riesgo</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-black text-white p-12 rounded-3xl text-center relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                            <h3 class="font-serif text-2xl mb-4 relative z-10">¿Eres este arquetipo?</h3>
+                            <p class="text-zinc-400 mb-8 max-w-md mx-auto relative z-10">
+                                Únete al grupo de talentos hoy y conéctate con proyectos que necesitan tus habilidades.
+                            </p>
+                            <a href="#apply" onclick="closeRolePage()" class="inline-block px-8 py-3 bg-white text-black font-semibold text-sm uppercase tracking-widest rounded-full hover:bg-zinc-200 transition-colors relative z-10">
+                                Aplicar Ahora
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Sidebar -->
+                    <div class="lg:col-span-3">
+                        <div class="bg-zinc-50 border border-zinc-100 p-6 rounded-2xl sticky top-12">
+                            <h4 class="font-serif text-lg font-medium mb-4">Datos Rápidos</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <span class="text-xs font-bold uppercase tracking-widest text-zinc-400 block mb-1">Rareza</span>
+                                    <span class="text-zinc-900 font-medium text-sm">Raro (4% del pool)</span>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold uppercase tracking-widest text-zinc-400 block mb-1">Herramienta Clave</span>
+                                    <span class="text-zinc-900 font-medium text-sm">Cinema 4D / Houdini</span>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold uppercase tracking-widest text-zinc-400 block mb-1">Proyecto Ideal</span>
+                                    <span class="text-zinc-900 font-medium text-sm">Identidad de Marca</span>
+                                </div>
+                            </div>
+                            <div class="mt-8 pt-6 border-t border-zinc-200">
+                                <button onclick="closeRolePage()" class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-zinc-900 transition-colors">
+                                    <iconify-icon icon="solar:arrow-left-linear"></iconify-icon>
+                                    Volver al Directorio
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Role Data (Spanish)
+        const rolesData = {
+            air: [
+                { id: 'explorador', name: 'El Explorador', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c23dd8b1-9fbf-42b7-b7cc-8b3c1faa3e94_1600w.png', desc: 'El buscador de nuevos caminos y territorios desconocidos.' },
+                { id: 'alquimista', name: 'El Alquimista', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/7ab028f7-c488-44cf-ba99-0a3f1ff4a6df_800w.png', desc: 'Transforma ideas abstractas en realidades doradas.' },
+                { id: 'mago', name: 'El Mago', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/faeda750-adcf-476b-9d6d-b7121337ca6f_800w.png', desc: 'Hace posible lo técnicamente imposible.' },
+                { id: 'astronomo', name: 'El Astrónomo', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c0ec47c2-3542-4830-b75c-cbf407b59bb0_800w.png', desc: 'Ve el panorama completo y conecta las estrellas.' }
+            ],
+            earth: [
+                { id: 'pescador', name: 'El Pescador', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/9475bd29-9876-4966-b62c-aeeee501b8a1_800w.png', desc: 'Paciencia estratégica para capturar valor real.' },
+                { id: 'constructor', name: 'El Constructor', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/b4b88b8f-1c47-447f-a3b6-445c28227800_800w.png', desc: 'Establece cimientos sólidos y una ejecución impecable.' },
+                { id: 'cartografo', name: 'El Cartógrafo', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/1fc9ccc6-cdc7-44ac-9154-ff0688d7d405_800w.png', desc: 'Mapea procesos y encuentra la ruta óptima.' },
+                { id: 'agricultor', name: 'El Agricultor', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/e260163e-217e-4b2b-a0ee-644d04efdc87_800w.png', desc: 'Cultiva recursos y asegura un crecimiento sostenible.' }
+            ],
+            fire: [
+                { id: 'cazador', name: 'El Cazador', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/0509639d-963d-4ec3-a4ee-0cae599f07c7_800w.png', desc: 'Persigue objetivos con precisión letal.' },
+                { id: 'artesano', name: 'El Artesano', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/ca7d7623-3b8b-4e96-a20b-92d22889467d_800w.png', desc: 'Maestría técnica y obsesión por el detalle.' },
+                { id: 'herrero', name: 'El Herrero', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/80983db3-5d24-4904-b6f8-d8c2518da383_800w.png', desc: 'Forja las herramientas que impulsan al equipo.' },
+                { id: 'lenador', name: 'El Leñador', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c3451f24-d838-4cd7-b7c9-67224729f425_800w.png', desc: 'Reúne la materia prima para la transformación.' }
+            ],
+            water: [
+                { id: 'guardian', name: 'El Guardián', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/d1aaeb7b-4f2d-4083-a5ef-996ead0603ab_800w.png', desc: 'Protege la integridad y los valores de la tribu.' },
+                { id: 'cocinero', name: 'El Cocinero', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4d2c7a7c-828d-4ab7-88f5-4ce0550bced7_800w.png', desc: 'Mezcla ingredientes para crear nuevas realidades.' },
+                { id: 'comandante', name: 'El Comandante', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/ad40cb34-c1a0-4be7-82e1-62924ae25f4e_800w.png', desc: 'Liderazgo decisivo en momentos críticos.' },
+                { id: 'guia', name: 'El Guía', img: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/de380cef-89ba-4af1-83cb-e720e001c4e9_800w.png', desc: 'Ilumina el camino para que otros avancen.' }
+            ]
+        };
+
+        // Initialize Filter Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const filters = document.querySelectorAll('.filter-btn');
+            const blocks = document.querySelectorAll('.element-block');
+
+            filters.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.dataset.filter;
+
+                    // Update buttons
+                    filters.forEach(b => {
+                        b.className = 'filter-btn px-5 py-2 rounded-full border border-zinc-200 bg-white text-zinc-500 text-xs font-medium uppercase tracking-widest transition-all hover:border-black hover:text-black';
+                    });
+
+                    // Active style based on type
+                    if(filter === 'all') btn.className = 'filter-btn px-5 py-2 rounded-full border border-black bg-black text-white text-xs font-medium uppercase tracking-widest transition-all scale-105';
+                    if(filter === 'air') btn.className = 'filter-btn px-5 py-2 rounded-full border border-purple-500 bg-purple-500 text-white text-xs font-medium uppercase tracking-widest transition-all shadow-lg shadow-purple-500/20';
+                    if(filter === 'earth') btn.className = 'filter-btn px-5 py-2 rounded-full border border-emerald-500 bg-emerald-500 text-white text-xs font-medium uppercase tracking-widest transition-all shadow-lg shadow-emerald-500/20';
+                    if(filter === 'fire') btn.className = 'filter-btn px-5 py-2 rounded-full border border-red-500 bg-red-500 text-white text-xs font-medium uppercase tracking-widest transition-all shadow-lg shadow-red-500/20';
+                    if(filter === 'water') btn.className = 'filter-btn px-5 py-2 rounded-full border border-blue-500 bg-blue-500 text-white text-xs font-medium uppercase tracking-widest transition-all shadow-lg shadow-blue-500/20';
+
+                    // Filter Blocks & Banners
+                    blocks.forEach(block => {
+                        const banner = block.querySelector('.element-banner');
+
+                        if (filter === 'all') {
+                            // Show all blocks, hide banners
+                            block.classList.remove('hidden');
+                            if (banner) {
+                                banner.classList.add('hidden');
+                                banner.classList.remove('fade-up');
+                            }
+                        } else if (block.id === `block-${filter}`) {
+                            // Show specific block and its banner
+                            block.classList.remove('hidden');
+                            if (banner) {
+                                banner.classList.remove('hidden');
+                                banner.classList.add('fade-up');
+                            }
+                        } else {
+                            // Hide other blocks
+                            block.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+        });
+
+        // Role Page Navigation Logic
+        const overlay = document.getElementById('role-page-overlay');
+        const heroBg = document.getElementById('role-hero-bg');
+        const heroImg = document.getElementById('role-hero-img');
+        const titleEl = document.getElementById('role-title');
+        const subtitleEl = document.getElementById('role-subtitle');
+        const tagEl = document.getElementById('role-element-tag');
+        const nameInsert = document.getElementById('role-name-insert');
+
+        const elementConfig = {
+            air: { bg: 'bg-gradient-to-br from-purple-100 to-white', text: 'text-purple-600', border: 'border-purple-200 bg-purple-50' },
+            earth: { bg: 'bg-gradient-to-br from-emerald-100 to-white', text: 'text-emerald-600', border: 'border-emerald-200 bg-emerald-50' },
+            fire: { bg: 'bg-gradient-to-br from-red-100 to-white', text: 'text-red-600', border: 'border-red-200 bg-red-50' },
+            water: { bg: 'bg-gradient-to-br from-blue-100 to-white', text: 'text-blue-600', border: 'border-blue-200 bg-blue-50' }
+        };
+
+        window.openRolePage = (element, id) => {
+            const role = rolesData[element].find(r => r.id === id);
+            const config = elementConfig[element];
+
+            // Set Content
+            heroBg.className = `absolute inset-0 opacity-50 ${config.bg}`;
+            heroImg.src = role.img;
+            titleEl.textContent = role.name;
+            subtitleEl.textContent = role.desc;
+            tagEl.textContent = `${element === 'air' ? 'Aire' : element === 'earth' ? 'Tierra' : element === 'fire' ? 'Fuego' : 'Agua'}`;
+            tagEl.className = `inline-block px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6 border ${config.text} ${config.border}`;
+            nameInsert.textContent = role.name;
+
+            // Show Overlay
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Lock scroll
+
+            // Animation frame to allow display:block to apply before transform
+            requestAnimationFrame(() => {
+                overlay.classList.remove('translate-x-full');
+            });
+        };
+
+        window.closeRolePage = () => {
+            overlay.classList.add('translate-x-full');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                document.body.style.overflow = ''; // Unlock scroll
+            }, 500);
+        };
+    </script>
+
+</body></html>

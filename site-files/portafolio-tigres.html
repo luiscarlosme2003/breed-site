@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth antialiased selection:bg-zinc-900 selection:text-white"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breed Studio | Case Study</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+/* Typography overrides */
+body { font-family: 'Inter', sans-serif; }
+h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.04em; }
+/* Hide Scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+/* Custom Animations */
+@keyframes fade-in-up {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.animate-enter { animation: fade-in-up 0.8s ease-out forwards; }
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+/* Carousel Specific Styles */
+.carousel-container { perspective: 1000px; overflow: hidden; }
+.carousel-track { touch-action: pan-y; will-change: transform; cursor: grab; }
+.carousel-track:active { cursor: grabbing; }
+.card-content { transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
+.active-slide .card-content { transform: scale(1); opacity: 1; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+.inactive-slide .card-content { transform: scale(0.92); opacity: 0.6; }
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1a1aa', 500: '#71717a', 600: '#52525b', 700: '#3f3f46', 800: '#27272a', 900: '#18181b', 950: '#09090b' },
+}
+}
+}
+};
+</script></head>
+<body class="bg-[#fafafa] text-zinc-900 overflow-x-hidden">
+
+    <!-- Navigation: Back Button -->
+    <nav class="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-start pointer-events-none">
+      <a href="portafolio.html" class="pointer-events-auto group flex items-center gap-2 bg-white/80 backdrop-blur-xl border border-zinc-200/60 rounded-full pl-3 pr-5 py-2.5 hover:bg-white hover:shadow-lg hover:shadow-zinc-200/50 transition-all duration-300">
+        <div class="bg-zinc-100 rounded-full p-1 group-hover:bg-zinc-900 group-hover:text-white transition-colors">
+            <iconify-icon icon="solar:arrow-left-linear" width="16" stroke-width="2"></iconify-icon>
+        </div>
+        <span class="text-sm font-medium text-zinc-600 group-hover:text-zinc-900">Regresar a Portafolio</span>
+      </a>
+      
+      <!-- Optional: Share/Menu on right -->
+      <button class="pointer-events-auto bg-white/80 backdrop-blur-xl border border-zinc-200/60 rounded-full p-3 hover:bg-black hover:text-white transition-all duration-300">
+        <iconify-icon icon="solar:share-linear" width="20"></iconify-icon>
+      </button>
+    </nav>
+
+    <main class="min-h-screen pb-24">
+      
+      <!-- Case Study Header -->
+      <section class="max-w-[1400px] mx-auto px-6 pt-32 md:pt-40 mb-12">
+        <div class="flex flex-col md:flex-row justify-between items-end gap-10 animate-enter">
+          <div class="max-w-3xl">
+            <div class="flex items-center gap-3 mb-6 text-sm font-medium text-zinc-400">
+                <span class="text-zinc-900">Comercial</span>
+                <span class="w-1 h-1 rounded-full bg-zinc-300"></span>
+                <span class="">2026</span>
+                <span class="w-1 h-1 rounded-full bg-zinc-300"></span>
+                <span class="">Xignux</span>
+            </div>
+            <h1 class="md:text-7xl lg:text-8xl leading-[0.9] text-5xl font-medium text-zinc-900 tracking-tighter font-display mb-8" style="">TIGRES</h1>
+            <p class="md:text-xl leading-relaxed text-lg font-light text-zinc-500 max-w-2xl">Así como nos vieron crecer, nosotros los vimos crecer a ellos. Desde 2022, VMedia Group fue de los primeros que confiaron en nosotros. Hoy, su presencia ilumina los puntos más estratégicos de la ciudad.</p>
+          </div>
+
+          <!-- Client Info / Credits -->
+          <div class="flex flex-col gap-6 min-w-[200px] pb-2">
+            <div class="">
+              <h4 class="uppercase text-xs font-semibold text-zinc-400 tracking-widest mb-1">Cliente</h4>
+              <p class="font-medium text-zinc-900">Xignux</p>
+            </div>
+            <div class="">
+              <h4 class="uppercase text-xs font-semibold text-zinc-400 tracking-widest mb-1">servicio</h4>
+              <p class="font-medium text-zinc-900">Producción Audiovisual</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REVAMPED: Premium Carousel Section -->
+      <section class="overflow-hidden select-none bg-white w-full pt-12 pb-24 relative" id="selected-works">
+    <style>
+        .carousel-track {
+            display: flex;
+            align-items: center;
+            width: max-content;
+            will-change: transform;
+        }
+
+        .card-wrapper {
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: transform, opacity;
+        }
+
+        .active-card {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 10;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .inactive-card {
+            opacity: 0.5;
+            transform: scale(0.95);
+            z-index: 1;
+            filter: grayscale(10%);
+        }
+
+        /* Hide scrollbar */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+
+    <!-- Section Header -->
+    <div class="max-w-[1400px] mx-auto px-6 mb-12 flex items-end justify-between">
+        <div class="">
+            <h2 class="text-3xl font-display font-medium tracking-tight text-zinc-900">Selected Works</h2>
+            <p class="text-zinc-500 mt-2 font-light text-lg">A curation of our recent digital masterpieces.</p>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="hidden md:flex gap-3">
+            <button id="prevBtn" class="w-12 h-12 rounded-full border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900 flex items-center justify-center transition-all duration-200" aria-label="Previous Project">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left">
+                    <path d="m12 19-7-7 7-7"></path>
+                    <path d="M19 12H5"></path>
+                </svg>
+            </button>
+            <button class="hover:bg-zinc-50 hover:border-zinc-300 hover:text-zinc-900 flex transition-all duration-200 text-zinc-600 bg-white w-12 h-12 border-zinc-200 border rounded-full items-center justify-center" aria-label="Next Project" id="nextBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Carousel Viewport -->
+    <div class="w-full overflow-hidden touch-pan-y" id="carousel-viewport" style="cursor: grab;">
+        <div class="carousel-track py-10" id="track" style="transition: none;"><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone active-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&amp;w=2000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Cyber Core">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Technology</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Cyber Core</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&amp;w=2000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Alpha Systems">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Product</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Alpha Systems</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm active-card">
+                    <img src="https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&amp;q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Abstract Flow">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Abstract</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Chromatic Flow</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1629946832022-c327f74956e0?w=2160&amp;q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Ethereal Form">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Digital Art</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Ethereal Form</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&amp;w=2000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Alpha Systems">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Product</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Alpha Systems</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&amp;w=2000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Cyber Core">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Technology</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Cyber Core</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1629946832022-c327f74956e0?w=2160&amp;q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Ethereal Form">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Digital Art</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Ethereal Form</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&amp;q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Abstract Flow">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Abstract</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Chromatic Flow</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&amp;w=2000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Cyber Core">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Technology</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Cyber Core</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&amp;w=2000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Alpha Systems">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Product</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Alpha Systems</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 1 -->
+            <div class="carousel-item relative shrink-0 px-3 md:px-4 group inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&amp;q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Abstract Flow">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Abstract</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Chromatic Flow</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="carousel-item relative shrink-0 px-3 md:px-4 group inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1629946832022-c327f74956e0?w=2160&amp;q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Ethereal Form">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Digital Art</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Ethereal Form</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="carousel-item relative shrink-0 px-3 md:px-4 group inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1724525647065-f948fc102e68?w=2160&amp;q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Modern Glass">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Design</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Modern Glass</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="carousel-item relative shrink-0 px-3 md:px-4 group inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&amp;w=2000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Alpha Systems">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Product</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Alpha Systems</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="carousel-item relative shrink-0 px-3 md:px-4 group inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&amp;w=2000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Cyber Core">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Technology</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Cyber Core</h3>
+                    </div>
+                </div>
+            </div>
+
+        <div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&amp;q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Abstract Flow">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Abstract</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Chromatic Flow</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1629946832022-c327f74956e0?w=2160&amp;q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Ethereal Form">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Digital Art</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Ethereal Form</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&amp;w=2000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Cyber Core">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Technology</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Cyber Core</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&amp;w=2000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Alpha Systems">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Product</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Alpha Systems</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1629946832022-c327f74956e0?w=2160&amp;q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Ethereal Form">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Digital Art</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Ethereal Form</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&amp;q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Abstract Flow">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Abstract</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Chromatic Flow</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&amp;w=2000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Alpha Systems">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Product</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Alpha Systems</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&amp;w=2000&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Cyber Core">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Technology</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Cyber Core</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&amp;q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Abstract Flow">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Abstract</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Chromatic Flow</h3>
+                    </div>
+                </div>
+            </div><div class="carousel-item relative shrink-0 px-3 md:px-4 group clone inactive-slide" style="width: 528px;">
+                <div class="card-wrapper w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm inactive-card">
+                    <img src="https://images.unsplash.com/photo-1629946832022-c327f74956e0?w=2160&amp;q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Ethereal Form">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Digital Art</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Ethereal Form</h3>
+                    </div>
+                </div>
+            </div></div>
+    </div>
+
+    <!-- Pagination Dots -->
+    <div class="flex justify-center gap-2 mt-8" id="dots-container">
+        <!-- Dots injected via JS -->
+    <button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-800 w-8" aria-label="Go to slide 1"></button><button class="h-1.5 rounded-full transition-all duration-300 hover:bg-zinc-400 bg-zinc-300 w-2" aria-label="Go to slide 2"></button><button class="h-1.5 rounded-full transition-all duration-300 hover:bg-zinc-400 bg-zinc-300 w-2" aria-label="Go to slide 3"></button><button class="h-1.5 rounded-full transition-all duration-300 hover:bg-zinc-400 bg-zinc-300 w-2" aria-label="Go to slide 4"></button><button class="h-1.5 rounded-full transition-all duration-300 hover:bg-zinc-400 bg-zinc-300 w-2" aria-label="Go to slide 5"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2" aria-label="Go to slide 1"></button><button class="h-1.5 rounded-full transition-all duration-300 hover:bg-zinc-400 bg-zinc-300 w-2" aria-label="Go to slide 2"></button><button class="h-1.5 rounded-full transition-all duration-300 hover:bg-zinc-400 bg-zinc-300 w-2" aria-label="Go to slide 3"></button><button class="h-1.5 rounded-full transition-all duration-300 hover:bg-zinc-400 bg-zinc-300 w-2" aria-label="Go to slide 4"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 5"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 6"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 7"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 8"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 9"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2" aria-label="Go to slide 1"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 2"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 3"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 4"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 5"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 6"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 7"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 8"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 9"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 10"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 11"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 12"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 13"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2" aria-label="Go to slide 1"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 2"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 3"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 4"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 5"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 6"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 7"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 8"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 9"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 10"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 11"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 12"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 13"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 14"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 15"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 16"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 17"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2" aria-label="Go to slide 1"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 2"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 3"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 4"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 5"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 6"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 7"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 8"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 9"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 10"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 11"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 12"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 13"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 14"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 15"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 16"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 17"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 18"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 19"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 20"></button><button class="h-1.5 rounded-full transition-all duration-300 bg-zinc-300 w-2 hover:bg-zinc-400" aria-label="Go to slide 21"></button></div>
+
+    <script>
+        (function() {
+            // DOM Elements
+            const track = document.getElementById('track');
+            const viewport = document.getElementById('carousel-viewport');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const dotsContainer = document.getElementById('dots-container');
+
+            // State & Config
+            let items = Array.from(document.querySelectorAll('.carousel-item'));
+            const originalCount = items.length;
+            const cloneCount = 2; // Number of clones per side for loop
+            let currentIndex = cloneCount;
+            let isDragging = false;
+            let startPos = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            let animationID;
+            let itemWidth = 0;
+            let containerWidth = 0;
+
+            function init() {
+                // 1. Create Clones for Infinite Loop
+                // Prepend last items
+                for (let i = originalCount - cloneCount; i < originalCount; i++) {
+                    const clone = items[i].cloneNode(true);
+                    clone.classList.add('clone');
+                    track.insertBefore(clone, track.firstChild);
+                }
+                // Append first items
+                for (let i = 0; i < cloneCount; i++) {
+                    const clone = items[i].cloneNode(true);
+                    clone.classList.add('clone');
+                    track.appendChild(clone);
+                }
+
+                // Update items array to include clones
+                items = Array.from(document.querySelectorAll('.carousel-item'));
+
+                // 2. Create Dots
+                for (let i = 0; i < originalCount; i++) {
+                    const dot = document.createElement('button');
+                    dot.className = `h-1.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-zinc-800 w-8' : 'bg-zinc-300 w-2 hover:bg-zinc-400'}`;
+                    dot.ariaLabel = `Go to slide ${i + 1}`;
+                    dot.onclick = () => goToIndex(i + cloneCount);
+                    dotsContainer.appendChild(dot);
+                }
+
+                // 3. Initial Sizing
+                updateDimensions();
+                setPositionByIndex(currentIndex, false);
+                updateVisuals();
+
+                // 4. Event Listeners
+                window.addEventListener('resize', () => {
+                    updateDimensions();
+                    setPositionByIndex(currentIndex, false);
+                });
+
+                // Touch/Mouse Events
+                viewport.addEventListener('mousedown', touchStart);
+                viewport.addEventListener('touchstart', touchStart, {
+                    passive: true
+                });
+
+                viewport.addEventListener('mousemove', touchMove);
+                viewport.addEventListener('touchmove', touchMove, {
+                    passive: true
+                });
+
+                viewport.addEventListener('mouseup', touchEnd);
+                viewport.addEventListener('mouseleave', () => {
+                    if (isDragging) touchEnd();
+                });
+                viewport.addEventListener('touchend', touchEnd);
+
+                // Navigation
+                if (prevBtn) prevBtn.addEventListener('click', slidePrev);
+                if (nextBtn) nextBtn.addEventListener('click', slideNext);
+
+                // Loop Check
+                track.addEventListener('transitionend', checkInfiniteLoop);
+            }
+
+            function updateDimensions() {
+                containerWidth = viewport.offsetWidth;
+
+                // Responsive Widths for Cards
+                if (window.innerWidth < 640) {
+                    itemWidth = containerWidth * 0.85; // Mobile: 85% width
+                } else if (window.innerWidth < 1024) {
+                    itemWidth = containerWidth * 0.60; // Tablet: 60% width
+                } else {
+                    itemWidth = containerWidth * 0.40; // Desktop: 40% width
+                }
+
+                items.forEach(item => {
+                    item.style.width = `${itemWidth}px`;
+                });
+            }
+
+            function touchStart(event) {
+                isDragging = true;
+                startPos = getPositionX(event);
+                animationID = requestAnimationFrame(animation);
+                viewport.style.cursor = 'grabbing';
+                // Disable transition during drag for 1:1 movement
+                track.style.transition = 'none';
+            }
+
+            function touchMove(event) {
+                if (isDragging) {
+                    const currentPosition = getPositionX(event);
+                    currentTranslate = prevTranslate + currentPosition - startPos;
+                }
+            }
+
+            function touchEnd() {
+                isDragging = false;
+                cancelAnimationFrame(animationID);
+                viewport.style.cursor = 'grab';
+
+                const movedBy = currentTranslate - prevTranslate;
+
+                // Drag threshold to change slide
+                if (movedBy < -50) {
+                    currentIndex += 1;
+                } else if (movedBy > 50) {
+                    currentIndex -= 1;
+                }
+
+                setPositionByIndex(currentIndex, true);
+            }
+
+            function getPositionX(event) {
+                return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+            }
+
+            function animation() {
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                if (isDragging) requestAnimationFrame(animation);
+            }
+
+            function setPositionByIndex(index, useTransition = true) {
+                currentIndex = index;
+
+                // Center Alignment Math
+                const centerOffset = (containerWidth / 2) - (itemWidth / 2);
+                currentTranslate = -(index * itemWidth) + centerOffset;
+                prevTranslate = currentTranslate;
+
+                if (useTransition) {
+                    track.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
+                } else {
+                    track.style.transition = 'none';
+                }
+
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                updateVisuals();
+            }
+
+            function slideNext() {
+                currentIndex++;
+                setPositionByIndex(currentIndex, true);
+            }
+
+            function slidePrev() {
+                currentIndex--;
+                setPositionByIndex(currentIndex, true);
+            }
+
+            function goToIndex(index) {
+                currentIndex = index;
+                setPositionByIndex(currentIndex, true);
+            }
+
+            function checkInfiniteLoop() {
+                // Instant jump without transition if at boundary
+                if (currentIndex >= items.length - cloneCount) {
+                    currentIndex = cloneCount;
+                    setPositionByIndex(currentIndex, false);
+                } else if (currentIndex < cloneCount) {
+                    currentIndex = items.length - cloneCount - 1;
+                    setPositionByIndex(currentIndex, false);
+                }
+            }
+
+            function updateVisuals() {
+                // 1. Update Dots
+                let realIndex = currentIndex - cloneCount;
+                if (realIndex < 0) realIndex = originalCount + realIndex;
+                if (realIndex >= originalCount) realIndex = realIndex % originalCount;
+
+                const dots = Array.from(dotsContainer.children);
+                dots.forEach((dot, idx) => {
+                    if (idx === realIndex) {
+                        dot.classList.remove('bg-zinc-300', 'w-2');
+                        dot.classList.add('bg-zinc-800', 'w-8');
+                    } else {
+                        dot.classList.add('bg-zinc-300', 'w-2');
+                        dot.classList.remove('bg-zinc-800', 'w-8');
+                    }
+                });
+
+                // 2. Update Card Scales/Opacity
+                items.forEach((item, idx) => {
+                    const wrapper = item.querySelector('.card-wrapper');
+                    if (idx === currentIndex) {
+                        wrapper.classList.remove('inactive-card');
+                        wrapper.classList.add('active-card');
+                    } else {
+                        wrapper.classList.add('inactive-card');
+                        wrapper.classList.remove('active-card');
+                    }
+                });
+            }
+
+            // Init
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+        })();
+    </script>
+</section>
+
+      <!-- Minimal Footer -->
+      <footer class="mt-12 border-t border-zinc-200 pt-12">
+        <div class="max-w-[1400px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm text-zinc-500">
+             <div class="flex items-center gap-2 mb-4 md:mb-0">
+                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/256b2a20-064b-40f3-81a4-41741571b2fe_1600w.png" alt="BREED" class="w-auto h-3 opacity-40">
+                <span>© 2025</span>
+             </div>
+             <div class="flex gap-8">
+                <a href="portafolio.html" class="hover:text-black transition-colors">All Projects</a>
+                <a href="#" class="hover:text-black transition-colors">Services</a>
+                <a href="#" class="hover:text-black transition-colors">Contact</a>
+             </div>
+        </div>
+      </footer>
+
+    </main>
+
+    <!-- Carousel Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('track');
+            const items = Array.from(document.querySelectorAll('.carousel-item'));
+            const dots = Array.from(document.querySelectorAll('.dot'));
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const swipeHint = document.getElementById('swipeHint');
+
+            let currentIndex = 0;
+            let startX = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            let isDragging = false;
+            let animationID;
+            let itemWidth = 0;
+            
+            // Configuration
+            const TOTAL_ITEMS = items.length;
+            
+            // Initialize
+            function init() {
+                updateDimensions();
+                window.addEventListener('resize', updateDimensions);
+                
+                // Show hint on mobile after delay
+                if (window.innerWidth < 768) {
+                    setTimeout(() => {
+                        swipeHint.classList.remove('opacity-0');
+                    }, 1000);
+                }
+
+                // Touch Events
+                track.addEventListener('touchstart', touchStart);
+                track.addEventListener('touchend', touchEnd);
+                track.addEventListener('touchmove', touchMove);
+
+                // Mouse Events
+                track.addEventListener('mousedown', touchStart);
+                track.addEventListener('mouseup', touchEnd);
+                track.addEventListener('mouseleave', () => { if(isDragging) touchEnd() });
+                track.addEventListener('mousemove', touchMove);
+
+                // Buttons
+                if (prevBtn) prevBtn.addEventListener('click', () => { slide(currentIndex - 1); hideHint(); });
+                if (nextBtn) nextBtn.addEventListener('click', () => { slide(currentIndex + 1); hideHint(); });
+
+                // Dots
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        slide(index);
+                        hideHint();
+                    });
+                });
+
+                // Set initial position
+                setSliderPosition();
+                updateActiveState();
+            }
+
+            function updateDimensions() {
+                const containerWidth = track.parentElement.offsetWidth;
+                
+                // Determine card width based on viewport
+                if (window.innerWidth < 768) {
+                    itemWidth = window.innerWidth * 0.85; // Mobile: 85% width
+                } else if (window.innerWidth < 1024) {
+                    itemWidth = containerWidth * 0.6; // Tablet
+                } else {
+                    itemWidth = containerWidth * 0.40; // Desktop: ~2.2 visible (40%)
+                }
+
+                // Apply width to items
+                items.forEach(item => {
+                    item.style.width = `${itemWidth}px`;
+                });
+
+                // Re-center
+                slide(currentIndex);
+            }
+
+            function touchStart(index) {
+                return function(event) {
+                    isDragging = true;
+                    startX = getPositionX(event);
+                    animationID = requestAnimationFrame(animation);
+                    track.style.cursor = 'grabbing';
+                    hideHint();
+                }
+            }
+
+            function touchMove(event) {
+                if (isDragging) {
+                    const currentX = getPositionX(event);
+                    currentTranslate = prevTranslate + currentX - startX;
+                }
+            }
+
+            function touchEnd() {
+                isDragging = false;
+                cancelAnimationFrame(animationID);
+                track.style.cursor = 'grab';
+
+                const movedBy = currentTranslate - prevTranslate;
+
+                // Snap logic
+                if (movedBy < -50 && currentIndex < TOTAL_ITEMS - 1) currentIndex += 1;
+                else if (movedBy > 50 && currentIndex > 0) currentIndex -= 1;
+                
+                slide(currentIndex);
+            }
+
+            function getPositionX(event) {
+                return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+            }
+
+            function animation() {
+                setSliderPosition();
+                if (isDragging) requestAnimationFrame(animation);
+            }
+
+            function setSliderPosition() {
+                // Calculate centering offset
+                // We want the active card to be in the center of the viewport/container
+                const containerWidth = track.parentElement.offsetWidth;
+                const centerOffset = (containerWidth / 2) - (itemWidth / 2);
+                
+                // Calculate position based on index, minus the padding-left hack used in HTML if any,
+                // but here we use pure math.
+                // The HTML has pl-[50vw] to visually center the start, but we can override or handle via transform.
+                // Let's rely on transform completely.
+                
+                // Reset track padding to 0 via JS to ensure math is clean or subtract it.
+                // Actually, let's keep it simple: 
+                // Position = - (Index * Width) + CenterOffset
+                
+                const position = -(currentIndex * itemWidth) + centerOffset - (parseFloat(getComputedStyle(track).paddingLeft) || 0); 
+                
+                // If dragging, add the drag delta
+                const dragDelta = isDragging ? (currentTranslate - prevTranslate) : 0;
+                
+                track.style.transform = `translateX(${position + dragDelta}px)`;
+            }
+
+            function slide(index) {
+                // Loop/Clamp logic
+                if (index < 0) index = 0;
+                if (index >= TOTAL_ITEMS) index = TOTAL_ITEMS - 1;
+
+                currentIndex = index;
+                
+                // Calculate exact target position
+                const containerWidth = track.parentElement.offsetWidth;
+                const centerOffset = (containerWidth / 2) - (itemWidth / 2);
+                const paddingOffset = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+                
+                currentTranslate = -(currentIndex * itemWidth) + centerOffset - paddingOffset;
+                prevTranslate = currentTranslate;
+                
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                
+                updateActiveState();
+            }
+
+            function updateActiveState() {
+                // Update Classes for cards
+                items.forEach((item, index) => {
+                    const content = item.querySelector('.card-content');
+                    if (index === currentIndex) {
+                        item.classList.add('active-slide');
+                        item.classList.remove('inactive-slide');
+                    } else {
+                        item.classList.remove('active-slide');
+                        item.classList.add('inactive-slide');
+                    }
+                });
+
+                // Update Dots
+                dots.forEach((dot, index) => {
+                    if (index === currentIndex) {
+                        dot.classList.remove('bg-zinc-300');
+                        dot.classList.add('bg-zinc-900', 'w-6'); // Stretch active dot
+                    } else {
+                        dot.classList.add('bg-zinc-300');
+                        dot.classList.remove('bg-zinc-900', 'w-6');
+                    }
+                });
+                
+                // Update Button States
+                if(prevBtn) prevBtn.style.opacity = currentIndex === 0 ? '0.3' : '1';
+                if(nextBtn) nextBtn.style.opacity = currentIndex === TOTAL_ITEMS - 1 ? '0.3' : '1';
+            }
+
+            function hideHint() {
+                if (swipeHint) {
+                    swipeHint.style.opacity = '0';
+                    setTimeout(() => swipeHint.remove(), 700);
+                }
+            }
+
+            init();
+        });
+    </script>
+</body></html>

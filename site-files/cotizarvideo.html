@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth antialiased selection:bg-black/10 selection:text-black"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breed Studio | Boutique de Producción Audiovisual</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body { font-family: "Inter", sans-serif; }
+h1, h2, h3, h4, .font-display { font-family: "Space Grotesk", sans-serif; letter-spacing: -0.02em; }
+.custom-checkbox:checked + div { background-color: #18181b; color: white; border-color: #18181b; }
+.custom-checkbox:checked + div:hover { background-color: #27272a; }
+.input-anim { transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); }
+.input-anim:focus {
+padding-left: 0.5rem;
+border-color: #18181b;
+background: linear-gradient(90deg, rgba(0,0,0,0.03) 0%, transparent 100%);
+}
+.tracker-item { transition: all 0.4s ease; }
+.tracker-dot {
+background-color: #e4e4e7;
+transform: scale(1);
+transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.tracker-text {
+opacity: 0.4;
+transform: translateX(0);
+transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+color: #a1a1aa;
+}
+.tracker-item.active .tracker-dot {
+background-color: #18181b;
+transform: scale(1.3);
+box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+.tracker-item.active .tracker-text {
+opacity: 1;
+color: #18181b;
+transform: translateX(4px);
+}
+.tracker-item.active .tracker-line { height: 100%; opacity: 1; background-color: #18181b; }
+.tracker-line { background-color: #e4e4e7; }
+.tracker-item.completed .tracker-dot { background-color: #18181b; }
+.tracker-item.completed .tracker-text { opacity: 0.7; color: #52525b; }
+.tracker-item.completed .tracker-line { height: 100%; opacity: 1; background-color: #e4e4e7; }
+.reveal-on-scroll {
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator { opacity: 0.5; cursor: pointer; filter: invert(0); }
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
+.texture-overlay {
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
+pointer-events: none;
+position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+z-index: 9999; opacity: 0.03; mix-blend-mode: multiply;
+}
+@keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.new-item { animation: slideIn 0.4s ease-out forwards; }
+</style></head>
+
+  <body class="overflow-x-hidden text-zinc-600 bg-stone-50">
+    <!-- Background (component) added by Aura -->
+    <div class="aura-background-component fixed -z-10 pointer-events-none opacity-70 w-full h-screen top-0 blur-xl invert-0 saturate-0" data-alpha-mask="3" style="mask-image: linear-gradient(180deg, transparent, black 0%, black 3%, transparent); -webkit-mask-image: linear-gradient(180deg, transparent, black 0%, black 3%, transparent);">
+      <div class="aura-background-component -z-10 w-full h-full absolute top-0">
+        <div data-us-project="FixNvEwvWwbu3QX9qC3F" class="absolute w-full h-full left-0 top-0 -z-10"></div>
+        <script type="text/javascript">
+          !function(){if(!window.UnicornStudio){window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");
+          i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js",i.onload=function(){
+          window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)},(document.head||document.body).appendChild(i)}}();
+        </script>
+      </div>
+    </div>
+
+    <!-- Light Mode Background -->
+    <div class="fixed -z-10 bg-zinc-50/50 w-full h-screen top-0">
+      <div class="[background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] bg-neutral-200/70 opacity-40 absolute top-0 right-0 bottom-0 left-0"></div>
+    </div>
+
+    <!-- Texture Overlay -->
+    <div class="texture-overlay bg-stone-50"></div>
+
+    <!-- Navigation -->
+    <header class="fixed flex transition-all duration-500 md:h-24 bg-white/20 w-full h-16 z-50 border-zinc-100 border-b top-0 right-0 left-0 backdrop-blur-md items-center">
+      <div class="flex w-full max-w-7xl mx-auto px-6 items-center justify-between">
+        <a href="index.html" class="flex items-center group" aria-label="Breed Studio">
+          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/256b2a20-064b-40f3-81a4-41741571b2fe_1600w.png" alt="BREED" class="filter opacity-90 w-auto h-5 brightness-0" onclick="window.location.href='index.html'" role="button">
+        </a>
+
+        <nav class="hidden gap-8 md:flex text-sm font-normal text-zinc-300 gap-x-8 gap-y-8">
+          <a href="index.html" class="transition-colors hover:text-slate-700 text-slate-950">Inicio</a>
+          <a href="portafolio.html" class="transition-colors hover:text-slate-700 text-black">Portafolio</a>
+          <a href="cotizarvideo.html" class="transition-colors hover:text-slate-700 text-slate-950">Cotizar Proyecto</a>
+        </nav>
+
+        <div class="flex items-center gap-6">
+          <div class="flex items-center gap-4">
+            <a href="tribubreed.html" class="group inline-flex items-center justify-center transition-colors hover:bg-white md:text-sm text-xs font-normal text-black bg-orange-100/60 rounded-full pt-2 pr-5 pb-2 pl-5">
+              <span onclick="window.location.href='tribubreed.html'" role="button">Únete a la Tribu</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" style="width: 18px; height: 18px; color: rgb(0, 0, 0)" class="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 opacity-70 w-[18px] h-[18px] ml-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5">
+                <g fill="none" fill-rule="evenodd">
+                  <path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"></path>
+                  <path fill="#000000" d="M14.824 4.567a1 1 0 0 0-1.648-1.133L12 5.144l-1.176-1.71a1 1 0 1 0-1.648 1.133l1.61 2.342L2.475 19H2a1 1 0 1 0 0 2h20a1 1 0 0 0 0-2h-.474L13.214 6.91zM15.986 19h3.113L12 8.674L4.901 19h3.114l3.155-4.557a1.01 1.01 0 0 1 1.66 0zm-5.539 0h3.106L12 16.757z"></path>
+                </g>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="min-h-screen relative">
+      <!-- Form Section -->
+      <section class="!bg-transparent bg-stone-950/60 pt-40 pb-40 relative" id="contact">
+        <div class="w-px md:left-[10%] pointer-events-none bg-slate-900/60 h-32 absolute top-0 left-0"></div>
+
+        <div class="z-10 max-w-7xl mr-auto ml-auto pr-6 pl-6 relative">
+          <div class="grid grid-cols-1 lg:grid-cols-12 lg:gap-24">
+            <!-- Left: Sticky Journey Compass -->
+            <div class="hidden lg:block lg:col-span-4 relative">
+              <div class="sticky pr-8 top-40 space-y-10">
+                <div class="reveal-on-scroll is-visible opacity-100 mb-16 translate-y-0 space-y-4">
+                  <h2 class="md:text-4xl text-3xl font-medium text-zinc-900 tracking-tighter font-sans">
+                    Cotización en segundos.
+                  </h2>
+                  <p class="leading-relaxed text-sm font-normal text-zinc-500">
+                    Recibe una cotización aproximada al correo que ingreses.
+                  </p>
+                </div>
+
+                <div class="relative pl-6 border-l border-zinc-100 space-y-1" id="form-tracker">
+                  <a href="#section-identity" class="tracker-item group flex items-center gap-5 py-4 relative cursor-pointer" data-target="section-identity">
+                    <div class="absolute -left-[25px] top-1/2 -translate-y-1/2 w-[2px] h-0 transition-all duration-700 rounded-full tracker-line"></div>
+                    <div class="w-1.5 h-1.5 rounded-full transition-all duration-500 tracker-dot"></div>
+                    <div class="flex flex-col tracker-text transition-all duration-500">
+                      <span class="text-[10px] uppercase tracking-widest font-mono">01. Identidad</span>
+                    </div>
+                  </a>
+
+                  <a href="#section-vision" class="tracker-item group flex items-center gap-5 py-4 relative cursor-pointer" data-target="section-vision">
+                    <div class="absolute -left-[25px] top-1/2 -translate-y-1/2 w-[2px] h-0 transition-all duration-700 rounded-full tracker-line"></div>
+                    <div class="w-1.5 h-1.5 rounded-full transition-all duration-500 tracker-dot"></div>
+                    <div class="flex flex-col tracker-text transition-all duration-500">
+                      <span class="text-[10px] uppercase tracking-widest font-mono">02. La VISIÓN</span>
+                    </div>
+                  </a>
+
+                  <a href="#section-details" class="tracker-item group flex items-center gap-5 py-4 relative cursor-pointer" data-target="section-details">
+                    <div class="absolute -left-[25px] top-1/2 -translate-y-1/2 w-[2px] h-0 transition-all duration-700 rounded-full tracker-line"></div>
+                    <div class="w-1.5 h-1.5 rounded-full transition-all duration-500 tracker-dot"></div>
+                    <div class="flex flex-col tracker-text transition-all duration-500">
+                      <span class="text-[10px] uppercase tracking-widest font-mono">03. LOGÍSTICA</span>
+                    </div>
+                  </a>
+
+                  <a href="#section-specs" class="tracker-item group flex items-center gap-5 py-4 relative cursor-pointer" data-target="section-specs">
+                    <div class="absolute -left-[25px] top-1/2 -translate-y-1/2 w-[2px] h-0 transition-all duration-700 rounded-full tracker-line"></div>
+                    <div class="w-1.5 h-1.5 rounded-full transition-all duration-500 tracker-dot"></div>
+                    <div class="flex flex-col tracker-text transition-all duration-500">
+                      <span class="text-[10px] uppercase tracking-widest font-mono">04. ENTREGABLES</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: The Guided Form (No Form Tag) -->
+            <div class="col-span-1 lg:col-span-8">
+              <div class="z-10 relative space-y-40" id="inquiry-content">
+                <!-- Section 01: Identity -->
+                <div class="form-section scroll-mt-40 reveal-on-scroll is-visible group overflow-hidden md:p-12 transition-all duration-500 hover:bg-white/60 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.1)] bg-white/40 opacity-100 border-white/60 border ring-white/50 ring-1 rounded-[2rem] pt-8 pr-8 pb-8 pl-8 relative shadow-[0_8px_32px_-8px_rgba(0,0,0,0.06)] backdrop-blur-2xl translate-y-0" data-index="0" id="section-identity">
+                  <div class="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-gradient-to-br from-indigo-50/40 via-purple-50/20 to-transparent blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+
+                  <div class="space-y-12 relative z-10">
+                    <div class="border-black/5 border-b pb-6 space-y-2">
+                      <div class="flex items-end justify-between">
+                        <h3 class="text-3xl text-zinc-900 tracking-tighter font-sans">Identidad del proyecto</h3>
+                        <span class="text-xs font-mono text-zinc-400 tracking-widest">01 / 04</span>
+                      </div>
+                      <p class="leading-relaxed text-base font-normal text-zinc-500 max-w-md">
+                        Empecemos estableciendo quién eres y qué representa este proyecto.
+                      </p>
+                    </div>
+
+                    <div class="grid gap-16">
+                      <div class="group/field relative">
+                        <label for="project_name" class="block text-[10px] uppercase transition-colors group-focus-within/field:text-black text-xs font-bold text-zinc-400 tracking-widest mb-2">Nombre del Proyecto</label>
+                        <input type="text" id="project_name" name="project_name" placeholder="Nombre del Proyecto" class="md:text-4xl text-2xl text-zinc-900 font-display bg-transparent w-full border-b border-zinc-200/50 py-4 placeholder-zinc-300 focus:outline-none focus:border-black input-anim">
+                      </div>
+
+                      <div class="group/field relative">
+                        <label for="company_name" class="block text-[10px] uppercase transition-colors group-focus-within/field:text-black text-xs font-bold text-zinc-400 tracking-widest mb-2">Marca / Empresa</label>
+                        <input type="text" name="company_name" placeholder="Nombre de la empresa" id="company_name" class="md:text-3xl text-xl font-light text-zinc-900 bg-transparent w-full border-b border-zinc-200/50 py-4 placeholder-zinc-300 focus:outline-none focus:border-black input-anim">
+                      </div>
+
+                      <div class="space-y-6 pt-4">
+                        <label class="block text-[10px] uppercase text-xs font-bold text-zinc-400 tracking-widest">Arquetipo del Proyecto</label>
+
+                        <div class="flex flex-wrap gap-3">
+                          <label class="cursor-pointer group/opt relative">
+                            <input type="radio" name="project_type" value="commercial" class="peer sr-only custom-checkbox">
+                            <div class="px-5 py-2.5 rounded-lg border border-white/60 text-zinc-600 text-sm hover:border-zinc-300 hover:text-black transition-all duration-300 bg-white/50 backdrop-blur-sm peer-checked:bg-zinc-900 peer-checked:text-white peer-checked:border-zinc-900 shadow-sm">
+                              Comercial
+                            </div>
+                          </label>
+
+                          <label class="cursor-pointer group/opt relative">
+                            <input type="radio" name="project_type" value="institutional" class="peer sr-only custom-checkbox">
+                            <div class="px-5 py-2.5 rounded-lg border border-white/60 text-zinc-600 text-sm hover:border-zinc-300 hover:text-black transition-all duration-300 bg-white/50 backdrop-blur-sm peer-checked:bg-zinc-900 peer-checked:text-white peer-checked:border-zinc-900 shadow-sm">
+                              Institucional
+                            </div>
+                          </label>
+
+                          <label class="cursor-pointer group/opt relative">
+                            <input type="radio" name="project_type" value="event" class="peer sr-only custom-checkbox">
+                            <div class="px-5 py-2.5 rounded-lg border border-white/60 text-zinc-600 text-sm hover:border-zinc-300 hover:text-black transition-all duration-300 bg-white/50 backdrop-blur-sm peer-checked:bg-zinc-900 peer-checked:text-white peer-checked:border-zinc-900 shadow-sm">
+                              Eventos
+                            </div>
+                          </label>
+
+                          <label class="cursor-pointer group/opt relative">
+                            <input type="radio" name="project_type" value="real_estate" class="peer sr-only custom-checkbox">
+                            <div class="px-5 py-2.5 rounded-lg border border-white/60 text-zinc-600 text-sm hover:border-zinc-300 hover:text-black transition-all duration-300 bg-white/50 backdrop-blur-sm peer-checked:bg-zinc-900 peer-checked:text-white peer-checked:border-zinc-900 shadow-sm">
+                              Inmobiliario
+                            </div>
+                          </label>
+
+                          <label class="cursor-pointer group/opt relative">
+                            <input type="radio" name="project_type" value="podcast" class="peer sr-only custom-checkbox">
+                            <div class="px-5 py-2.5 rounded-lg border border-white/60 text-zinc-600 text-sm hover:border-zinc-300 hover:text-black transition-all duration-300 bg-white/50 backdrop-blur-sm peer-checked:bg-zinc-900 peer-checked:text-white peer-checked:border-zinc-900 shadow-sm">
+                              Podcast
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 02: Vision -->
+                <div id="section-vision" class="form-section scroll-mt-40 reveal-on-scroll is-visible opacity-100 translate-y-0 group relative overflow-hidden rounded-[2rem] border border-white/60 bg-white/40 p-8 md:p-12 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.06)] backdrop-blur-2xl transition-all duration-500 hover:bg-white/60 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.1)] ring-1 ring-white/50" data-index="1">
+                  <div class="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-gradient-to-br from-emerald-50/40 via-teal-50/20 to-transparent blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+
+                  <div class="space-y-12 relative z-10">
+                    <div class="space-y-2 border-b border-black/5 pb-6">
+                      <div class="flex items-end justify-between">
+                        <h3 class="text-3xl text-zinc-900 tracking-tighter font-sans">La visión</h3>
+                        <span class="text-xs font-mono text-zinc-400 tracking-widest">02 / 04</span>
+                      </div>
+                      <p class="leading-relaxed text-base font-normal text-zinc-500 max-w-md">
+                        ¿Cómo se ve el éxito? Ayúdanos a ver lo que tú ves.
+                      </p>
+                    </div>
+
+                    <div class="space-y-16">
+                      <div class="group/field relative">
+                        <label for="what_to_film" class="block text-[10px] uppercase transition-colors group-focus-within/field:text-black text-xs font-bold text-zinc-400 tracking-widest mb-6">Tema Central y Narrativa</label>
+                        <div class="relative">
+                          <textarea id="what_to_film" name="what_to_film" rows="3" placeholder="Describe la esencia de lo que capturaremos." class="w-full bg-transparent text-lg md:text-xl font-light text-zinc-900 placeholder-zinc-300 py-4 border-b border-zinc-200/50 focus:outline-none focus:border-black resize-none input-anim leading-relaxed"></textarea>
+                          <div class="absolute right-0 top-4 text-zinc-300 pointer-events-none opacity-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M12 20h9"></path>
+                              <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="group/field relative">
+                        <label for="why_to_film" class="block text-[10px] uppercase transition-colors group-focus-within/field:text-black text-xs font-bold text-zinc-400 tracking-widest mb-6">Propósito Estratégico</label>
+                        <textarea id="why_to_film" name="why_to_film" rows="2" placeholder="¿Cuál es el propósito detrás de esto?" class="w-full bg-transparent text-lg md:text-xl font-light text-zinc-900 placeholder-zinc-300 py-4 border-b border-zinc-200/50 focus:outline-none focus:border-black resize-none input-anim leading-relaxed"></textarea>
+                      </div>
+
+                      <div class="group/field relative">
+                        <label for="target_audience" class="block text-[10px] uppercase transition-colors group-focus-within/field:text-black text-xs font-bold text-zinc-400 tracking-widest mb-6">Público Objetivo</label>
+                        <textarea id="target_audience" name="target_audience" rows="2" placeholder="¿Quién necesita sentir esto?" class="w-full bg-transparent text-lg md:text-xl font-light text-zinc-900 placeholder-zinc-300 py-4 border-b border-zinc-200/50 focus:outline-none focus:border-black resize-none input-anim leading-relaxed"></textarea>
+                      </div>
+
+                      <div class="group/field relative">
+                        <label for="project_channels" class="block text-[10px] uppercase transition-colors group-focus-within/field:text-black text-xs font-bold text-zinc-400 tracking-widest mb-6">Canales de Distribución</label>
+                        <textarea id="project_channels" name="project_channels" rows="2" placeholder="¿Dónde lo verán?" class="w-full bg-transparent text-lg md:text-xl font-light text-zinc-900 placeholder-zinc-300 py-4 border-b border-zinc-200/50 focus:outline-none focus:border-black resize-none input-anim leading-relaxed"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 03: Logistics -->
+                <div id="section-details" class="form-section scroll-mt-40 reveal-on-scroll is-visible opacity-100 translate-y-0 group relative overflow-hidden rounded-[2rem] border border-white/60 bg-white/40 p-8 md:p-12 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.06)] backdrop-blur-2xl transition-all duration-500 hover:bg-white/60 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.1)] ring-1 ring-white/50" data-index="2">
+                  <div class="absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-gradient-to-br from-orange-50/40 via-amber-50/20 to-transparent blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+
+                  <div class="space-y-12 relative z-10">
+                    <div class="space-y-2 border-b border-black/5 pb-6">
+                      <div class="flex items-end justify-between">
+                        <h3 class="text-3xl font-normal text-zinc-900 tracking-tighter font-sans">Logística</h3>
+                        <span class="text-xs font-mono text-zinc-400 tracking-widest">03 / 04</span>
+                      </div>
+                      <p class="leading-relaxed text-base font-normal text-zinc-500 max-w-md">
+                        Tiempo y lugar. Estos detalles nos ayudan a entender la escala de producción.
+                      </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                      <div class="group/field relative flex flex-col">
+                        <label class="block text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-4 transition-colors group-focus-within/field:text-black">Fechas Objetivo</label>
+
+                        <input type="checkbox" id="no_dates" name="no_dates" class="peer sr-only">
+                        <div class="flex gap-4 items-center transition-opacity duration-300 peer-checked:opacity-30 peer-checked:pointer-events-none">
+                          <div class="relative w-full">
+                            <input type="date" name="film_date" class="w-full bg-white/60 border border-zinc-200/60 px-4 py-3 text-zinc-900 text-sm focus:border-black focus:outline-none transition-colors rounded-lg shadow-sm backdrop-blur-sm">
+                          </div>
+                          <div class="relative w-32">
+                            <input type="time" name="film_time" class="w-full bg-white/60 border border-zinc-200/60 px-4 py-3 text-zinc-900 text-sm focus:border-black focus:outline-none transition-colors rounded-lg shadow-sm backdrop-blur-sm">
+                          </div>
+                        </div>
+
+                        <label for="no_dates" class="mt-4 flex items-center gap-2.5 cursor-pointer group/check select-none w-fit peer-checked:[&amp;_.custom-check]:opacity-100">
+                          <div class="w-3.5 h-3.5 flex transition-all group-hover/check:border-zinc-400 bg-transparent border-zinc-300 border rounded-[3px] items-center justify-center">
+                            <div class="custom-check transition-opacity bg-black opacity-0 w-2 h-2 rounded-[1px]"></div>
+                          </div>
+                          <span class="text-[10px] uppercase tracking-wider font-semibold text-zinc-400 group-hover/check:text-zinc-600 transition-colors">Aún no hay fecha de rodaje</span>
+                        </label>
+                      </div>
+
+                      <div class="group/field relative">
+                        <label class="block text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-4 transition-colors group-focus-within/field:text-black">Ubicación</label>
+                        <input type="text" name="location" placeholder="Ciudad, Estudio o Sede" class="w-full bg-transparent border-b border-zinc-200/50 py-3 text-lg text-zinc-900 placeholder-zinc-300 focus:outline-none focus:border-black input-anim">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 04: Deliverables -->
+                <div id="section-specs" class="form-section scroll-mt-40 reveal-on-scroll is-visible opacity-100 translate-y-0 group relative overflow-hidden rounded-[2rem] border border-white/60 bg-white/40 p-8 md:p-12 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.06)] backdrop-blur-2xl transition-all duration-500 hover:bg-white/60 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.1)] ring-1 ring-white/50 min-h-[60vh] flex flex-col justify-between" data-index="3">
+                  <div class="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-gradient-to-t from-zinc-100/50 via-zinc-50/20 to-transparent blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
+
+                  <div class="space-y-12 relative z-10">
+                    <div class="space-y-2 border-b border-black/5 pb-6">
+                      <div class="flex items-end justify-between">
+                        <h3 class="text-3xl font-normal text-zinc-900 tracking-tighter font-sans">Entregables</h3>
+                        <span class="text-xs font-mono text-zinc-400 tracking-widest">04 / 04</span>
+                      </div>
+                      <p class="leading-relaxed text-base font-normal text-zinc-500 max-w-md">
+                        Requisitos finales. Define qué necesitas que entreguemos.
+                      </p>
+                    </div>
+
+                    <div id="deliverables-container" class="space-y-6">
+                      <!-- Deliverable Item 1 -->
+                      <div class="deliverable-item md:p-8 group hover:border-zinc-300 transition-colors bg-white/50 backdrop-blur-sm border-white/60 border rounded-2xl pt-6 pr-6 pb-6 pl-6 relative space-y-8 shadow-sm">
+                        <div class="flex justify-between items-start">
+                          <div class="space-y-1 flex-1">
+                            <label class="text-[10px] uppercase group-focus-within:text-black transition-colors text-xs font-bold text-zinc-400 tracking-widest">Nombre del Entregable</label>
+                            <input type="text" name="deliverable_name[]" placeholder="ej. Video de Campaña Principal" class="w-full bg-transparent border-b border-zinc-200/50 py-2 text-xl font-display text-zinc-900 placeholder-zinc-300 focus:border-black focus:outline-none transition-colors">
+                          </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                          <div class="space-y-3 group/inner">
+                            <label class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 group-focus-within/inner:text-black transition-colors">Formato</label>
+                            <div class="relative">
+                              <select name="deliverable_format[]" class="w-full appearance-none bg-white/80 border border-zinc-200/60 px-4 py-3 text-zinc-900 text-sm focus:border-black focus:outline-none transition-colors rounded-lg cursor-pointer shadow-sm">
+                                <option value="horizontal">Horizontal (16:9)</option>
+                                <option value="vertical">Vertical (9:16)</option>
+                                <option value="square">Cuadrado (1:1)</option>
+                                <option value="mixed">Archivos Mixtos</option>
+                              </select>
+                              <div class="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="m6 9 6 6 6-6"></path>
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="space-y-3 group/inner">
+                            <label class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 group-focus-within/inner:text-black transition-colors">Duración Est.</label>
+                            <input type="text" name="deliverable_duration[]" placeholder="ej. 60 seg" class="w-full bg-white/80 border border-zinc-200/60 px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-black focus:outline-none transition-colors text-sm rounded-lg shadow-sm">
+                          </div>
+
+                          <div class="space-y-3 group/inner">
+                            <label class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 group-focus-within/inner:text-black transition-colors">Fecha de Entrega</label>
+                            <input type="date" name="deliverable_date[]" class="w-full bg-white/80 border border-zinc-200/60 px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-black focus:outline-none transition-colors text-sm rounded-lg shadow-sm">
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Deliverable Item 2 -->
+                      <div class="deliverable-item new-item bg-zinc-50/50 border border-zinc-200 p-6 md:p-8 rounded-sm space-y-8 relative group hover:border-zinc-300 transition-colors mt-6">
+                        <div class="absolute top-4 right-4 cursor-pointer text-zinc-400 hover:text-red-500 transition-colors" onclick="this.closest('.deliverable-item').remove()">
+                          <iconify-icon icon="solar:trash-bin-trash-linear" width="18"></iconify-icon>
+                        </div>
+
+                        <div class="flex justify-between items-start">
+                          <div class="space-y-1 flex-1 pr-10">
+                            <label class="text-[10px] uppercase group-focus-within:text-black transition-colors text-xs font-bold text-zinc-400 tracking-widest">Nombre del Entregable</label>
+                            <input type="text" name="deliverable_name[]" placeholder="ej. Teaser Social" class="w-full bg-transparent border-b border-zinc-200 py-2 text-xl font-display text-zinc-900 placeholder-zinc-300 focus:border-black focus:outline-none transition-colors">
+                          </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                          <div class="space-y-3 group/inner">
+                            <label class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 group-focus-within/inner:text-black transition-colors">Formato</label>
+                            <div class="relative">
+                              <select name="deliverable_format[]" class="w-full appearance-none bg-white border border-zinc-200 px-4 py-3 text-zinc-900 text-sm focus:border-black focus:outline-none transition-colors rounded-sm cursor-pointer shadow-sm">
+                                <option value="horizontal">Horizontal (16:9)</option>
+                                <option value="vertical">Vertical (9:16)</option>
+                                <option value="square">Cuadrado (1:1)</option>
+                                <option value="mixed">Archivos Mixtos</option>
+                              </select>
+                              <div class="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none">
+                                <iconify-icon icon="solar:alt-arrow-down-linear"></iconify-icon>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="space-y-3 group/inner">
+                            <label class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 group-focus-within/inner:text-black transition-colors">Duración Est.</label>
+                            <input type="text" name="deliverable_duration[]" placeholder="ej. 15 seg" class="w-full bg-white border border-zinc-200 px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-black focus:outline-none transition-colors text-sm rounded-sm shadow-sm">
+                          </div>
+
+                          <div class="space-y-3 group/inner">
+                            <label class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 group-focus-within/inner:text-black transition-colors">Fecha de Entrega</label>
+                            <input type="date" name="deliverable_date[]" class="w-full bg-white border border-zinc-200 px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-black focus:outline-none transition-colors text-sm rounded-sm shadow-sm">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Add Button -->
+                    <button type="button" class="flex hover:text-black transition-colors text-xs font-medium text-zinc-500 tracking-wide pt-2 pr-2 pb-2 pl-2 gap-x-3 gap-y-3 items-center" id="add-deliverable-btn">
+                      <div class="w-6 h-6 rounded-full border border-zinc-300 flex items-center justify-center bg-white/80 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M5 12h14"></path><path d="M12 5v14"></path>
+                        </svg>
+                      </div>
+                      Añadir otro entregable
+                    </button>
+                  </div>
+
+                  <!-- Handoff Transition & CTA -->
+                  <div class="z-10 pt-24 relative space-y-12">
+                    <div class="transition-all hover:shadow-[0_12px_24px_-8px_rgba(0,0,0,0.08)] bg-white/40 w-full max-w-3xl border-white/60 border ring-zinc-200/50 ring-1 rounded-2xl mr-auto ml-auto pt-8 pr-8 pb-8 pl-8 shadow-[0_8px_16px_-6px_rgba(0,0,0,0.05)] backdrop-blur-xl space-y-6">
+                      <div class="text-center space-y-2">
+                        <h4 class="text-sm font-semibold text-zinc-900 tracking-tight font-sans">Información de contacto</h4>
+                        <p class="text-xs font-normal text-zinc-500 font-sans">Ingresa tus datos para enviarte la cotización.</p>
+                      </div>
+
+                      <div class="space-y-5">
+                        <div class="space-y-1.5 text-left group/input">
+                          <label for="contact_name" class="text-[10px] uppercase tracking-widest font-semibold text-zinc-400 pl-1 group-focus-within/input:text-zinc-600 transition-colors">Nombre completo</label>
+                          <div class="relative">
+                            <input type="text" name="contact_name" placeholder="Tu nombre" id="contact_name" class="placeholder:text-zinc-300 focus:outline-none focus:border-zinc-400 focus:bg-white focus:ring-4 focus:ring-zinc-100 transition-all duration-300 text-sm text-zinc-900 bg-white/70 w-full border-zinc-200/80 border rounded-lg pt-2.5 pr-4 pb-2.5 pl-10 shadow-sm">
+                            <div class="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-300 group-focus-within/input:text-zinc-500 transition-colors duration-300">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="space-y-1.5 text-left group/input">
+                          <label for="contact_email" class="text-[10px] uppercase tracking-widest font-semibold text-zinc-400 pl-1 group-focus-within/input:text-zinc-600 transition-colors">Correo electrónico</label>
+                          <div class="relative">
+                            <input type="email" id="contact_email" name="contact_email" placeholder="tu@correo.com" class="w-full bg-white/70 border border-zinc-200/80 rounded-lg pl-10 pr-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-300 focus:outline-none focus:border-zinc-400 focus:bg-white focus:ring-4 focus:ring-zinc-100 transition-all duration-300 shadow-sm">
+                            <div class="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-300 group-focus-within/input:text-zinc-500 transition-colors duration-300">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- CTA Button (Stable ID, No Form) -->
+                    <button type="button" id="cta-send" class="group overflow-hidden transition-all hover:bg-zinc-800 hover:shadow-2xl text-white bg-black w-full rounded-xl mt-8 pt-7 pr-8 pb-7 pl-8 relative shadow-xl">
+                      <div class="z-10 flex relative items-center justify-between">
+                        <div class="text-left">
+                          <span class="block text-lg font-semibold tracking-tight" id="submit-btn-title">Solicitar Cotización</span>
+                          <span class="block text-[10px] uppercase text-zinc-400 tracking-widest mt-1">
+                            En un momento te llegará una cotización aproximada por tu correo.
+                          </span>
+                        </div>
+                        <div class="flex group-hover:border-white/40 transition-colors bg-white/5 w-12 h-12 border-white/20 border rounded-full items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-500 group-hover:translate-x-1">
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
+
+                    <p class="text-[10px] uppercase text-zinc-400 tracking-widest text-center opacity-60">
+                      CREATIVE PRODUCTION PARTNER • BREED STUDIO
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Success message container -->
+              <div id="success-container" class="hidden"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Logic -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // ---- Reveal + tracker ----
+        const sections = document.querySelectorAll(".form-section");
+        const navItems = document.querySelectorAll(".tracker-item");
+
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("is-visible");
+          });
+        }, { threshold: 0.1 });
+
+        sections.forEach((s) => revealObserver.observe(s));
+
+        const navObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const currentIndex = parseInt(entry.target.getAttribute("data-index"), 10);
+
+            navItems.forEach((item, index) => {
+              item.classList.remove("active", "completed");
+              if (index < currentIndex) item.classList.add("completed");
+              else if (index === currentIndex) item.classList.add("active");
+            });
+          });
+        }, { root: null, rootMargin: "-10% 0px -40% 0px", threshold: 0 });
+
+        sections.forEach((s) => navObserver.observe(s));
+
+        // ---- Add deliverables ----
+        const container = document.getElementById("deliverables-container");
+        const addBtn = document.getElementById("add-deliverable-btn");
+
+        addBtn?.addEventListener("click", () => {
+          const template = `
+            <div class="deliverable-item new-item bg-zinc-50/50 border border-zinc-200 p-6 md:p-8 rounded-sm space-y-8 relative group hover:border-zinc-300 transition-colors mt-6">
+              <div class="absolute top-4 right-4 cursor-pointer text-zinc-400 hover:text-red-500 transition-colors" onclick="this.closest('.deliverable-item').remove()">
+                <iconify-icon icon="solar:trash-bin-trash-linear" width="18"></iconify-icon>
+              </div>
+              <div class="flex justify-between items-start">
+                <div class="space-y-1 flex-1 pr-10">
+                  <label class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 group-focus-within:text-black transition-colors">Nombre del Entregable</label>
+                  <input type="text" name="deliverable_name[]" placeholder="ej. Teaser Social" class="w-full bg-transparent border-b border-zinc-200 py-2 text-xl font-display text-zinc-900 placeholder-zinc-300 focus:border-black focus:outline-none transition-colors">
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="space-y-3 group/inner">
+                  <label class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 group-focus-within/inner:text-black transition-colors">Formato</label>
+                  <div class="relative">
+                    <select name="deliverable_format[]" class="w-full appearance-none bg-white border border-zinc-200 px-4 py-3 text-zinc-900 text-sm focus:border-black focus:outline-none transition-colors rounded-sm cursor-pointer shadow-sm">
+                      <option value="horizontal">Horizontal (16:9)</option>
+                      <option value="vertical">Vertical (9:16)</option>
+                      <option value="square">Cuadrado (1:1)</option>
+                      <option value="mixed">Archivos Mixtos</option>
+                    </select>
+                    <div class="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none">
+                      <iconify-icon icon="solar:alt-arrow-down-linear"></iconify-icon>
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-3 group/inner">
+                  <label class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 group-focus-within/inner:text-black transition-colors">Duración Est.</label>
+                  <input type="text" name="deliverable_duration[]" placeholder="ej. 15 seg" class="w-full bg-white border border-zinc-200 px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-black focus:outline-none transition-colors text-sm rounded-sm shadow-sm">
+                </div>
+                <div class="space-y-3 group/inner">
+                  <label class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 group-focus-within/inner:text-black transition-colors">Fecha de Entrega</label>
+                  <input type="date" name="deliverable_date[]" class="w-full bg-white border border-zinc-200 px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-black focus:outline-none transition-colors text-sm rounded-sm shadow-sm">
+                </div>
+              </div>
+            </div>
+          `;
+          container?.insertAdjacentHTML("beforeend", template);
+        });
+
+        // ---- Handle Submission (No Form Tag) ----
+        const ctaBtn = document.getElementById("cta-send");
+        const submitTitle = document.getElementById("submit-btn-title");
+        const inquiryContent = document.getElementById("inquiry-content");
+
+        // Helper to get value from name attribute since we don't have a form object
+        const getVal = (name) => document.querySelector(`[name="${name}"]`)?.value || "";
+        const getCheckedVal = (name) => document.querySelector(`input[name="${name}"]:checked`)?.value || "";
+        const getChecked = (name) => document.querySelector(`input[name="${name}"]`)?.checked || false;
+
+        const mapProjectType = {
+          commercial: "Comercial",
+          institutional: "Institucional",
+          event: "Eventos",
+          real_estate: "Inmobiliario",
+          podcast: "Podcast",
+        };
+
+        const mapFormat = {
+          horizontal: "Horizontal (16:9)",
+          vertical: "Vertical (9:16)",
+          square: "Cuadrado (1:1)",
+          mixed: "Archivos Mixtos",
+        };
+
+        const toMXDate = (value) => {
+          if (!value) return "";
+          const parts = value.split("-");
+          if (parts.length !== 3) return value;
+          const [yyyy, mm, dd] = parts;
+          return `${dd}/${mm}/${yyyy}`;
+        };
+
+        const setLoading = (isLoading) => {
+          if (!ctaBtn || !submitTitle) return;
+          ctaBtn.disabled = isLoading;
+          submitTitle.textContent = isLoading ? "Enviando..." : "Solicitar Cotización";
+          ctaBtn.classList.toggle("opacity-80", isLoading);
+          ctaBtn.classList.toggle("pointer-events-none", isLoading);
+        };
+
+        const showSuccess = () => {
+          if (!inquiryContent) return;
+          const parent = inquiryContent.parentElement;
+          
+          inquiryContent.style.transition = "all 0.5s ease-in-out";
+          inquiryContent.style.opacity = "0";
+          inquiryContent.style.transform = "scale(0.98) translateY(10px)";
+          inquiryContent.style.filter = "blur(4px)";
+
+          setTimeout(() => {
+            inquiryContent.style.display = "none";
+            const s = document.createElement("div");
+            s.className = "w-full flex flex-col items-center justify-center text-center py-20 px-4 opacity-0 translate-y-8 transition-all duration-1000 ease-out";
+            s.innerHTML = `
+              <div class="w-20 h-20 bg-emerald-500/10 text-emerald-600 rounded-full flex items-center justify-center mb-8 shadow-sm ring-1 ring-emerald-500/20">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 6 9 17l-5-5"/>
+                </svg>
+              </div>
+              <h3 class="text-4xl md:text-5xl font-display font-medium text-zinc-900 mb-6 tracking-tighter">¡Gracias por contactarnos!</h3>
+              <p class="text-zinc-500 max-w-lg mx-auto text-lg md:text-xl font-light leading-relaxed mb-10">
+                Hemos recibido la información de tu proyecto. En breve recibirás una cotización aproximada directamente en tu correo electrónico.
+              </p>
+              <button type="button" id="reload-btn" class="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-900 text-white font-medium hover:bg-zinc-800 transition-all hover:scale-105">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:-translate-x-1">
+                  <path d="M19 12H5m7-7-7 7 7 7"/>
+                </svg>
+                Volver al inicio
+              </button>
+            `;
+            parent.appendChild(s);
+            requestAnimationFrame(() => s.classList.remove("opacity-0", "translate-y-8"));
+            s.scrollIntoView({ behavior: "smooth", block: "center" });
+            s.querySelector("#reload-btn")?.addEventListener("click", () => location.reload());
+          }, 500);
+        };
+
+        if (ctaBtn) {
+          ctaBtn.addEventListener("click", async () => {
+            // Manual Validation
+            const nameField = document.getElementById("contact_name");
+            const emailField = document.getElementById("contact_email");
+            const projectField = document.getElementById("project_name");
+
+            if (!projectField.value.trim()) {
+               alert("Por favor ingresa el nombre del proyecto.");
+               projectField.focus();
+               return;
+            }
+            if (!nameField.value.trim()) {
+              alert("Por favor ingresa tu nombre.");
+              nameField.focus();
+              return;
+            }
+            if (!emailField.value.trim() || !emailField.value.includes('@')) {
+              alert("Por favor ingresa un correo electrónico válido.");
+              emailField.focus();
+              return;
+            }
+
+            // Collect Data
+            const deliverables = [];
+            document.querySelectorAll(".deliverable-item").forEach((item) => {
+              const name = item.querySelector('[name="deliverable_name[]"]')?.value?.trim();
+              if (!name) return;
+              const fmt = item.querySelector('[name="deliverable_format[]"]')?.value || "";
+              const dur = item.querySelector('[name="deliverable_duration[]"]')?.value?.trim() || "";
+              const dt = item.querySelector('[name="deliverable_date[]"]')?.value || "";
+
+              deliverables.push({
+                "Nombre del Entregable": name,
+                "Formato": mapFormat[fmt] || fmt,
+                "Duración Est.": dur,
+                "Fecha de Entrega": toMXDate(dt),
+              });
+            });
+
+            const payload = {
+              "Nombre del Proyecto": getVal("project_name"),
+              "Marca / Empresa": getVal("company_name"),
+              "Arquetipo del Proyecto": mapProjectType[getCheckedVal("project_type")] || getCheckedVal("project_type"),
+              "Tema Central y Narrativa": getVal("what_to_film"),
+              "Propósito Estratégico": getVal("why_to_film"),
+              "Público Objetivo": getVal("target_audience"),
+              "Canales de Distribución": getVal("project_channels"),
+              "Fechas Objetivo": toMXDate(getVal("film_date")),
+              "Ubicación": getVal("location"),
+              "Entregables": deliverables,
+              "Nombre completo": getVal("contact_name"),
+              "Correo electrónico": getVal("contact_email"),
+            };
+
+            setLoading(true);
+
+            try {
+              const url = "https://n8n.srv1082451.hstgr.cloud/webhook/339371a4-1539-4c78-a82d-4213ff132ff7";
+              
+              const res = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+              });
+
+              if (res.ok) {
+                showSuccess();
+              } else {
+                throw new Error("Server error");
+              }
+            } catch (err) {
+              console.error(err);
+              alert("Hubo un error al enviar la solicitud. Por favor intenta de nuevo.");
+            } finally {
+              setLoading(false);
+            }
+          });
+        }
+      });
+    </script>
+  
+</body></html>
