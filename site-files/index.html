@@ -64,6 +64,153 @@ display: none;
 -ms-overflow-style: none;
 scrollbar-width: none;
 }
+
+/* ========== MOBILE ONLY (max-width: 768px) — Desktop unchanged ========== */
+@media (max-width: 768px) {
+  html, body { overflow-x: hidden; max-width: 100vw; box-sizing: border-box; }
+  main { max-width: 100%; overflow-x: hidden; }
+  * { box-sizing: border-box; }
+
+  /* Hero: smaller font, line-height, spacing, no overlap */
+  #hero {
+    min-height: 80vh;
+  }
+  #hero h1,
+  #hero h1 .font-sans {
+    font-size: clamp(1.35rem, 5.5vw, 1.75rem) !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.02em;
+    max-width: 100% !important;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+  #hero h1 span[class*="inline-block"] {
+    transform: none !important;
+    min-width: auto !important;
+  }
+  #hero .space-y-8 {
+    gap: 0.5rem;
+  }
+  #hero .pt-20.pb-20 {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  #hero .text-lg {
+    font-size: 0.9375rem;
+  }
+
+  /* Unlock growth: no overflow, title wraps, fix rotating word position/z-index */
+  #purpose-led h2 {
+    font-size: clamp(1.25rem, 5vw, 1.5rem) !important;
+    line-height: 1.3 !important;
+    transform: none !important;
+    scale: none !important;
+    max-width: 100%;
+    padding-right: 0.5rem;
+  }
+  #purpose-led h2 span.absolute {
+    position: relative !important;
+    display: inline !important;
+    min-width: auto !important;
+    white-space: normal !important;
+    margin-left: 0.25rem;
+    padding: 0 !important;
+  }
+  #purpose-led .lg\:col-span-5 {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  #purpose-led .translate-y-16 {
+    transform: none !important;
+  }
+  #purpose-led .pl-8 {
+    padding-left: 0 !important;
+  }
+  #purpose-led.pt-28.pb-28 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  #purpose-led .space-y-12 {
+    margin-top: 1.5rem;
+  }
+
+  /* Cotiza en segundos: card breathing room, no scale clipping */
+  #contact .scale-125 {
+    transform: scale(1) !important;
+    max-width: 100%;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  #contact .pt-8.pr-8.pb-8.pl-8 {
+    padding: 1.25rem 1rem !important;
+  }
+  #contact h2.text-4xl {
+    font-size: clamp(1.5rem, 6vw, 1.75rem) !important;
+    line-height: 1.2 !important;
+  }
+  #contact .h-16.w-16 {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  #contact .h-16.w-16 svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  #contact .items-end.justify-between {
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  /* Footer: full width, no cut-off, single column, clear hierarchy */
+  footer .pr-8.pl-8 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    max-width: 100%;
+  }
+  footer .-translate-x-8,
+  footer .-translate-x-16 {
+    transform: none !important;
+  }
+  footer .scale-75 {
+    transform: none !important;
+  }
+  footer .max-w-4xl {
+    max-width: 100%;
+  }
+  footer h2.font-sans.bg-slate-950 {
+    font-size: clamp(1.25rem, 5.5vw, 1.5rem) !important;
+    line-height: 1.25 !important;
+    max-height: none !important;
+  }
+  footer .mb-16.ml-\[-1px\].pl-2 {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    margin-bottom: 1.5rem !important;
+  }
+  footer .md\:grid-cols-12 .md\:col-span-4 {
+    margin-bottom: 1rem;
+  }
+  footer .md\:pl-20 {
+    padding-left: 0 !important;
+  }
+  footer .grid.grid-cols-2 {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  footer .gap-12 {
+    gap: 1rem;
+  }
+  footer .pt-12.pb-12 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  footer .mb-8 {
+    margin-bottom: 0.75rem;
+  }
+}
 </style>
 <script src="https://www.aura.build/FxFilter.js"></script>
 <link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">.font-geist { font-family: 'Geist', sans-serif !important; }</style><link id="all-fonts-link-font-roboto" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-roboto">.font-roboto { font-family: 'Roboto', sans-serif !important; }</style><link id="all-fonts-link-font-montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-montserrat">.font-montserrat { font-family: 'Montserrat', sans-serif !important; }</style><link id="all-fonts-link-font-poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-poppins">.font-poppins { font-family: 'Poppins', sans-serif !important; }</style><link id="all-fonts-link-font-playfair" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap"><style id="all-fonts-style-font-playfair">.font-playfair { font-family: 'Playfair Display', serif !important; }</style><link id="all-fonts-link-font-instrument-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-instrument-serif">.font-instrument-serif { font-family: 'Instrument Serif', serif !important; }</style><link id="all-fonts-link-font-merriweather" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&amp;display=swap"><style id="all-fonts-style-font-merriweather">.font-merriweather { font-family: 'Merriweather', serif !important; }</style><link id="all-fonts-link-font-bricolage" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-bricolage">.font-bricolage { font-family: 'Bricolage Grotesque', sans-serif !important; }</style><link id="all-fonts-link-font-jakarta" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-jakarta">.font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif !important; }</style><link id="all-fonts-link-font-manrope" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-manrope">.font-manrope { font-family: 'Manrope', sans-serif !important; }</style><link id="all-fonts-link-font-space-grotesk" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-space-grotesk">.font-space-grotesk { font-family: 'Space Grotesk', sans-serif !important; }</style><link id="all-fonts-link-font-work-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-work-sans">.font-work-sans { font-family: 'Work Sans', sans-serif !important; }</style><link id="all-fonts-link-font-pt-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-pt-serif">.font-pt-serif { font-family: 'PT Serif', serif !important; }</style><link id="all-fonts-link-font-geist-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist-mono">.font-geist-mono { font-family: 'Geist Mono', monospace !important; }</style><link id="all-fonts-link-font-space-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-space-mono">.font-space-mono { font-family: 'Space Mono', monospace !important; }</style><link id="all-fonts-link-font-quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-quicksand">.font-quicksand { font-family: 'Quicksand', sans-serif !important; }</style><link id="all-fonts-link-font-nunito" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-nunito">.font-nunito { font-family: 'Nunito', sans-serif !important; }</style><link id="all-fonts-link-font-newsreader" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400..800&amp;display=swap"><style id="all-fonts-style-font-newsreader">.font-newsreader { font-family: 'Newsreader', serif !important; }</style><link id="all-fonts-link-font-google-sans-flex" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-google-sans-flex">.font-google-sans-flex { font-family: 'Google Sans Flex', sans-serif !important; }</style><link id="all-fonts-link-font-oswald" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-oswald">.font-oswald { font-family: 'Oswald', sans-serif !important; }</style><link id="all-fonts-link-font-dm-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-dm-sans">.font-dm-sans { font-family: 'DM Sans', sans-serif !important; }</style><link id="all-fonts-link-font-cormorant" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-cormorant">.font-cormorant { font-family: 'Cormorant Garamond', serif !important; }</style><link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">
@@ -262,7 +409,7 @@ pointer-events: none;
   <!-- Hero Section -->
 
   <!-- Marquee / Keywords -->
-  <section class="min-h-[85vh] flex flex-col mix-blend-difference border-zinc-800 border-b pr-6 pl-6 relative items-center justify-center">
+  <section id="hero" class="min-h-[85vh] flex flex-col mix-blend-difference border-zinc-800 border-b pr-6 pl-6 relative items-center justify-center">
     <div class="md:space-y-10 z-10 font-thin text-center max-w-4xl mr-auto ml-auto relative space-y-8">
       <div class="flex flex-col md:pt-1 font-light font-geist max-w-6xl mr-auto ml-auto pt-3 pb-2 space-y-0 items-center justify-center">
         <style class="">
@@ -405,7 +552,7 @@ pointer-events: none;
   </section>
 
   <!-- Positioning & Metrics (Proof) -->
-  <section class="bg-black border-yellow-950 border-0 pt-28 pr-6 pb-28 pl-6">
+  <section id="purpose-led" class="bg-black border-yellow-950 border-0 pt-28 pr-6 pb-28 pl-6">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
       <div class="lg:col-span-5">
         <h2 class="leading-tight md:text-5xl -translate-x-6 text-4xl font-light text-white tracking-tighter font-sans translate-x-4 translate-y-16 scale-125">
