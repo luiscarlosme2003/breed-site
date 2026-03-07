@@ -1,0 +1,9 @@
+{
+  "name": "breed-site",
+  "version": "1.0.0",
+  "description": "Breed Studio website",
+  "scripts": {
+    "dev": "npx serve site-files -l 3000",
+    "start": "npx serve site-files -l 3000"
+  }
+}

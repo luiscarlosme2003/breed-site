@@ -72,19 +72,17 @@ mix-blend-mode: overlay;
     <div class="noise-overlay" style=""></div>
 
     <!-- Navigation -->
-    <header class="fixed top-0 left-0 right-0 z-50 flex h-20 w-full items-center border-b border-white/5 bg-black/50 backdrop-blur-xl" style="">
-      <div class="flex w-full max-w-7xl mx-auto px-6 items-center justify-between" style="">
-        <a href="#" class="flex items-center opacity-90 hover:opacity-100 transition-opacity">
-          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/256b2a20-064b-40f3-81a4-41741571b2fe_1600w.png" alt="BREED" class="w-auto h-5 object-contain brightness-200" onclick="window.location.href='index.html'" role="button">
+    <header class="fixed top-0 left-0 right-0 z-50 flex h-16 md:h-20 w-full items-center border-b border-white/5 bg-black/10 backdrop-blur-3xl backdrop-saturate-150 transition-all duration-300">
+      <div class="flex w-full max-w-7xl mr-auto ml-auto pr-6 pl-6 items-center justify-between">
+        <a href="index.html" class="flex items-center" aria-label="Breed Studio">
+          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/256b2a20-064b-40f3-81a4-41741571b2fe_1600w.png" alt="BREED" class="md:h-6 w-auto h-5 object-contain">
         </a>
-        <nav class="hidden md:flex gap-8 text-xs font-medium uppercase tracking-widest text-zinc-400">
-          <a href="index.html" class="hover:text-white transition-colors">home</a>
-          <a href="#elements" class="hover:text-white transition-colors">
-            Elementos
-          </a>
-          <a href="#roles" class="hover:text-white transition-colors">Roles</a>
+        <nav class="hidden md:flex text-sm font-normal text-zinc-300 gap-8">
+          <a href="index.html" class="transition-colors hover:text-white">Home</a>
+          <a href="portafolio.html" class="transition-colors hover:text-white">Portafolio</a>
+          <a href="cotizarvideo.html" class="transition-colors hover:text-white">Cotizar Proyecto</a>
         </nav>
-        <a href="#apply" class="hidden md:inline-flex items-center justify-center transition-all hover:bg-white hover:text-black hover:scale-105 text-xs font-medium text-white bg-white/10 border-white/10 border rounded ring-1 pt-2 pr-6 pb-2 pl-6">
+        <a href="#apply" class="hidden md:inline-flex items-center justify-center transition-all hover:bg-white hover:text-black hover:scale-105 text-xs font-medium text-white bg-white/10 border-white/10 border rounded-full ring-1 pt-2 pr-6 pb-2 pl-6">
           Join the Pool
         </a>
       </div>
@@ -122,17 +120,15 @@ mix-blend-mode: overlay;
 
           <!-- Updated Spanish Copy -->
           <p class="md:text-xl leading-relaxed animate-rise text-lg font-light text-stone-300 opacity-0 max-w-2xl mb-12" style="animation-delay: 0.6s">
-            Un ecosistema de talento operando desde lo que cada quien sabe hacer
-            mejor. Visión alineada, valores compartidos y un proceso de
-            aprendizaje continuo.
+            Estamos en una misión por reunir talento del todo el mundo para hacer proyectos de cada vez mayor impacto.
           </p>
 
           <div class="flex flex-col sm:flex-row gap-6 opacity-0 animate-rise" style="animation-delay: 0.8s;">
-            <a href="#apply" class="group relative px-8 py-4 bg-white text-black font-medium tracking-wide text-sm overflow-hidden transition-transform hover:scale-105">
+            <a href="#apply" class="group relative px-8 py-4 bg-white text-black font-medium tracking-wide text-sm overflow-hidden transition-transform hover:scale-105 rounded-full">
               <span class="z-10 relative">Join the Pool</span>
               <div class="absolute inset-0 bg-zinc-200 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
             </a>
-            <a href="personalitytest.html" class="group flex items-center gap-2 hover:border-white/50 transition-colors text-sm font-light text-white tracking-wide border-white/20 border pt-4 pr-8 pb-4 pl-8">
+            <a href="personalitytest.html" class="group flex items-center gap-2 hover:border-white/50 transition-colors text-sm font-light text-white tracking-wide border-white/20 border rounded-full pt-4 pr-8 pb-4 pl-8">
               <span class="" onclick="window.location.href='personalitytest.html'" role="button">
                 Personality Test
               </span>
@@ -363,10 +359,10 @@ mix-blend-mode: overlay;
             </div>
             <!-- Directory Filters -->
             <div class="flex flex-wrap gap-2" id="directory-filters" style="">
-              <button class="filter-btn px-6 py-2.5 rounded-full border border-white/10 bg-white/5 text-zinc-400 text-xs font-medium uppercase tracking-widest transition-all hover:bg-white hover:text-black hover:border-white" data-filter="all">
+              <button class="filter-btn uppercase transition-all text-xs font-semibold text-white tracking-widest bg-purple-500 border-purple-500 border rounded-full px-6 py-2.5 shadow-[0_0_20px_rgba(168,85,247,0.4)]" data-filter="all">
                 Todos
               </button>
-              <button class="filter-btn uppercase transition-all text-xs font-semibold text-white tracking-widest bg-purple-500 border-purple-500 border rounded-full pt-2.5 pr-6 pb-2.5 pl-6 shadow-[0_0_20px_rgba(168,85,247,0.4)]" data-filter="air">
+              <button class="filter-btn px-6 py-2.5 rounded-full border border-white/10 bg-white/5 text-zinc-400 text-xs font-medium uppercase tracking-widest transition-all hover:bg-white hover:text-black hover:border-white" data-filter="air">
                 Aire
               </button>
               <button class="filter-btn px-6 py-2.5 rounded-full border border-white/10 bg-white/5 text-zinc-400 text-xs font-medium uppercase tracking-widest transition-all hover:bg-white hover:text-black hover:border-white" data-filter="earth">
@@ -1538,7 +1534,7 @@ mix-blend-mode: overlay;
       </div>
 
       <div class="pt-4 text-center">
-        <button type="submit" class="uppercase hover:bg-zinc-200 transition-colors text-xs font-medium text-black tracking-widest bg-white pt-3 pr-12 pb-3 pl-12">
+        <button type="submit" class="uppercase hover:bg-zinc-200 transition-colors text-xs font-medium text-black tracking-widest bg-white rounded-full pt-3 pr-12 pb-3 pl-12">
           DISPARAR BENGALA
         </button>
       </div>
