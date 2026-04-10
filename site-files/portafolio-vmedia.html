@@ -81,109 +81,332 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
         </div>
       </section>
 
-      <!-- Visual Content Grid -->
-      <section class="max-w-[1400px] mx-auto px-6">
-        
-        <!-- Main Hero Video (Slot 1) -->
-        <div class="w-full h-[550px] bg-zinc-900 rounded-[2rem] overflow-hidden relative mb-6 animate-enter delay-100 group">
-             <!-- Video/Image Placeholder -->
-             <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/002346f0-3e7b-42dc-94af-804d3cc83122_3840w.png" class="group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 opacity-90 w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0" alt="Main Case Study Visual">
-             
-             <!-- Play Button -->
-             <div class="flex cursor-pointer absolute top-0 right-0 bottom-0 left-0 items-center justify-center">
-                <div class="w-24 h-24 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-500">
-                    <iconify-icon icon="solar:play-linear" width="32" class=""></iconify-icon>
-                </div>
-             </div>
-             
-             <!-- Caption -->
-             <div class="absolute bottom-0 left-0 w-full p-8 md:p-12 bg-gradient-to-t from-black/60 to-transparent">
-                <span class="text-white/80 text-sm font-medium tracking-wide border border-white/20 px-3 py-1 rounded-full backdrop-blur-sm">Main Film • 02:45</span>
-             </div>
+      <!-- Premium Carousel Section -->
+      <section class="overflow-hidden select-none bg-white w-full pt-12 pb-24 relative" id="selected-works">
+    <style>
+        .vmedia-carousel-track {
+            display: flex;
+            align-items: center;
+            width: max-content;
+            will-change: transform;
+        }
+
+        .vmedia-card-wrapper {
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: transform, opacity;
+        }
+
+        .vmedia-active-card {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 10;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .vmedia-inactive-card {
+            opacity: 0.5;
+            transform: scale(0.95);
+            z-index: 1;
+            filter: grayscale(10%);
+        }
+
+        /* Active dot — bronze/copper tone */
+        .vmedia-dot-active { background-color: #b45309; }
+    </style>
+
+    <!-- Section Header -->
+    <div class="max-w-[1400px] mx-auto px-6 mb-12 flex items-end justify-between">
+        <div class="">
+            <h2 class="text-3xl font-display font-medium tracking-tight text-zinc-900">Selected Works</h2>
+            <p class="text-zinc-500 mt-2 font-light text-lg">Una curaduría de nuestras producciones más recientes.</p>
         </div>
 
-        <!-- Additional Slots: All Uniform Horizontal Banners -->
-        <div class="flex flex-col gap-6 animate-enter delay-200">
+        <!-- Navigation Controls -->
+        <div class="hidden md:flex gap-3">
+            <button id="vmPrevBtn" class="w-12 h-12 rounded-full border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900 flex items-center justify-center transition-all duration-200" aria-label="Previous Project">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m12 19-7-7 7-7"></path>
+                    <path d="M19 12H5"></path>
+                </svg>
+            </button>
+            <button id="vmNextBtn" class="hover:bg-zinc-50 hover:border-zinc-300 hover:text-zinc-900 flex transition-all duration-200 text-zinc-600 bg-white w-12 h-12 border-zinc-200 border rounded-full items-center justify-center" aria-label="Next Project">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
 
-            <!-- Slot 2 -->
-            <div class="w-full h-[550px] bg-zinc-100 rounded-[2rem] overflow-hidden relative group cursor-pointer">
-                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/51af5a09-d0a4-4cf7-a234-0241e3752f79_3840w.png" class="group-hover:scale-105 transition-transform duration-700 group-hover:grayscale-0 w-full h-full object-cover grayscale" alt="Detail Shot">
-                <div class="absolute top-6 right-6">
-                     <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                        <iconify-icon icon="solar:maximize-square-minimalistic-linear" width="20"></iconify-icon>
-                    </div>
-                </div>
-                <div class="absolute bottom-6 left-6">
-                    <p class="text-white text-sm font-medium drop-shadow-md">Interior Details</p>
-                </div>
-            </div>
+    <!-- Carousel Viewport -->
+    <div class="w-full overflow-hidden touch-pan-y" id="vm-carousel-viewport" style="cursor: grab;">
+        <div class="vmedia-carousel-track py-10" id="vm-track" style="transition: none;">
 
-            <!-- Slot 3 -->
-            <div class="w-full h-[550px] bg-zinc-100 rounded-[2rem] overflow-hidden relative group cursor-pointer">
-                <img src="https://images.unsplash.com/photo-1493238792000-8113da705763?q=80&amp;w=2670&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0" alt="Atmosphere">
-                 <div class="flex group-hover:opacity-100 transition-opacity duration-300 opacity-0 absolute top-0 right-0 bottom-0 left-0 items-center justify-center">
-                    <div class="w-16 h-16 rounded-full bg-black/20 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
-                        <iconify-icon icon="solar:play-linear" width="24" class=""></iconify-icon>
-                    </div>
-                </div>
-                <div class="absolute bottom-6 left-6">
-                    <p class="text-white text-sm font-medium drop-shadow-md">Teaser 01</p>
-                </div>
-            </div>
-
-            <!-- Slot 4 -->
-            <div class="w-full h-[550px] bg-zinc-900 rounded-[2rem] overflow-hidden relative group cursor-pointer">
-                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/3df446da-3d98-4bc3-8c0d-8c3a178e9db2_1600w.png" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" alt="Wide Shot">
-                <div class="absolute inset-0 flex items-center justify-center">
-                     <span class="text-white font-display text-3xl md:text-5xl opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">Behind The Scenes</span>
-                </div>
-            </div>
-
-            <!-- Slot 5 (Converted from Vertical) -->
-            <div class="w-full h-[550px] bg-zinc-100 rounded-[2rem] overflow-hidden relative group cursor-pointer">
-                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&amp;w=2500&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" alt="Vertical Social Asset">
-                 <div class="absolute top-6 left-6">
-                    <span class="bg-black/50 backdrop-blur-md text-white text-[10px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full">9:16 Adapted</span>
-                </div>
-                <div class="absolute bottom-6 right-6">
-                     <div class="w-10 h-10 rounded-full bg-black/20 backdrop-blur-md flex items-center justify-center text-white">
-                        <iconify-icon icon="solar:play-linear" width="18"></iconify-icon>
+            <!-- Card 1: Main Film -->
+            <div class="vm-carousel-item relative shrink-0 px-3 md:px-4 group">
+                <div class="vmedia-card-wrapper vmedia-inactive-card w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-900 border border-zinc-200/50 shadow-sm">
+                    <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/002346f0-3e7b-42dc-94af-804d3cc83122_3840w.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Main Film">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Film</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Main Film</h3>
                     </div>
                 </div>
             </div>
 
-            <!-- Slot 6 (Converted from Mosaic) -->
-            <div class="w-full h-[550px] bg-zinc-100 rounded-[2rem] overflow-hidden relative group cursor-pointer">
-                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0" alt="Process">
-                <div class="absolute bottom-6 left-6">
-                    <p class="text-white text-sm font-medium drop-shadow-md">Color Grading Process</p>
+            <!-- Card 2: Interior Details -->
+            <div class="vm-carousel-item relative shrink-0 px-3 md:px-4 group">
+                <div class="vmedia-card-wrapper vmedia-inactive-card w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm">
+                    <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/51af5a09-d0a4-4cf7-a234-0241e3752f79_3840w.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Interior Details">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Commercial</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Interior Details</h3>
+                    </div>
                 </div>
             </div>
 
-            <!-- Slot 7 (Converted from Vertical) -->
-            <div class="w-full h-[550px] bg-zinc-100 rounded-[2rem] overflow-hidden relative group cursor-pointer">
-                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/0b3062f6-517c-4a50-8a50-0ca840941e1a_3840w.jpg" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" alt="Character Portrait">
-                 <div class="absolute top-6 left-6">
-                    <span class="bg-black/50 backdrop-blur-md text-white text-[10px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full">Story</span>
+            <!-- Card 3: Teaser 01 -->
+            <div class="vm-carousel-item relative shrink-0 px-3 md:px-4 group">
+                <div class="vmedia-card-wrapper vmedia-inactive-card w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1493238792000-8113da705763?q=80&w=2670&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Teaser 01">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Teaser</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Teaser 01</h3>
+                    </div>
                 </div>
             </div>
 
-            <!-- Slot 8: Next Project -->
-            <div class="w-full h-[550px] bg-zinc-800 rounded-[2rem] overflow-hidden relative group cursor-pointer">
-                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500" alt="Credits Sequence">
-                <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-                    <p class="text-zinc-300 font-light tracking-widest uppercase text-sm mb-4">Up Next</p>
-                    <h3 class="text-3xl md:text-5xl text-white font-display">Off Code Los Angeles</h3>
-                    <div class="mt-8 flex items-center gap-2 text-white border-b border-white/30 pb-1 group-hover:border-white transition-colors">
-                        <span class="text-sm">View Case Study</span>
-                        <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+            <!-- Card 4: Behind The Scenes -->
+            <div class="vm-carousel-item relative shrink-0 px-3 md:px-4 group">
+                <div class="vmedia-card-wrapper vmedia-inactive-card w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-900 border border-zinc-200/50 shadow-sm">
+                    <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/3df446da-3d98-4bc3-8c0d-8c3a178e9db2_1600w.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Behind The Scenes">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">BTS</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Behind The Scenes</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: Short Form -->
+            <div class="vm-carousel-item relative shrink-0 px-3 md:px-4 group">
+                <div class="vmedia-card-wrapper vmedia-inactive-card w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2500&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="9:16 Adapted">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Short Form</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">9:16 Adapted</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6: Color Grading -->
+            <div class="vm-carousel-item relative shrink-0 px-3 md:px-4 group">
+                <div class="vmedia-card-wrapper vmedia-inactive-card w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm">
+                    <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Color Grading">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Post-Production</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Color Grading</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7: Story -->
+            <div class="vm-carousel-item relative shrink-0 px-3 md:px-4 group">
+                <div class="vmedia-card-wrapper vmedia-inactive-card w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm">
+                    <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/0b3062f6-517c-4a50-8a50-0ca840941e1a_3840w.jpg" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" alt="Story">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Documentary</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Story</h3>
                     </div>
                 </div>
             </div>
 
         </div>
+    </div>
 
-      </section>
+    <!-- Pagination Dots -->
+    <div class="flex justify-center gap-2 mt-8" id="vm-dots-container">
+        <!-- Dots injected via JS -->
+    </div>
+
+    <script>
+        (function() {
+            const track = document.getElementById('vm-track');
+            const viewport = document.getElementById('vm-carousel-viewport');
+            const prevBtn = document.getElementById('vmPrevBtn');
+            const nextBtn = document.getElementById('vmNextBtn');
+            const dotsContainer = document.getElementById('vm-dots-container');
+
+            let items = Array.from(document.querySelectorAll('.vm-carousel-item'));
+            const originalCount = items.length;
+            const cloneCount = 2;
+            let currentIndex = cloneCount;
+            let isDragging = false;
+            let startPos = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            let animationID;
+            let itemWidth = 0;
+            let containerWidth = 0;
+
+            function init() {
+                for (let i = originalCount - cloneCount; i < originalCount; i++) {
+                    const clone = items[i].cloneNode(true);
+                    clone.classList.add('clone');
+                    track.insertBefore(clone, track.firstChild);
+                }
+                for (let i = 0; i < cloneCount; i++) {
+                    const clone = items[i].cloneNode(true);
+                    clone.classList.add('clone');
+                    track.appendChild(clone);
+                }
+
+                items = Array.from(document.querySelectorAll('.vm-carousel-item'));
+
+                dotsContainer.innerHTML = '';
+                for (let i = 0; i < originalCount; i++) {
+                    const dot = document.createElement('button');
+                    dot.className = `h-1.5 rounded-full transition-all duration-300 ${i === 0 ? 'vmedia-dot-active w-8' : 'bg-zinc-300 w-2 hover:bg-zinc-400'}`;
+                    dot.ariaLabel = `Go to slide ${i + 1}`;
+                    dot.onclick = () => goToIndex(i + cloneCount);
+                    dotsContainer.appendChild(dot);
+                }
+
+                updateDimensions();
+                setPositionByIndex(currentIndex, false);
+                updateVisuals();
+
+                window.addEventListener('resize', () => {
+                    updateDimensions();
+                    setPositionByIndex(currentIndex, false);
+                });
+
+                viewport.addEventListener('mousedown', touchStart);
+                viewport.addEventListener('touchstart', touchStart, { passive: true });
+                viewport.addEventListener('mousemove', touchMove);
+                viewport.addEventListener('touchmove', touchMove, { passive: true });
+                viewport.addEventListener('mouseup', touchEnd);
+                viewport.addEventListener('mouseleave', () => { if (isDragging) touchEnd(); });
+                viewport.addEventListener('touchend', touchEnd);
+
+                if (prevBtn) prevBtn.addEventListener('click', slidePrev);
+                if (nextBtn) nextBtn.addEventListener('click', slideNext);
+
+                track.addEventListener('transitionend', checkInfiniteLoop);
+            }
+
+            function updateDimensions() {
+                containerWidth = viewport.offsetWidth;
+                if (window.innerWidth < 640) {
+                    itemWidth = containerWidth * 0.85;
+                } else if (window.innerWidth < 1024) {
+                    itemWidth = containerWidth * 0.60;
+                } else {
+                    itemWidth = containerWidth * 0.40;
+                }
+                items.forEach(item => { item.style.width = `${itemWidth}px`; });
+            }
+
+            function touchStart(event) {
+                isDragging = true;
+                startPos = getPositionX(event);
+                animationID = requestAnimationFrame(animation);
+                viewport.style.cursor = 'grabbing';
+                track.style.transition = 'none';
+            }
+
+            function touchMove(event) {
+                if (isDragging) {
+                    const currentPosition = getPositionX(event);
+                    currentTranslate = prevTranslate + currentPosition - startPos;
+                }
+            }
+
+            function touchEnd() {
+                isDragging = false;
+                cancelAnimationFrame(animationID);
+                viewport.style.cursor = 'grab';
+                const movedBy = currentTranslate - prevTranslate;
+                if (movedBy < -50) { currentIndex += 1; }
+                else if (movedBy > 50) { currentIndex -= 1; }
+                setPositionByIndex(currentIndex, true);
+            }
+
+            function getPositionX(event) {
+                return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+            }
+
+            function animation() {
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                if (isDragging) requestAnimationFrame(animation);
+            }
+
+            function setPositionByIndex(index, useTransition = true) {
+                currentIndex = index;
+                const centerOffset = (containerWidth / 2) - (itemWidth / 2);
+                currentTranslate = -(index * itemWidth) + centerOffset;
+                prevTranslate = currentTranslate;
+                track.style.transition = useTransition ? 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)' : 'none';
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                updateVisuals();
+            }
+
+            function slideNext() { currentIndex++; setPositionByIndex(currentIndex, true); }
+            function slidePrev() { currentIndex--; setPositionByIndex(currentIndex, true); }
+            function goToIndex(index) { currentIndex = index; setPositionByIndex(currentIndex, true); }
+
+            function checkInfiniteLoop() {
+                if (currentIndex >= items.length - cloneCount) {
+                    currentIndex = cloneCount;
+                    setPositionByIndex(currentIndex, false);
+                } else if (currentIndex < cloneCount) {
+                    currentIndex = items.length - cloneCount - 1;
+                    setPositionByIndex(currentIndex, false);
+                }
+            }
+
+            function updateVisuals() {
+                let realIndex = currentIndex - cloneCount;
+                if (realIndex < 0) realIndex = originalCount + realIndex;
+                if (realIndex >= originalCount) realIndex = realIndex % originalCount;
+
+                const dots = Array.from(dotsContainer.children);
+                dots.forEach((dot, idx) => {
+                    if (idx === realIndex) {
+                        dot.classList.remove('bg-zinc-300', 'w-2');
+                        dot.classList.add('vmedia-dot-active', 'w-8');
+                    } else {
+                        dot.classList.add('bg-zinc-300', 'w-2');
+                        dot.classList.remove('vmedia-dot-active', 'w-8');
+                    }
+                });
+
+                items.forEach((item, idx) => {
+                    const wrapper = item.querySelector('.vmedia-card-wrapper');
+                    if (!wrapper) return;
+                    if (idx === currentIndex) {
+                        wrapper.classList.remove('vmedia-inactive-card');
+                        wrapper.classList.add('vmedia-active-card');
+                    } else {
+                        wrapper.classList.add('vmedia-inactive-card');
+                        wrapper.classList.remove('vmedia-active-card');
+                    }
+                });
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
+</section>
 
       <!-- Minimal Footer -->
       <footer class="mt-24 border-t border-zinc-200 pt-12">

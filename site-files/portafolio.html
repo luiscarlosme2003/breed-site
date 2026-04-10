@@ -62,18 +62,18 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
       </div>
     </header>
 
-    <main class="min-h-screen pt-24">
-      
+    <main class="min-h-screen pt-16 md:pt-24">
+
       <!-- Hero Section -->
-      <section class="md:pb-16 md:pl-6 md:pr-6 md:pt-1 max-w-[1400px] mr-auto ml-auto pt-12 pr-6 pb-12 pl-6">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 animate-enter">
+      <section class="md:pb-16 md:pl-6 md:pr-6 md:pt-1 max-w-[1400px] mr-auto ml-auto pt-0 pr-6 pb-6 pl-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-0 md:mb-16 animate-enter">
           <div class="max-w-2xl">
             <!-- Optional Intro Text could go here -->
           </div>
         </div>
 
         <!-- Filter Banner -->
-        <div class="sticky z-40 -mx-6 bg-[#fafafa]/90 border-zinc-200/50 border-b mb-12 pt-4 pr-6 pb-4 pl-6 top-20 backdrop-blur-md">
+        <div class="sticky z-40 -mx-6 bg-[#fafafa]/90 border-zinc-200/50 border-b mb-6 md:mb-12 pt-3 pr-6 pb-3 pl-6 top-16 md:top-20 backdrop-blur-md">
            <div class="max-w-[1400px] mx-auto overflow-x-auto no-scrollbar">
              <div class="flex items-center gap-2 md:gap-3 min-w-max" id="portfolio-filters">
                 <button class="filter-btn active group transition-all duration-300 hover:shadow-zinc-500/20 text-sm font-medium rounded-full pt-2.5 pr-6 pb-2.5 pl-6 relative" data-filter="all" style="">All Projects</button>
@@ -100,10 +100,10 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
         </div>
 
         <!-- Creative Grid Layout -->
-        <div class="grid grid-cols-1 md:grid-cols-12 auto-rows-min gap-x-6 gap-y-6" id="portfolio-grid">
+        <div class="grid grid-cols-1 md:grid-cols-12 auto-rows-min gap-3 md:gap-6" id="portfolio-grid">
 
   <!-- 1. HERO VERTICAL (Real Estate) -->
-  <div class="portfolio-item group col-span-1 md:col-span-8 row-span-2 overflow-hidden min-h-[500px] md:h-[700px] bg-zinc-200 rounded-[2rem] relative" data-category="real-state" style="display: block;">
+  <div class="portfolio-item group col-span-1 md:col-span-8 row-span-2 overflow-hidden min-h-[340px] md:h-[700px] bg-zinc-200 rounded-2xl md:rounded-[2rem] relative" data-category="real-state" style="display: block;">
 
     <!-- Imagen: BN → color + zoom -->
     <img src="images/portfolio/offcode.webp" loading="lazy" alt="Real Estate Project" class="group-hover:grayscale-0 transition-[filter,transform] duration-700 ease-out -translate-y-3 group-hover:scale-[1.6] cursor-pointer w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0 grayscale translate-x-14 scale-150" onclick="window.location.href='https://www.dropbox.com/scl/fi/y4ecx07w1ndzat43l5ot1/1.-Off-Code-Full-Version-4K-30FPS.mov?rlkey=aymd1xg3f5x1g59gr4tpq7txk&amp;st=wpa09eux&amp;dl=0'" role="button">
@@ -113,13 +113,13 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
     </div>
 
     <!-- Texto -->
-    <div class="absolute bottom-0 left-0 p-8 md:p-12 w-full z-20">
+    <div class="absolute bottom-0 left-0 p-5 md:p-12 w-full z-20">
       <div class="flex items-end justify-between">
         <div class="">
           <span class="inline-block text-xs text-white bg-black/20 border-white/30 border rounded-full mb-4 px-3 py-1 backdrop-blur-sm">
           Comercial
         </span>
-          <h3 class="md:text-5xl text-3xl text-white font-display mb-2 cursor-pointer" onclick="window.location.href='https://www.dropbox.com/scl/fi/y4ecx07w1ndzat43l5ot1/1.-Off-Code-Full-Version-4K-30FPS.mov?rlkey=aymd1xg3f5x1g59gr4tpq7txk&amp;st=wpa09eux&amp;dl=0'" role="button">
+          <h3 class="text-2xl md:text-5xl text-white font-display mb-2 cursor-pointer" onclick="window.location.href='https://www.dropbox.com/scl/fi/y4ecx07w1ndzat43l5ot1/1.-Off-Code-Full-Version-4K-30FPS.mov?rlkey=aymd1xg3f5x1g59gr4tpq7txk&amp;st=wpa09eux&amp;dl=0'" role="button">
             Off Code Los Angeles
           </h3>
           <p class="md:text-base text-sm font-light text-zinc-300 max-w-md">Men's Groomin &amp; Jewelry</p>
@@ -130,7 +130,7 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
   </div>
 
   <!-- 2. TALL PORTRAIT (Musical) -->
-  <div class="portfolio-item group relative col-span-1 md:col-span-4 row-span-2 rounded-[2rem] overflow-hidden bg-zinc-200 min-h-[500px] md:h-[700px]" data-category="Comercial" style="display: block;">
+  <div class="portfolio-item group relative col-span-1 md:col-span-4 row-span-2 rounded-2xl md:rounded-[2rem] overflow-hidden bg-zinc-200 min-h-[340px] md:h-[700px]" data-category="Comercial" style="display: block;">
     <!-- Imagen: inicia BN, vuelve a color + zoom on hover (del parent) -->
     <img src="images/portfolio/culto-apparel.webp" loading="lazy" alt="Culto Apparel" class="group-hover:grayscale-0 transition-[filter,transform] duration-700 ease-out group-hover:scale-105 w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0 grayscale">
 
@@ -139,7 +139,7 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
     </div>
 
     <!-- Contenido -->
-    <div class="absolute bottom-0 left-0 p-8 w-full z-20">
+    <div class="absolute bottom-0 left-0 p-5 md:p-8 w-full z-20">
       <span class="inline-block text-xs text-white bg-black/20 border-white/30 border rounded-full mb-3 px-3 py-1 backdrop-blur-sm">Comercial</span>
       <h3 class="md:text-3xl text-2xl text-white font-display mb-1">Culto Apparel</h3>
       <p class="text-sm font-light text-zinc-300">Contenido por temporadas</p>
@@ -147,28 +147,28 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
   </div>
 
   <!-- 3. HALF WIDTH (Comercial) -->
-  <div class="portfolio-item group relative col-span-1 md:col-span-6 rounded-[2rem] overflow-hidden bg-zinc-200 h-[400px]" data-category="comercial" style="display: block;">
-    <img src="images/portfolio/vmedia.webp" loading="lazy" alt="Commercial Project" class="absolute inset-0 w-full h-full object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-105 grayscale group-hover:grayscale-0">
+  <div class="portfolio-item group relative col-span-1 md:col-span-6 rounded-2xl md:rounded-[2rem] overflow-hidden bg-zinc-200 h-[280px] md:h-[400px]" data-category="comercial" style="display: block;">
+    <img src="images/portfolio/vmedia.png" loading="lazy" alt="Commercial Project" class="absolute inset-0 w-full h-full object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-105 grayscale group-hover:grayscale-0">
     <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none"></div>
     <div class="absolute inset-0 cursor-pointer" onclick="window.location.href='portafolio-vmedia.html'" role="button"></div>
-    <div class="absolute bottom-0 left-0 p-8 w-full">
+    <div class="absolute bottom-0 left-0 p-5 md:p-8 w-full">
       <span class="inline-block text-xs text-white bg-black/20 border-white/30 border rounded-full mb-3 px-3 py-1 backdrop-blur-sm">Comercial</span>
       <h3 class="text-2xl text-white font-display" onclick="window.location.href='portafolio-vmedia.html'" role="button">VMedia Group</h3>
     </div>
   </div>
 
   <!-- 4. HALF WIDTH (Eventos) -->
-  <div class="portfolio-item group relative col-span-1 md:col-span-6 rounded-[2rem] overflow-hidden bg-zinc-200 h-[400px]" data-category="eventos" style="display: block;">
-    <img src="images/portfolio/xignux.webp" loading="lazy" alt="Event Project" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+  <div class="portfolio-item group relative col-span-1 md:col-span-6 rounded-2xl md:rounded-[2rem] overflow-hidden bg-zinc-200 h-[280px] md:h-[400px]" data-category="eventos" style="display: block;">
+    <img src="images/portfolio/xignux.webp" loading="lazy" alt="Event Project" class="absolute inset-0 w-full h-full object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-105 grayscale group-hover:grayscale-0">
     <div class="bg-gradient-to-t from-black/50 to-transparent absolute top-0 right-0 bottom-0 left-0" onclick="window.location.href='portafolio-xignux.html'" role="button"></div>
-    <div class="absolute bottom-0 left-0 p-8 w-full">
+    <div class="absolute bottom-0 left-0 p-5 md:p-8 w-full">
       <span class="inline-block text-xs text-white bg-black/20 border-white/30 border rounded-full mb-3 px-3 py-1 backdrop-blur-sm">Institucional</span>
       <h3 class="text-2xl text-white font-display">Xignux Corporativo</h3>
     </div>
   </div>
 
   <!-- 5. FULL WIDTH CINEMATIC (Documentales) -->
-  <div class="portfolio-item group relative col-span-1 md:col-span-12 rounded-[2rem] overflow-hidden bg-zinc-900 h-[550px]" data-category="documentales" style="display: block;">
+  <div class="portfolio-item group relative col-span-1 md:col-span-12 rounded-2xl md:rounded-[2rem] overflow-hidden bg-zinc-900 h-[340px] md:h-[550px]" data-category="documentales" style="display: block;">
 
     <!-- Imagen: BN -> color + zoom -->
     <img src="images/portfolio/desafiando-gigante.webp" loading="lazy" alt="Documentary Project" class="grayscale group-hover:grayscale-0 transition-[filter,transform,opacity] duration-700 ease-out opacity-80 group-hover:opacity-100 w-full h-full object-cover absolute inset-0 group-hover:scale-105">
@@ -189,10 +189,10 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
     </div>
 
     <!-- Texto -->
-    <div class="md:p-12 z-20 w-full pt-8 pr-8 pb-8 pl-8 absolute bottom-0 left-0">
+    <div class="p-5 md:p-12 z-20 w-full absolute bottom-0 left-0">
       <span class="inline-block text-xs text-white bg-black/20 border-white/30 border rounded-full mb-3 px-3 py-1 backdrop-blur-sm">Documental</span>
-      <h3 class="md:text-6xl text-4xl text-white font-display mb-2">Desafiando el Gigante</h3>
-      <p class="text-lg font-light text-zinc-300 max-w-lg">
+      <h3 class="text-3xl md:text-6xl text-white font-display mb-2">Desafiando el Gigante</h3>
+      <p class="text-sm md:text-lg font-light text-zinc-300 max-w-lg">
         El reto de escalar la pared de roca más alta de México. Directed by: Vic Villagómez
       </p>
     </div>
@@ -200,20 +200,20 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
   </div>
 
   <!-- 6. SMALL (Institucional) -->
-  <div class="portfolio-item group relative col-span-1 md:col-span-4 h-[400px] rounded-[2rem] overflow-hidden bg-zinc-200" data-category="institucional" style="display: block;">
-  <img src="images/portfolio/dyson.webp" loading="lazy" alt="Institutional Project" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0">
+  <div class="portfolio-item group relative col-span-1 md:col-span-4 h-[280px] md:h-[400px] rounded-2xl md:rounded-[2rem] overflow-hidden bg-zinc-200" data-category="institucional" style="display: block;">
+  <img src="images/portfolio/dyson.webp" loading="lazy" alt="Institutional Project" class="absolute inset-0 w-full h-full object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-105 grayscale group-hover:grayscale-0">
   <div class="group-hover:bg-transparent transition-all duration-300 bg-black/40 absolute top-0 right-0 bottom-0 left-0">
   </div>
-  <div class="absolute bottom-0 left-0 p-8 w-full">
+  <div class="absolute bottom-0 left-0 p-5 md:p-8 w-full">
     <span class="inline-block text-xs text-white bg-black/20 border-white/30 border rounded-full mb-3 px-3 py-1 backdrop-blur-sm">Comercial</span>
     <h3 class="text-2xl text-white font-display">Dyson Amber Silk</h3>
   </div>
 </div>
 
   <!-- 7. WIDE (Comercial) -->
-  <div class="portfolio-item group relative col-span-1 md:col-span-8 rounded-[2rem] overflow-hidden bg-zinc-200 h-[400px]" data-category="comercial" style="display: block;">
+  <div class="portfolio-item group relative col-span-1 md:col-span-8 rounded-2xl md:rounded-[2rem] overflow-hidden bg-zinc-200 h-[280px] md:h-[400px]" data-category="comercial" style="display: block;">
 
-    <img src="images/portfolio/nyfw.webp" loading="lazy" alt="Commercial Project" class="grayscale group-hover:grayscale-0 transition-all duration-500 ease-out transition-transform duration-700 group-hover:scale-105 w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0">
+    <img src="images/portfolio/nyfw.webp" loading="lazy" alt="Commercial Project" class="grayscale group-hover:grayscale-0 transition-[filter,transform] duration-700 ease-out group-hover:scale-105 w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0">
 
     <div class="cursor-pointer bg-gradient-to-t from-black/50 to-transparent absolute top-0 right-0 bottom-0 left-0" onclick="window.location.href='https://www.dropbox.com/scl/fi/c1qzu4wh9c9c49t5ygin8/NYFW-Style-in-the-City.mov?rlkey=w3i0k2ucttk4p9h16cx9snurd&amp;st=i1axomkh&amp;dl=0'" role="button"></div>
 
@@ -221,14 +221,14 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
       <iconify-icon icon="logos:dropbox" width="18" height="17"></iconify-icon>
     </a>
 
-    <div class="absolute bottom-0 left-0 p-8 w-full">
+    <div class="absolute bottom-0 left-0 p-5 md:p-8 w-full">
       <span class="inline-block px-3 py-1 rounded-full border border-white/30 bg-black/20 backdrop-blur-sm text-xs text-white mb-3">Comercial</span>
-      <h3 class="text-3xl text-white font-display" onclick="window.location.href='https://www.dropbox.com/scl/fi/c1qzu4wh9c9c49t5ygin8/NYFW-Style-in-the-City.mov?rlkey=w3i0k2ucttk4p9h16cx9snurd&amp;st=i1axomkh&amp;dl=0'" role="button">NYFW 2023 • Style in the City</h3>
+      <h3 class="text-2xl md:text-3xl text-white font-display" onclick="window.location.href='https://www.dropbox.com/scl/fi/c1qzu4wh9c9c49t5ygin8/NYFW-Style-in-the-City.mov?rlkey=w3i0k2ucttk4p9h16cx9snurd&amp;st=i1axomkh&amp;dl=0'" role="button">NYFW 2023 • Style in the City</h3>
     </div>
   </div>
 
   <!-- 8. VERTICAL (Eventos) -->
-  <div class="portfolio-item group col-span-1 md:col-span-4 row-span-2 overflow-hidden bg-zinc-200 h-[730px] rounded-[2rem] relative" data-category="eventos" style="display: block;">
+  <div class="portfolio-item group col-span-1 md:col-span-4 row-span-2 overflow-hidden bg-zinc-200 h-[460px] md:h-[730px] rounded-2xl md:rounded-[2rem] relative" data-category="eventos" style="display: block;">
   <!-- Imagen: inicia BN, vuelve a color + zoom on hover (del parent) -->
   <img src="images/portfolio/practicas-arquitectura.webp" loading="lazy" alt="Eventos" class="group-hover:grayscale-0 transition-[filter,transform] duration-700 ease-out group-hover:scale-105 cursor-pointer w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0 grayscale" onclick="window.location.href='https://www.dropbox.com/scl/fi/80l7ocn2yiyf03tk4ssvd/1.-Pr-ctica-Arquitectura-1080p.mov?rlkey=qcf706d1st3if1rmhmrggydx5&amp;st=dn3oki3y&amp;dl=0'" role="button">
 
@@ -236,15 +236,15 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
   <div class="bg-black/20 absolute inset-0 pointer-events-none"></div>
 
   <!-- Texto -->
-  <div class="absolute bottom-0 left-0 p-8 w-full z-20">
+  <div class="absolute bottom-0 left-0 p-5 md:p-8 w-full z-20">
     <span class="inline-block text-xs text-white bg-black/20 border-white/30 border rounded-full mb-3 px-3 py-1 backdrop-blur-sm">Eventos</span>
-    <h3 class="cursor-pointer text-3xl text-white font-display" onclick="window.location.href='https://www.dropbox.com/scl/fi/80l7ocn2yiyf03tk4ssvd/1.-Pr-ctica-Arquitectura-1080p.mov?rlkey=qcf706d1st3if1rmhmrggydx5&amp;st=dn3oki3y&amp;dl=0'" role="button">Prácticas Arquitectura</h3>
+    <h3 class="cursor-pointer text-2xl md:text-3xl text-white font-display" onclick="window.location.href='https://www.dropbox.com/scl/fi/80l7ocn2yiyf03tk4ssvd/1.-Pr-ctica-Arquitectura-1080p.mov?rlkey=qcf706d1st3if1rmhmrggydx5&amp;st=dn3oki3y&amp;dl=0'" role="button">Prácticas Arquitectura</h3>
     <p class="text-sm text-zinc-300 mt-2">⭐️ Purpose-driven video.</p>
   </div>
 </div>
 
   <!-- 9. SQUARE (Comercial/Auto) -->
-  <div class="portfolio-item group relative col-span-1 md:col-span-4 h-[350px] rounded-[2rem] overflow-hidden bg-zinc-200" data-category="comercial" style="display: block;">
+  <div class="portfolio-item group relative col-span-1 md:col-span-4 h-[260px] md:h-[350px] rounded-2xl md:rounded-[2rem] overflow-hidden bg-zinc-200" data-category="comercial" style="display: block;">
 
   <!-- Imagen: inicia BN, vuelve a color + zoom on hover (del parent) -->
   <img src="images/portfolio/lexus-opening.webp" loading="lazy" alt="Auto" class="group-hover:grayscale-0 transition-[filter,transform] duration-700 ease-out group-hover:scale-105 w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0 grayscale" onclick="window.location.href='https://www.dropbox.com/scl/fi/yl4c3ekro9xa1ctod637m/1.-APERTURA-LEXUS.mp4?rlkey=iqlbel4vfx6h4xmlllg9fb2uj&amp;st=6wfl880v&amp;dl=0'" role="button">
@@ -260,7 +260,7 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
   </div>
 
   <!-- Texto -->
-  <div class="w-full p-8 absolute bottom-0 left-0 z-20">
+  <div class="w-full p-5 md:p-8 absolute bottom-0 left-0 z-20">
     <span class="inline-block text-xs text-white bg-black/40 border-white/30 border rounded-full mb-2 pt-1 pr-3 pb-1 pl-3 backdrop-blur-sm">Evento</span>
     <h3 class="text-xl text-white font-display" onclick="window.location.href='https://www.dropbox.com/scl/fi/yl4c3ekro9xa1ctod637m/1.-APERTURA-LEXUS.mp4?rlkey=iqlbel4vfx6h4xmlllg9fb2uj&amp;st=6wfl880v&amp;dl=0'" role="button">Lexus Opening</h3>
   </div>
@@ -268,41 +268,41 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
 </div>
 
   <!-- 10. SQUARE (Real Estate) -->
-  <div class="portfolio-item group relative col-span-1 md:col-span-4 h-[350px] rounded-[2rem] overflow-hidden bg-zinc-200" data-category="real-state" style="display: block;">
+  <div class="portfolio-item group relative col-span-1 md:col-span-4 h-[260px] md:h-[350px] rounded-2xl md:rounded-[2rem] overflow-hidden bg-zinc-200" data-category="real-state" style="display: block;">
   
-  <img src="images/portfolio/metropolitan.webp" loading="lazy" alt="Architecture" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0 cursor-pointer" onclick="window.location.href='https://www.dropbox.com/scl/fi/4ncfxo8xy8kv3wij1ta7b/1.-Departamento-Metropolitan.mov?rlkey=ci8101qe052i0zr4vkk8rkc84&amp;st=xowv3sog&amp;dl=0'" role="button">
+  <img src="images/portfolio/metropolitan.webp" loading="lazy" alt="Architecture" class="absolute inset-0 w-full h-full object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-105 grayscale group-hover:grayscale-0 cursor-pointer" onclick="window.location.href='https://www.dropbox.com/scl/fi/4ncfxo8xy8kv3wij1ta7b/1.-Departamento-Metropolitan.mov?rlkey=ci8101qe052i0zr4vkk8rkc84&amp;st=xowv3sog&amp;dl=0'" role="button">
 
   <div class="group-hover:bg-transparent transition-all duration-300 bg-black/40 absolute top-0 right-0 bottom-0 left-0 cursor-pointer" onclick="window.location.href='https://www.dropbox.com/scl/fi/4ncfxo8xy8kv3wij1ta7b/1.-Departamento-Metropolitan.mov?rlkey=ci8101qe052i0zr4vkk8rkc84&amp;st=xowv3sog&amp;dl=0'" role="button"></div>
 
-  <div class="absolute bottom-0 left-0 p-8 w-full">
+  <div class="absolute bottom-0 left-0 p-5 md:p-8 w-full">
     <span class="inline-block text-xs text-white bg-black/20 border-white/30 border rounded-full mb-3 px-3 py-1 backdrop-blur-sm">Real Estate</span>
     <h3 class="text-xl text-white font-display">Departamento Metropolitan</h3>
   </div>
 </div>
 
   <!-- 11. WIDE BANNER (Institucional) -->
-  <div class="portfolio-item group col-span-1 md:col-span-8 overflow-hidden bg-zinc-200 h-[350px] rounded-[2rem] relative" data-category="institucional" style="display: block;">
-    <img src="images/portfolio/lexus-voices.webp" loading="lazy" alt="Office" class="transition-transform duration-700 group-hover:scale-105 group-hover:grayscale-0 w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0 grayscale">
+  <div class="portfolio-item group col-span-1 md:col-span-8 overflow-hidden bg-zinc-200 h-[260px] md:h-[350px] rounded-2xl md:rounded-[2rem] relative" data-category="institucional" style="display: block;">
+    <img src="images/portfolio/lexus-voices.webp" loading="lazy" alt="Office" class="transition-[filter,transform] duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0 w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0 grayscale">
     <div class="group-hover:bg-black/10 transition-colors cursor-pointer bg-black/30 absolute top-0 right-0 bottom-0 left-0" onclick="window.location.href='https://www.dropbox.com/scl/fi/3offgmpss1pd1ibbu8mrv/LEXUS-_-Alberto-Sent-es-4K-V3.mp4?rlkey=gwp8myy1zsoixrf1ahtfbvggo&amp;st=3d3feqvi&amp;dl=0'" role="button"></div>
-    <div class="md:p-12 z-20 w-full pt-8 pr-8 pb-8 pl-8 absolute bottom-0 left-0">
+    <div class="p-5 md:p-12 z-20 w-full absolute bottom-0 left-0">
       <span class="inline-block text-xs text-white bg-black/20 border-white/30 border rounded-full mb-3 pt-1 pr-3 pb-1 pl-3 backdrop-blur-sm">Comercial</span>
-      <h3 class="md:text-3xl cursor-pointer text-4xl text-white font-display mb-2" onclick="window.location.href='https://www.dropbox.com/scl/fi/3offgmpss1pd1ibbu8mrv/LEXUS-_-Alberto-Sent-es-4K-V3.mp4?rlkey=gwp8myy1zsoixrf1ahtfbvggo&amp;st=3d3feqvi&amp;dl=0'" role="button">Lexus Voices • Alberto Sentiés</h3>
+      <h3 class="text-2xl md:text-3xl cursor-pointer text-white font-display mb-2" onclick="window.location.href='https://www.dropbox.com/scl/fi/3offgmpss1pd1ibbu8mrv/LEXUS-_-Alberto-Sent-es-4K-V3.mp4?rlkey=gwp8myy1zsoixrf1ahtfbvggo&amp;st=3d3feqvi&amp;dl=0'" role="button">Lexus Voices • Alberto Sentiés</h3>
 
     </div>
   </div>
 
   <!-- 12. SMALL VERTICAL (Fashion/Comercial) -->
-  <div class="portfolio-item group relative col-span-1 md:col-span-3 h-[450px] rounded-[2rem] overflow-hidden bg-zinc-200" data-category="comercial" style="display: block;">
-    <img src="images/portfolio/vogue-edit.webp" loading="lazy" alt="Fashion" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+  <div class="portfolio-item group relative col-span-1 md:col-span-3 h-[320px] md:h-[450px] rounded-2xl md:rounded-[2rem] overflow-hidden bg-zinc-200" data-category="comercial" style="display: block;">
+    <img src="images/portfolio/vogue-edit.webp" loading="lazy" alt="Fashion" class="absolute inset-0 w-full h-full object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-105 grayscale group-hover:grayscale-0">
     <div class="absolute bottom-0 left-0 p-6 w-full">
       <h3 class="text-xl text-white font-display">Vogue Edit</h3>
     </div>
   </div>
 
   <!-- 13. MEDIUM (Musical) -->
-  <div class="portfolio-item group relative col-span-1 md:col-span-5 h-[450px] rounded-[2rem] overflow-hidden bg-zinc-200" data-category="musical" style="display: block;">
+  <div class="portfolio-item group relative col-span-1 md:col-span-5 h-[320px] md:h-[450px] rounded-2xl md:rounded-[2rem] overflow-hidden bg-zinc-200" data-category="musical" style="display: block;">
   
-  <img src="images/portfolio/gala-marco.webp" loading="lazy" alt="Music" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0">
+  <img src="images/portfolio/gala-marco.webp" loading="lazy" alt="Music" class="absolute inset-0 w-full h-full object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-105 grayscale group-hover:grayscale-0">
 
   <!-- Overlay oscuro que desaparece -->
   <div class="group-hover:bg-transparent transition-all duration-300 bg-black/40 absolute inset-0"></div>
@@ -316,66 +316,66 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
   </div>
 
   <!-- Texto -->
-  <div class="absolute bottom-0 left-0 p-8 w-full">
+  <div class="absolute bottom-0 left-0 p-5 md:p-8 w-full">
     <span class="inline-block text-xs text-white bg-black/20 border-white/30 border rounded-full mb-3 px-3 py-1 backdrop-blur-sm">Musical</span>
     <h3 class="text-2xl text-white font-display">Gala Marco</h3>
   </div>
 </div>
 
   <!-- 14. MEDIUM (Documentales) -->
-  <div class="portfolio-item group col-span-1 md:col-span-4 overflow-hidden bg-zinc-200 h-[450px] rounded-[2rem] relative" data-category="documentales" style="display: block;">
-    <img src="images/portfolio/ancient-adornments.webp" loading="lazy" alt="Travel" class="transition-transform duration-700 group-hover:scale-105 w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0">
-    <div class="absolute bottom-0 left-0 p-8 w-full">
+  <div class="portfolio-item group col-span-1 md:col-span-4 overflow-hidden bg-zinc-200 h-[320px] md:h-[450px] rounded-2xl md:rounded-[2rem] relative" data-category="documentales" style="display: block;">
+    <img src="images/portfolio/ancient-adornments.png" loading="lazy" alt="Travel" class="transition-[filter,transform] duration-700 ease-out group-hover:scale-105 w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0 grayscale group-hover:grayscale-0">
+    <div class="absolute bottom-0 left-0 p-5 md:p-8 w-full">
       <h3 class="text-2xl text-white font-display">Ancient Adornments LA</h3>
       <p class="text-zinc-200 text-xs mt-1">Oaxaca, México</p>
     </div>
   </div>
 
   <!-- 15. LARGE HORIZONTAL (Eventos) -->
-  <div class="portfolio-item group col-span-1 md:col-span-7 overflow-hidden bg-zinc-200 h-[400px] rounded-[2rem] relative" data-category="comercial" style="display: block">
+  <div class="portfolio-item group col-span-1 md:col-span-7 overflow-hidden bg-zinc-200 h-[280px] md:h-[400px] rounded-2xl md:rounded-[2rem] relative" data-category="comercial" style="display: block">
 
   <img src="images/portfolio/tigres.webp" loading="lazy" alt="Conference" class="transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0 grayscale bg-center w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0">
 
   <div class="group-hover:bg-black/20 transition-all bg-black/40 absolute top-0 right-0 bottom-0 left-0" onclick="window.location.href='portafolio-tigres.html'" role="button"></div>
 
-  <div class="w-full pt-8 pr-8 pb-8 pl-8 absolute bottom-0 left-0">
+  <div class="w-full p-5 md:p-8 absolute bottom-0 left-0">
     <span class="inline-block text-xs text-white bg-black/20 border-white/30 border rounded-full mb-3 pt-1 pr-3 pb-1 pl-3 backdrop-blur-sm">Comercial</span>
-    <h3 class="text-3xl text-white font-display">TIGRES</h3>
+    <h3 class="text-2xl md:text-3xl text-white font-display">TIGRES</h3>
     <p class="text-zinc-300"></p>
   </div>
 </div>
 
   <!-- 16. SQUARE (Comercial) -->
-  <div class="portfolio-item group col-span-1 md:col-span-5 overflow-hidden bg-zinc-200 h-[400px] rounded-[2rem] relative scale-100" data-category="comercial" style="display: block;">
+  <div class="portfolio-item group col-span-1 md:col-span-5 overflow-hidden bg-zinc-200 h-[280px] md:h-[400px] rounded-2xl md:rounded-[2rem] relative scale-100" data-category="comercial" style="display: block;">
   <!-- Imagen: inicia BN, vuelve a color + zoom on hover (del parent) -->
   <img src="images/portfolio/found-u-lumnia.webp" loading="lazy" alt="Product" class="group-hover:grayscale-0 transition-[filter,transform] duration-700 ease-out group-hover:scale-110 w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0 grayscale scale-105" onclick="window.location.href='https://www.youtube.com/watch?v=KFpHgTBTPq4'" role="button">
 
   <!-- Texto -->
-  <div class="w-full p-8 absolute bottom-0 left-0 z-20">
+  <div class="w-full p-5 md:p-8 absolute bottom-0 left-0 z-20">
     <span class="inline-block text-xs text-white bg-black/20 border-white/30 border rounded-full mb-3 px-3 py-1 backdrop-blur-sm">Musical</span>
-    <h3 class="text-3xl text-white font-display cursor-pointer" onclick="window.location.href='https://www.youtube.com/watch?v=KFpHgTBTPq4'" role="button">Found U • Lumnia</h3>
+    <h3 class="text-2xl md:text-3xl text-white font-display cursor-pointer" onclick="window.location.href='https://www.youtube.com/watch?v=KFpHgTBTPq4'" role="button">Found U • Lumnia</h3>
     <p class="text-zinc-300">Music Video</p>
   </div>
 </div>
 
   <!-- 17. TALL (Documentales) -->
-  <div class="portfolio-item group relative col-span-1 md:col-span-4 h-[550px] rounded-[2rem] overflow-hidden bg-zinc-200" data-category="documentales" style="display: block;">
-    <img src="images/portfolio/chasing-waves.webp" loading="lazy" alt="Surfing" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+  <div class="portfolio-item group relative col-span-1 md:col-span-4 h-[360px] md:h-[550px] rounded-2xl md:rounded-[2rem] overflow-hidden bg-zinc-200" data-category="documentales" style="display: block;">
+    <img src="images/portfolio/chasing-waves.webp" loading="lazy" alt="Surfing" class="absolute inset-0 w-full h-full object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-105 grayscale group-hover:grayscale-0">
     <div class="absolute top-6 left-6">
       <span class="inline-block text-xs text-black bg-white/80 border-white/30 border rounded-full px-3 py-1 backdrop-blur-sm">Short Film</span>
     </div>
-    <div class="absolute bottom-0 left-0 p-8 w-full bg-gradient-to-t from-black/60 to-transparent">
-      <h3 class="text-3xl text-white font-display">Chasing Waves</h3>
+    <div class="absolute bottom-0 left-0 p-5 md:p-8 w-full bg-gradient-to-t from-black/60 to-transparent">
+      <h3 class="text-2xl md:text-3xl text-white font-display">Chasing Waves</h3>
     </div>
   </div>
 
   <!-- 18. WIDE (Real Estate) -->
-  <div class="portfolio-item group relative col-span-1 md:col-span-8 h-[550px] rounded-[2rem] overflow-hidden bg-zinc-200" data-category="real-state" style="display: block;">
-    <img src="images/portfolio/glass-house.webp" loading="lazy" alt="Modern House" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-    <div class="absolute bottom-0 right-0 p-10 w-full flex justify-end">
+  <div class="portfolio-item group relative col-span-1 md:col-span-8 h-[360px] md:h-[550px] rounded-2xl md:rounded-[2rem] overflow-hidden bg-zinc-200" data-category="real-state" style="display: block;">
+    <img src="images/portfolio/glass-house.webp" loading="lazy" alt="Modern House" class="absolute inset-0 w-full h-full object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-105 grayscale group-hover:grayscale-0">
+    <div class="absolute bottom-0 right-0 p-5 md:p-10 w-full flex justify-end">
       <div class="text-right">
-        <h3 class="text-4xl text-white font-display drop-shadow-lg">The Glass House</h3>
-        <p class="text-white font-medium text-lg drop-shadow-md">San Pedro, NL</p>
+        <h3 class="text-2xl md:text-4xl text-white font-display drop-shadow-lg">The Glass House</h3>
+        <p class="text-white font-medium text-base md:text-lg drop-shadow-md">San Pedro, NL</p>
       </div>
     </div>
   </div>
@@ -464,7 +464,7 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
         <div class="max-w-[1400px] mx-auto">
           <div class="flex flex-col md:flex-row justify-between items-start mb-24 gap-12">
             <div class="max-w-2xl">
-              <h2 class="leading-[0.95] md:text-7xl text-5xl font-light tracking-tighter font-sans mb-8">Ready to film<br class="">your next legend?</h2>
+              <h2 class="leading-[0.95] text-4xl md:text-7xl font-light tracking-tighter font-sans mb-8">Ready to film<br class="">your next legend?</h2>
               <a href="mailto:hello@breedstudio.com" class="inline-flex items-center gap-3 text-xl font-medium border-b border-black pb-1 hover:text-zinc-600 hover:border-zinc-400 transition-all">
                 hello@breedstudio.com
                 <iconify-icon icon="solar:arrow-right-linear" class=""></iconify-icon>

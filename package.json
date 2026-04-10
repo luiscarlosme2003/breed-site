@@ -5,5 +5,8 @@
   "scripts": {
     "dev": "npx serve site-files -l 3000",
     "start": "npx serve site-files -l 3000"
+  },
+  "dependencies": {
+    "sharp": "^0.34.5"
   }
 }
