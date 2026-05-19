@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth antialiased selection:bg-zinc-900 selection:text-white"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breed Studio | Culto Apparel</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Typography overrides */
+body { font-family: 'Inter', sans-serif; }
+h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.04em; }
+/* Hide Scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+/* Custom Animations */
+@keyframes fade-in-up {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.animate-enter { animation: fade-in-up 0.8s ease-out forwards; }
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1a1aa', 500: '#71717a', 600: '#52525b', 700: '#3f3f46', 800: '#27272a', 900: '#18181b', 950: '#09090b' },
+}
+}
+}
+};
+</script></head>
+<body class="bg-[#fafafa] text-zinc-900 overflow-x-hidden">
+
+    <!-- Navigation: Back Button -->
+    <nav class="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-start pointer-events-none">
+      <a href="portafolio.html" class="pointer-events-auto group flex items-center gap-2 bg-white/80 backdrop-blur-xl border border-zinc-200/60 rounded-full pl-3 pr-5 py-2.5 hover:bg-white hover:shadow-lg hover:shadow-zinc-200/50 transition-all duration-300">
+        <div class="bg-zinc-100 rounded-full p-1 group-hover:bg-zinc-900 group-hover:text-white transition-colors">
+            <iconify-icon icon="solar:arrow-left-linear" width="16" stroke-width="2"></iconify-icon>
+        </div>
+        <span class="text-sm font-medium text-zinc-600 group-hover:text-zinc-900">Regresar a Portafolio</span>
+      </a>
+
+      <!-- Optional: Share/Menu on right -->
+      <button class="pointer-events-auto bg-white/80 backdrop-blur-xl border border-zinc-200/60 rounded-full p-3 hover:bg-black hover:text-white transition-all duration-300">
+        <iconify-icon icon="solar:share-linear" width="20"></iconify-icon>
+      </button>
+    </nav>
+
+    <main class="min-h-screen pb-24">
+
+      <!-- Case Study Header -->
+      <section class="max-w-[1400px] mx-auto px-6 pt-32 md:pt-40 mb-12">
+        <div class="flex flex-col md:flex-row justify-between items-end gap-10 animate-enter">
+          <div class="max-w-3xl">
+            <div class="flex items-center gap-3 mb-6 text-sm font-medium text-zinc-400">
+                <span class="text-zinc-900">Comercial</span>
+                <span class="w-1 h-1 rounded-full bg-zinc-300"></span>
+                <span class="">2025</span>
+                <span class="w-1 h-1 rounded-full bg-zinc-300"></span>
+                <span class="">Production</span>
+            </div>
+            <h1 class="md:text-7xl lg:text-8xl leading-[0.9] text-5xl font-medium text-zinc-900 tracking-tighter font-display mb-8">Culto Apparel</h1>
+            <p class="md:text-xl leading-relaxed text-lg font-light text-zinc-500 max-w-2xl">Una marca que nace desde la autenticidad. Culto Apparel nos confió la creación de su contenido visual por temporadas — piezas que capturan la esencia de cada colección y conectan con su comunidad de manera genuina.</p>
+          </div>
+
+          <!-- Client Info / Credits -->
+          <div class="flex flex-col gap-6 min-w-[200px] pb-2">
+            <div class="">
+              <h4 class="uppercase text-xs font-semibold text-zinc-400 tracking-widest mb-1">Cliente</h4>
+              <p class="font-medium text-zinc-900">Culto Apparel</p>
+            </div>
+            <div class="">
+              <h4 class="uppercase text-xs font-semibold text-zinc-400 tracking-widest mb-1">Servicio</h4>
+              <p class="font-medium text-zinc-900">Contenido por Temporadas</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Premium Carousel Section -->
+      <section class="overflow-hidden select-none bg-white w-full pt-12 pb-24 relative" id="selected-works">
+    <style>
+        .culto-carousel-track {
+            display: flex;
+            align-items: center;
+            width: max-content;
+            will-change: transform;
+        }
+
+        .culto-card-wrapper {
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: transform, opacity;
+        }
+
+        .culto-active-card {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 10;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .culto-inactive-card {
+            opacity: 0.5;
+            transform: scale(0.95);
+            z-index: 1;
+            filter: grayscale(10%);
+        }
+
+        .culto-dot-active { background-color: #b45309; }
+    </style>
+
+    <!-- Section Header -->
+    <div class="max-w-[1400px] mx-auto px-6 mb-12 flex items-end justify-between">
+        <div class="">
+            <h2 class="text-3xl font-display font-medium tracking-tight text-zinc-900">Selected Works</h2>
+            <p class="text-zinc-500 mt-2 font-light text-lg">Una curaduría de nuestras producciones más recientes.</p>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="hidden md:flex gap-3">
+            <button id="cultoPrevBtn" class="w-12 h-12 rounded-full border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900 flex items-center justify-center transition-all duration-200" aria-label="Previous Project">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m12 19-7-7 7-7"></path>
+                    <path d="M19 12H5"></path>
+                </svg>
+            </button>
+            <button id="cultoNextBtn" class="hover:bg-zinc-50 hover:border-zinc-300 hover:text-zinc-900 flex transition-all duration-200 text-zinc-600 bg-white w-12 h-12 border-zinc-200 border rounded-full items-center justify-center" aria-label="Next Project">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Carousel Viewport -->
+    <div class="w-full overflow-hidden touch-pan-y" id="culto-carousel-viewport" style="cursor: grab;">
+        <div class="culto-carousel-track py-10" id="culto-track" style="transition: none;">
+
+            <!-- Card 1 -->
+            <div class="culto-carousel-item relative shrink-0 px-3 md:px-4 group">
+                <div class="culto-card-wrapper culto-inactive-card w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-900 border border-zinc-200/50 shadow-sm">
+                    <img src="images/portfolio/culto-apparel.webp" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Temporada SS25">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Lookbook</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Temporada SS25</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="culto-carousel-item relative shrink-0 px-3 md:px-4 group">
+                <div class="culto-card-wrapper culto-inactive-card w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm">
+                    <img src="images/portfolio/culto-apparel.webp" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" alt="Campaign Film">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Film</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Campaign Film</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="culto-carousel-item relative shrink-0 px-3 md:px-4 group">
+                <div class="culto-card-wrapper culto-inactive-card w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm">
+                    <img src="images/portfolio/culto-apparel.webp" class="w-full h-full object-cover object-bottom transition-transform duration-700 group-hover:scale-105" alt="Editorial">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Editorial</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Editorial Shoot</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="culto-carousel-item relative shrink-0 px-3 md:px-4 group">
+                <div class="culto-card-wrapper culto-inactive-card w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-900 border border-zinc-200/50 shadow-sm">
+                    <img src="images/portfolio/culto-apparel.webp" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Behind The Scenes">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">BTS</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Behind The Scenes</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="culto-carousel-item relative shrink-0 px-3 md:px-4 group">
+                <div class="culto-card-wrapper culto-inactive-card w-full aspect-[16/10] rounded-[1.5rem] overflow-hidden relative bg-zinc-100 border border-zinc-200/50 shadow-sm">
+                    <img src="images/portfolio/culto-apparel.webp" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" alt="Reels">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-zinc-300 text-xs font-semibold uppercase tracking-widest mb-2 block font-sans">Short Form</span>
+                        <h3 class="text-white text-3xl font-display font-medium tracking-tight">Reels Temporada</h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Pagination Dots -->
+    <div class="flex justify-center gap-2 mt-8" id="culto-dots-container">
+        <!-- Dots injected via JS -->
+    </div>
+
+    <script>
+        (function() {
+            const track = document.getElementById('culto-track');
+            const viewport = document.getElementById('culto-carousel-viewport');
+            const prevBtn = document.getElementById('cultoPrevBtn');
+            const nextBtn = document.getElementById('cultoNextBtn');
+            const dotsContainer = document.getElementById('culto-dots-container');
+
+            let items = Array.from(document.querySelectorAll('.culto-carousel-item'));
+            const originalCount = items.length;
+            const cloneCount = 2;
+            let currentIndex = cloneCount;
+            let isDragging = false;
+            let startPos = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            let animationID;
+            let itemWidth = 0;
+            let containerWidth = 0;
+
+            function init() {
+                for (let i = originalCount - cloneCount; i < originalCount; i++) {
+                    const clone = items[i].cloneNode(true);
+                    clone.classList.add('clone');
+                    track.insertBefore(clone, track.firstChild);
+                }
+                for (let i = 0; i < cloneCount; i++) {
+                    const clone = items[i].cloneNode(true);
+                    clone.classList.add('clone');
+                    track.appendChild(clone);
+                }
+
+                items = Array.from(document.querySelectorAll('.culto-carousel-item'));
+
+                dotsContainer.innerHTML = '';
+                for (let i = 0; i < originalCount; i++) {
+                    const dot = document.createElement('button');
+                    dot.className = `h-1.5 rounded-full transition-all duration-300 ${i === 0 ? 'culto-dot-active w-8' : 'bg-zinc-300 w-2 hover:bg-zinc-400'}`;
+                    dot.ariaLabel = `Go to slide ${i + 1}`;
+                    dot.onclick = () => goToIndex(i + cloneCount);
+                    dotsContainer.appendChild(dot);
+                }
+
+                updateDimensions();
+                setPositionByIndex(currentIndex, false);
+                updateVisuals();
+
+                window.addEventListener('resize', () => {
+                    updateDimensions();
+                    setPositionByIndex(currentIndex, false);
+                });
+
+                viewport.addEventListener('mousedown', touchStart);
+                viewport.addEventListener('touchstart', touchStart, { passive: true });
+                viewport.addEventListener('mousemove', touchMove);
+                viewport.addEventListener('touchmove', touchMove, { passive: true });
+                viewport.addEventListener('mouseup', touchEnd);
+                viewport.addEventListener('mouseleave', () => { if (isDragging) touchEnd(); });
+                viewport.addEventListener('touchend', touchEnd);
+
+                if (prevBtn) prevBtn.addEventListener('click', slidePrev);
+                if (nextBtn) nextBtn.addEventListener('click', slideNext);
+
+                track.addEventListener('transitionend', checkInfiniteLoop);
+            }
+
+            function updateDimensions() {
+                containerWidth = viewport.offsetWidth;
+                if (window.innerWidth < 640) {
+                    itemWidth = containerWidth * 0.85;
+                } else if (window.innerWidth < 1024) {
+                    itemWidth = containerWidth * 0.60;
+                } else {
+                    itemWidth = containerWidth * 0.40;
+                }
+                items.forEach(item => { item.style.width = `${itemWidth}px`; });
+            }
+
+            function touchStart(event) {
+                isDragging = true;
+                startPos = getPositionX(event);
+                animationID = requestAnimationFrame(animation);
+                viewport.style.cursor = 'grabbing';
+                track.style.transition = 'none';
+            }
+
+            function touchMove(event) {
+                if (isDragging) {
+                    const currentPosition = getPositionX(event);
+                    currentTranslate = prevTranslate + currentPosition - startPos;
+                }
+            }
+
+            function touchEnd() {
+                isDragging = false;
+                cancelAnimationFrame(animationID);
+                viewport.style.cursor = 'grab';
+                const movedBy = currentTranslate - prevTranslate;
+                if (movedBy < -50) { currentIndex += 1; }
+                else if (movedBy > 50) { currentIndex -= 1; }
+                setPositionByIndex(currentIndex, true);
+            }
+
+            function getPositionX(event) {
+                return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+            }
+
+            function animation() {
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                if (isDragging) requestAnimationFrame(animation);
+            }
+
+            function setPositionByIndex(index, useTransition = true) {
+                currentIndex = index;
+                const centerOffset = (containerWidth / 2) - (itemWidth / 2);
+                currentTranslate = -(index * itemWidth) + centerOffset;
+                prevTranslate = currentTranslate;
+                track.style.transition = useTransition ? 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)' : 'none';
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                updateVisuals();
+            }
+
+            function slideNext() { currentIndex++; setPositionByIndex(currentIndex, true); }
+            function slidePrev() { currentIndex--; setPositionByIndex(currentIndex, true); }
+            function goToIndex(index) { currentIndex = index; setPositionByIndex(currentIndex, true); }
+
+            function checkInfiniteLoop() {
+                if (currentIndex >= items.length - cloneCount) {
+                    currentIndex = cloneCount;
+                    setPositionByIndex(currentIndex, false);
+                } else if (currentIndex < cloneCount) {
+                    currentIndex = items.length - cloneCount - 1;
+                    setPositionByIndex(currentIndex, false);
+                }
+            }
+
+            function updateVisuals() {
+                let realIndex = currentIndex - cloneCount;
+                if (realIndex < 0) realIndex = originalCount + realIndex;
+                if (realIndex >= originalCount) realIndex = realIndex % originalCount;
+
+                const dots = Array.from(dotsContainer.children);
+                dots.forEach((dot, idx) => {
+                    if (idx === realIndex) {
+                        dot.classList.remove('bg-zinc-300', 'w-2');
+                        dot.classList.add('culto-dot-active', 'w-8');
+                    } else {
+                        dot.classList.add('bg-zinc-300', 'w-2');
+                        dot.classList.remove('culto-dot-active', 'w-8');
+                    }
+                });
+
+                items.forEach((item, idx) => {
+                    const wrapper = item.querySelector('.culto-card-wrapper');
+                    if (!wrapper) return;
+                    if (idx === currentIndex) {
+                        wrapper.classList.remove('culto-inactive-card');
+                        wrapper.classList.add('culto-active-card');
+                    } else {
+                        wrapper.classList.add('culto-inactive-card');
+                        wrapper.classList.remove('culto-active-card');
+                    }
+                });
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
+</section>
+
+      <!-- Minimal Footer -->
+      <footer class="mt-24 border-t border-zinc-200 pt-12">
+        <div class="max-w-[1400px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm text-zinc-500">
+             <div class="flex items-center gap-2 mb-4 md:mb-0">
+                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/256b2a20-064b-40f3-81a4-41741571b2fe_1600w.png" alt="BREED" class="w-auto h-3 opacity-40">
+                <span>© 2025</span>
+             </div>
+             <div class="flex gap-8">
+                <a href="portafolio.html" class="hover:text-black transition-colors">All Projects</a>
+                <a href="#" class="hover:text-black transition-colors">Services</a>
+                <a href="#" class="hover:text-black transition-colors">Contact</a>
+             </div>
+        </div>
+      </footer>
+
+    </main>
+</body></html>
