@@ -37,8 +37,11 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
 
     <!-- Navigation: Back Button -->
     <nav class="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-start pointer-events-none">
-      <a href="portafolio.html" class="pointer-events-auto flex items-center justify-center bg-white/80 backdrop-blur-xl border border-zinc-200/60 rounded-full p-3 hover:bg-black hover:text-white transition-all duration-300">
-        <iconify-icon icon="solar:arrow-left-linear" width="20"></iconify-icon>
+      <a href="portafolio.html" class="pointer-events-auto group flex items-center gap-3 bg-white/80 backdrop-blur-xl border border-zinc-200/60 rounded-full p-2 pr-5 hover:bg-white hover:shadow-lg hover:shadow-zinc-200/50 transition-all duration-300">
+        <div class="w-8 h-8 rounded-full bg-zinc-900 text-white flex items-center justify-center shrink-0">
+          <iconify-icon icon="solar:arrow-left-linear" width="16"></iconify-icon>
+        </div>
+        <span class="text-sm font-medium text-zinc-700 group-hover:text-zinc-900">Regresar a Portafolio</span>
       </a>
 
       <!-- Optional: Share/Menu on right -->
