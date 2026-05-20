@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth antialiased selection:bg-orange-500/20 selection:text-orange-900"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png">
 <title>Breed Studio | Portfolio</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
@@ -76,14 +77,14 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
         <div class="sticky z-40 -mx-6 bg-[#fafafa]/90 border-zinc-200/50 border-b mb-6 md:mb-12 pt-3 pr-6 pb-3 pl-6 top-16 md:top-20 backdrop-blur-md">
            <div class="max-w-[1400px] mx-auto overflow-x-auto no-scrollbar">
              <div class="flex items-center gap-2 md:gap-3 min-w-max" id="portfolio-filters">
-                <button class="filter-btn active group transition-all duration-300 hover:shadow-zinc-500/20 text-sm font-medium rounded-full pt-2.5 pr-6 pb-2.5 pl-6 relative" data-filter="all" style="">All Projects</button>
-                <button class="filter-btn group transition-all duration-300 hover:border-zinc-400 hover:text-black text-sm font-medium rounded-full pt-2.5 pr-6 pb-2.5 pl-6 relative" data-filter="eventos">
+                <button class="filter-btn active group relative px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 bg-black border border-black text-white hover:border-zinc-600" data-filter="all">All Projects</button>
+                <button class="filter-btn group relative px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 bg-white border border-zinc-200 text-zinc-600 hover:border-zinc-400 hover:text-black" data-filter="eventos">
                   Eventos
                 </button>
                 <button class="filter-btn group relative px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 bg-white border border-zinc-200 text-zinc-600 hover:border-zinc-400 hover:text-black" data-filter="institucional">
                   Institucional
                 </button>
-                <button class="filter-btn group transition-all duration-300 hover:border-zinc-400 hover:text-black text-sm font-medium rounded-full pt-2.5 pr-6 pb-2.5 pl-6 relative" data-filter="comercial">
+                <button class="filter-btn group relative px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 bg-white border border-zinc-200 text-zinc-600 hover:border-zinc-400 hover:text-black" data-filter="comercial">
                   Comercial
                 </button>
                 <button class="filter-btn group relative px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 bg-white border border-zinc-200 text-zinc-600 hover:border-zinc-400 hover:text-black" data-filter="musical">
@@ -395,11 +396,11 @@ zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1
               btn.addEventListener('click', () => {
                 // Update Active State
                 filterBtns.forEach(b => {
-                  b.classList.remove('bg-black', 'text-white', 'hover:shadow-lg');
-                  b.classList.add('bg-white', 'text-zinc-600', 'border', 'border-zinc-200');
+                  b.classList.remove('bg-black', 'text-white', 'border-black', 'hover:border-zinc-600');
+                  b.classList.add('bg-white', 'text-zinc-600', 'border-zinc-200');
                 });
-                btn.classList.remove('bg-white', 'text-zinc-600', 'border', 'border-zinc-200');
-                btn.classList.add('bg-black', 'text-white', 'hover:shadow-lg');
+                btn.classList.remove('bg-white', 'text-zinc-600', 'border-zinc-200');
+                btn.classList.add('bg-black', 'text-white', 'border-black', 'hover:border-zinc-600');
 
                 // Filter Items
                 const category = btn.getAttribute('data-filter');
