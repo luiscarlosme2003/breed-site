@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BREED — Calculadora de Cobertura</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface-2: #161616;
+    --surface-3: #1c1c1c;
+    --border: rgba(255,255,255,0.07);
+    --border-copper: rgba(184,115,51,0.35);
+    --copper: #B87333;
+    --copper-light: #d4935a;
+    --copper-dim: rgba(184,115,51,0.15);
+    --silver: #C0C0C0;
+    --silver-dim: #888888;
+    --white: #F5F5F5;
+    --white-muted: #999999;
+    --white-faint: #555555;
+    --text: #F0EEEB;
+    --text-muted: #888;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --transition: 160ms cubic-bezier(0.16,1,0.3,1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100dvh;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── HEADER ── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo svg { flex-shrink: 0; }
+
+  .logo-name {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--copper);
+  }
+
+  .logo-sep {
+    width: 1px;
+    height: 16px;
+    background: var(--border);
+    margin: 0 4px;
+  }
+
+  .logo-sub {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--white-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--white-muted);
+  }
+
+  .tec-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 11px;
+    color: var(--silver-dim);
+    letter-spacing: 0.03em;
+  }
+
+  .tec-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--copper);
+    opacity: 0.7;
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .page-title {
+    margin-bottom: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--copper);
+  }
+
+  .page-heading {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+  }
+
+  .page-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    max-width: 56ch;
+  }
+
+  /* ── GRID ── */
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 620px) {
+    .calc-grid { grid-template-columns: 1fr; }
+    header { padding: 16px 20px; }
+    main { padding: 28px 16px 60px; }
+    .logo-sub { display: none; }
+    .logo-sep { display: none; }
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    position: relative;
+    transition: border-color var(--transition);
+  }
+
+  .card:hover {
+    border-color: rgba(255,255,255,0.11);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .card-icon-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--copper-dim);
+    border: 1px solid var(--border-copper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.01em;
+    margin-bottom: 2px;
+  }
+
+  .card-rate {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .card-rate span {
+    color: var(--copper-light);
+    font-weight: 500;
+  }
+
+  /* ── DAYS ── */
+  .days-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white-faint);
+    margin-bottom: 10px;
+  }
+
+  .day-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .day-row:last-child { border-bottom: none; }
+
+  .day-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--silver-dim);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    width: 60px;
+    flex-shrink: 0;
+  }
+
+  /* ── STEPPER ── */
+  .stepper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--surface-2);
+  }
+
+  .stepper button {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--silver-dim);
+    font-size: 15px;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition), color var(--transition);
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .stepper button:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--white);
+  }
+
+  .stepper button:active {
+    background: rgba(255,255,255,0.1);
+  }
+
+  .stepper-val {
+    min-width: 38px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    font-variant-numeric: tabular-nums;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    padding: 0 4px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .day-subtotal {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--silver-dim);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    min-width: 60px;
+  }
+
+  .day-subtotal.has-value {
+    color: var(--copper-light);
+  }
+
+  /* ── TOGGLE (enable/disable day) ── */
+  .day-toggle {
+    width: 28px;
+    height: 16px;
+    background: var(--surface-3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    transition: background var(--transition), border-color var(--transition);
+    flex-shrink: 0;
+  }
+
+  .day-toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--white-faint);
+    transition: transform var(--transition), background var(--transition);
+  }
+
+  .day-toggle.active {
+    background: var(--copper-dim);
+    border-color: var(--border-copper);
+  }
+
+  .day-toggle.active::after {
+    transform: translateX(12px);
+    background: var(--copper);
+  }
+
+  .day-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  /* ── CARD FOOTER TOTAL ── */
+  .card-total-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  .card-total-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--white-muted);
+  }
+
+  .card-total-hrs {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+
+  .card-total-amount {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--copper-light);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── ENTREGABLES ── */
+  .card.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 620px) {
+    .deliverables-grid { grid-template-columns: 1fr; }
+  }
+
+  .deliverable-item {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: border-color var(--transition);
+  }
+
+  .deliverable-item:hover {
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .deliv-info { flex: 1; min-width: 0; }
+
+  .deliv-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .deliv-note {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .deliv-price-unit {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: right;
+    margin-bottom: 1px;
+  }
+
+  .deliv-total {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--copper-light);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .deliv-right { flex-shrink: 0; text-align: right; }
+
+  /* ── RESUMEN TOTAL ── */
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border-copper);
+    border-radius: var(--radius);
+    padding: 28px 28px 24px;
+    margin-top: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .summary-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--copper) 0%, transparent 100%);
+  }
+
+  .summary-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .summary-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 8px;
+  }
+
+  .summary-total {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--white);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .summary-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .summary-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 200px;
+  }
+
+  .breakdown-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    font-size: 12px;
+  }
+
+  .breakdown-label { color: var(--text-muted); }
+  .breakdown-val {
+    font-weight: 500;
+    color: var(--silver);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  .breakdown-row.highlight .breakdown-label { color: var(--white); }
+  .breakdown-row.highlight .breakdown-val { color: var(--copper-light); font-size: 13px; }
+
+  .breakdown-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 4px 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 11px;
+    color: var(--white-faint);
+    border-top: 1px solid var(--border);
+    letter-spacing: 0.04em;
+  }
+
+  footer span { color: var(--copper); }
+
+  /* ── TRANSITIONS ── */
+  .animated-num {
+    display: inline-block;
+    transition: opacity 120ms ease;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <!-- SVG logo BREED -->
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-label="Breed logo">
+      <rect width="28" height="28" rx="5" fill="#B87333" fill-opacity="0.15"/>
+      <rect x="0.5" y="0.5" width="27" height="27" rx="4.5" stroke="#B87333" stroke-opacity="0.4"/>
+      <path d="M7 8h5.5c1.8 0 3 1.1 3 2.6 0 1-.5 1.8-1.3 2.2 1.1.4 1.8 1.3 1.8 2.5 0 1.7-1.3 2.7-3.3 2.7H7V8Z" fill="#B87333"/>
+      <rect x="16" y="8" width="5" height="2" rx="1" fill="#B87333" fill-opacity="0.5"/>
+      <rect x="16" y="12" width="4" height="2" rx="1" fill="#B87333" fill-opacity="0.5"/>
+      <rect x="16" y="16" width="5" height="2" rx="1" fill="#B87333" fill-opacity="0.5"/>
+    </svg>
+    <span class="logo-name">BREED</span>
+    <div class="logo-sep"></div>
+    <span class="logo-sub">Calculadora de Cobertura</span>
+  </div>
+  <div class="tec-badge">
+    <div class="tec-dot"></div>
+    Tecnológico de Monterrey
+  </div>
+</header>
+
+<main>
+  <div class="page-title">Cotización de Servicios Audiovisuales</div>
+  <h1 class="page-heading">¿Cuánta cobertura necesitas?</h1>
+  <p class="page-desc">Selecciona los días y ajusta las horas de cobertura. El total se actualiza en tiempo real.</p>
+
+  <div class="calc-grid">
+
+    <!-- VIDEO CARD -->
+    <div class="card" id="videoCard">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="card-icon-wrap">📹</div>
+          <div>
+            <div class="card-title">Cobertura en Video</div>
+            <div class="card-rate">Tarifa: <span>$1,600</span> / hr</div>
+          </div>
+        </div>
+      </div>
+      <div class="days-label">Selección por día</div>
+      <div id="videoDays"></div>
+      <div class="card-total-bar">
+        <div>
+          <div class="card-total-label">Subtotal Video</div>
+          <div class="card-total-hrs" id="videoHrsLabel">0 hrs seleccionadas</div>
+        </div>
+        <div class="card-total-amount" id="videoTotal">$0</div>
+      </div>
+    </div>
+
+    <!-- FOTO CARD -->
+    <div class="card" id="fotoCard">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="card-icon-wrap">📷</div>
+          <div>
+            <div class="card-title">Cobertura Fotográfica</div>
+            <div class="card-rate">Tarifa: <span>$1,200</span> / hr</div>
+          </div>
+        </div>
+      </div>
+      <div class="days-label">Selección por día</div>
+      <div id="fotoDays"></div>
+      <div class="card-total-bar">
+        <div>
+          <div class="card-total-label">Subtotal Foto</div>
+          <div class="card-total-hrs" id="fotoHrsLabel">0 hrs seleccionadas</div>
+        </div>
+        <div class="card-total-amount" id="fotoTotal">$0</div>
+      </div>
+    </div>
+
+    <!-- ENTREGABLES CARD -->
+    <div class="card full-width">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="card-icon-wrap">🎬</div>
+          <div>
+            <div class="card-title">Entregables</div>
+            <div class="card-rate">Selecciona qué piezas incluir</div>
+          </div>
+        </div>
+      </div>
+      <div class="deliverables-grid" id="delivGrid"></div>
+    </div>
+
+  </div>
+
+  <!-- RESUMEN -->
+  <div class="summary-card">
+    <div class="summary-top">
+      <div>
+        <div class="summary-label">Total Estimado</div>
+        <div class="summary-total" id="grandTotal">$0</div>
+        <div class="summary-note">Precios en MXN · Sin IVA</div>
+      </div>
+      <div class="summary-breakdown" id="summaryBreakdown"></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span>BREED</span> · breed.mx · Cotización generada automáticamente · Válida por 30 días
+</footer>
+
+<script>
+const DAYS = ['Lunes','Martes','Miércoles','Jueves','Viernes'];
+const RATE_VIDEO = 1600;
+const RATE_FOTO  = 1200;
+
+const DELIVERABLES = [
+  { name:'Aftermovie General',  note:'Entrega al final del evento', price:25000, icon:'🎞', defaultQty:1 },
+  { name:'Highlight Reel',      note:'Entrega el mismo día',        price:2500,  icon:'✂️', defaultQty:5 },
+  { name:'Fotos del Día',       note:'Entrega el mismo día',        price:2500,  icon:'🖼', defaultQty:5 },
+];
+
+let videoHours = Array(5).fill(0);
+let videoActive = Array(5).fill(false);
+let fotoHours  = Array(5).fill(0);
+let fotoActive = Array(5).fill(false);
+let delivQty   = DELIVERABLES.map(d => d.defaultQty);
+let delivActive = Array(DELIVERABLES.length).fill(false);
+
+function fmt(n) {
+  return '$' + n.toLocaleString('es-MX');
+}
+
+function buildDays(containerId, activeArr, hoursArr, rate, labelId, totalId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  DAYS.forEach((day, i) => {
+    const row = document.createElement('div');
+    row.className = 'day-row';
+
+    const toggle = document.createElement('button');
+    toggle.className = 'day-toggle' + (activeArr[i] ? ' active' : '');
+    toggle.setAttribute('aria-label', (activeArr[i] ? 'Desactivar ' : 'Activar ') + day);
+    toggle.addEventListener('click', () => {
+      activeArr[i] = !activeArr[i];
+      if (!activeArr[i]) hoursArr[i] = 0;
+      else if (hoursArr[i] === 0) hoursArr[i] = 1;
+      buildDays(containerId, activeArr, hoursArr, rate, labelId, totalId);
+      updateTotals();
+    });
+
+    const dayName = document.createElement('div');
+    dayName.className = 'day-name';
+    dayName.textContent = day.substring(0,3).toUpperCase();
+
+    const controls = document.createElement('div');
+    controls.className = 'day-controls';
+
+    const stepper = document.createElement('div');
+    stepper.className = 'stepper';
+    stepper.style.opacity = activeArr[i] ? '1' : '0.3';
+    stepper.style.pointerEvents = activeArr[i] ? 'auto' : 'none';
+
+    const btnMinus = document.createElement('button');
+    btnMinus.textContent = '−';
+    btnMinus.setAttribute('aria-label', 'Reducir hora');
+    btmMinus.addEventListener('click', () => {
+      if (hoursArr[i] > 1) { hoursArr[i]--; buildDays(containerId, activeArr, hoursArr, rate, labelId, totalId); updateTotals(); }
+    });
+
+    const valDiv = document.createElement('div');
+    valDiv.className = 'stepper-val';
+    valDiv.textContent = hoursArr[i] + 'h';
+
+    const btnPlus = document.createElement('button');
+    btnPlus.textContent = '+';
+    btnPlus.setAttribute('aria-label', 'Aumentar hora');
+    btnPlus.addEventListener('click', () => {
+      if (hoursArr[i] < 24) { hoursArr[i]++; buildDays(containerId, activeArr, hoursArr, rate, labelId, totalId); updateTotals(); }
+    });
+
+    stepper.append(btnMinus, valDiv, btnPlus);
+
+    const subtotalDiv = document.createElement('div');
+    const sub = activeArr[i] ? hoursArr[i] * rate : 0;
+    subtotalDiv.className = 'day-subtotal' + (sub > 0 ? ' has-value' : '');
+    subtotalDiv.textContent = sub > 0 ? fmt(sub) : '—';
+
+    controls.append(stepper, subtotalDiv);
+    row.append(toggle, dayName, controls);
+    container.appendChild(row);
+  });
+}
+
+function buildDeliverables() {
+  const grid = document.getElementById('delivGrid');
+  grid.innerHTML = '';
+  DELIVERABLES.forEach((d, i) => {
+    const item = document.createElement('div');
+    item.className = 'deliverable-item';
+    item.style.cursor = 'pointer';
+    item.style.opacity = delivActive[i] ? '1' : '0.45';
+    item.style.borderColor = delivActive[i] ? 'rgba(184,115,51,0.4)' : '';
+    item.style.transition = 'opacity 160ms, border-color 160ms';
+
+    const info = document.createElement('div');
+    info.className = 'deliv-info';
+    const nameEl = document.createElement('div');
+    nameEl.className = 'deliv-name';
+    nameEl.textContent = d.icon + ' ' + d.name;
+    const noteEl = document.createElement('div');
+    noteEl.className = 'deliv-note';
+    noteEl.textContent = d.note;
+    info.append(nameEl, noteEl);
+
+    const right = document.createElement('div');
+    right.className = 'deliv-right';
+
+    const stepperW = document.createElement('div');
+    stepperW.className = 'stepper';
+    stepperW.style.opacity = delivActive[i] ? '1' : '0.3';
+    stepperW.style.pointerEvents = delivActive[i] ? 'auto' : 'none';
+    stepperW.style.marginBottom = '4px';
+
+    const bm = document.createElement('button');
+    bm.textContent = '−';
+    bm.setAttribute('aria-label', 'Reducir cantidad');
+    bm.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (delivQty[i] > 1) { delivQty[i]--; buildDeliverables(); updateTotals(); }
+    });
+    const vd = document.createElement('div');
+    vd.className = 'stepper-val';
+    vd.style.minWidth = '32px';
+    vd.textContent = 'x' + delivQty[i];
+    const bp = document.createElement('button');
+    bp.textContent = '+';
+    bp.setAttribute('aria-label', 'Aumentar cantidad');
+    bp.addEventListener('click', (e) => {
+      e.stopPropagation();
+      delivQty[i]++; buildDeliverables(); updateTotals();
+    });
+    stepperW.append(bm, vd, bp);
+
+    const priceUnit = document.createElement('div');
+    priceUnit.className = 'deliv-price-unit';
+    priceUnit.textContent = fmt(d.price) + ' c/u';
+
+    const total = document.createElement('div');
+    total.className = 'deliv-total';
+    total.textContent = delivActive[i] ? fmt(d.price * delivQty[i]) : '—';
+
+    right.append(stepperW, priceUnit, total);
+    item.append(info, right);
+
+    item.addEventListener('click', () => {
+      delivActive[i] = !delivActive[i];
+      buildDeliverables();
+      updateTotals();
+    });
+
+    grid.appendChild(item);
+  });
+}
+
+function updateTotals() {
+  const totalVideoHrs = videoHours.reduce((a, h, i) => a + (videoActive[i] ? h : 0), 0);
+  const totalFotoHrs  = fotoHours.reduce((a, h, i)  => a + (fotoActive[i]  ? h : 0), 0);
+  const totalVideo    = totalVideoHrs * RATE_VIDEO;
+  const totalFoto     = totalFotoHrs  * RATE_FOTO;
+  const totalDeliv    = DELIVERABLES.reduce((a, d, i) => a + (delivActive[i] ? d.price * delivQty[i] : 0), 0);
+  const grand         = totalVideo + totalFoto + totalDeliv;
+
+  document.getElementById('videoHrsLabel').textContent = totalVideoHrs + ' hr' + (totalVideoHrs !== 1 ? 's' : '') + ' seleccionada' + (totalVideoHrs !== 1 ? 's' : '');
+  document.getElementById('fotoHrsLabel').textContent  = totalFotoHrs  + ' hr' + (totalFotoHrs  !== 1 ? 's' : '') + ' seleccionada' + (totalFotoHrs  !== 1 ? 's' : '');
+  document.getElementById('videoTotal').textContent = fmt(totalVideo);
+  document.getElementById('fotoTotal').textContent  = fmt(totalFoto);
+  document.getElementById('grandTotal').textContent = fmt(grand);
+
+  const breakdown = document.getElementById('summaryBreakdown');
+  breakdown.innerHTML = '';
+  const rows = [
+    { label:'📹 Video (' + totalVideoHrs + ' hrs)', val: fmt(totalVideo), show: totalVideo > 0 },
+    { label:'📷 Foto (' + totalFotoHrs + ' hrs)',   val: fmt(totalFoto),  show: totalFoto  > 0 },
+  ];
+  DELIVERABLES.forEach((d, i) => {
+    rows.push({ label: d.icon + ' ' + d.name + ' ×' + delivQty[i], val: fmt(d.price * delivQty[i]), show: delivActive[i] });
+  });
+
+  const visible = rows.filter(r => r.show);
+  if (visible.length === 0) {
+    breakdown.innerHTML = '<div style="font-size:12px;color:var(--white-faint)">Selecciona días o entregables para ver el desglose.</div>';
+    return;
+  }
+
+  visible.forEach(r => {
+    const div = document.createElement('div');
+    div.className = 'breakdown-row';
+    div.innerHTML = '<span class="breakdown-label">' + r.label + '</span><span class="breakdown-val">' + r.val + '</span>';
+    breakdown.appendChild(div);
+  });
+
+  const divider = document.createElement('div');
+  divider.className = 'breakdown-divider';
+  breakdown.appendChild(divider);
+
+  const totalRow = document.createElement('div');
+  totalRow.className = 'breakdown-row highlight';
+  totalRow.innerHTML = '<span class="breakdown-label">Total estimado</span><span class="breakdown-val">' + fmt(grand) + '</span>';
+  breakdown.appendChild(totalRow);
+}
+
+// INIT
+buildDays('videoDays', videoActive, videoHours, RATE_VIDEO, 'videoHrsLabel', 'videoTotal');
+buildDays('fotoDays', fotoActive, fotoHours, RATE_FOTO, 'fotoHrsLabel', 'fotoTotal');
+buildDeliverables();
+updateTotals();
+</script>
+</body>
+</html>
