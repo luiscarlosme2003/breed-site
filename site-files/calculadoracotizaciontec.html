@@ -717,7 +717,7 @@ function buildDays(containerId, activeArr, hoursArr, rate, labelId, totalId) {
     const btnMinus = document.createElement('button');
     btnMinus.textContent = '−';
     btnMinus.setAttribute('aria-label', 'Reducir hora');
-    btmMinus.addEventListener('click', () => {
+    btnMinus.addEventListener('click', () => {
       if (hoursArr[i] > 1) { hoursArr[i]--; buildDays(containerId, activeArr, hoursArr, rate, labelId, totalId); updateTotals(); }
     });
 
