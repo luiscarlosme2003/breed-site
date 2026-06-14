@@ -8,6 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  (function(){ emailjs.init({ publicKey: 'YOUR_PUBLIC_KEY' }); })();
+</script>
 <style>
   :root {
     --bg: #0a0a0a;
@@ -279,7 +283,7 @@
   }
 
   .stepper button:active {
-    background: rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.1);
   }
 
   .stepper-val {
@@ -386,7 +390,7 @@
     letter-spacing: -0.01em;
   }
 
-  /* �─ ENTREGABLES ── */
+  /* ── ENTREGABLES ── */
   .card.full-width {
     grid-column: 1 / -1;
   }
@@ -883,15 +887,31 @@
 
   /* ── FOOTER ── */
   footer {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     padding: 24px;
     font-size: 11px;
     color: var(--white-faint);
     border-top: 1px solid var(--border);
     letter-spacing: 0.04em;
+    flex-wrap: wrap;
   }
 
-  footer span { color: var(--copper); }
+  footer .footer-logo {
+    height: 16px;
+    width: auto;
+    display: block;
+    opacity: 0.75;
+  }
+
+  footer a {
+    color: var(--copper);
+    text-decoration: none;
+  }
+
+  footer a:hover { text-decoration: underline; }
 
   /* ── TRANSITIONS ── */
   .animated-num {
@@ -932,7 +952,6 @@
           <div class="card-icon-wrap">📹</div>
           <div>
             <div class="card-title">Cobertura en Video</div>
-            <div class="card-rate">Tarifa: <span>$1,600</span> / hr</div>
           </div>
         </div>
       </div>
@@ -943,7 +962,6 @@
           <div class="card-total-label">Subtotal Video</div>
           <div class="card-total-hrs" id="videoHrsLabel">0 hrs seleccionadas</div>
         </div>
-        <div class="card-total-amount" id="videoTotal">$0</div>
       </div>
     </div>
 
@@ -954,7 +972,6 @@
           <div class="card-icon-wrap">📷</div>
           <div>
             <div class="card-title">Cobertura Fotográfica</div>
-            <div class="card-rate">Tarifa: <span>$1,200</span> / hr</div>
           </div>
         </div>
       </div>
@@ -965,7 +982,6 @@
           <div class="card-total-label">Subtotal Foto</div>
           <div class="card-total-hrs" id="fotoHrsLabel">0 hrs seleccionadas</div>
         </div>
-        <div class="card-total-amount" id="fotoTotal">$0</div>
       </div>
     </div>
 
@@ -989,9 +1005,9 @@
   <div class="summary-card">
     <div class="summary-top">
       <div>
-        <div class="summary-label">Total Estimado</div>
-        <div class="summary-total" id="grandTotal">$0</div>
-        <div class="summary-note">Precios en MXN · Sin IVA</div>
+        <div class="summary-label">Rango Estimado</div>
+        <div class="summary-total" id="grandTotal" style="font-size:26px;">—</div>
+        <div class="summary-note" id="grandTotalNote">Selecciona servicios para ver el estimado · Sin IVA</div>
       </div>
       <div class="summary-breakdown" id="summaryBreakdown"></div>
     </div>
@@ -1003,14 +1019,18 @@
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
         <path d="M15 5L7.5 12.5L3 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      Aprobar Presupuesto
+      Conocer Cotización Final
     </button>
-    <div class="approve-note">Al aprobar, BREED Studio recibirá una notificación con el desglose completo del presupuesto.</div>
+    <div class="approve-note">Al enviar, BREED Studio recibirá tu solicitud y te contactará con la cotización exacta.</div>
   </div>
 </main>
 
 <footer>
-  <span>BREED</span> · breed.mx · Cotización generada automáticamente · Válida por 30 días
+  <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/256b2a20-064b-40f3-81a4-41741571b2fe_1600w.png" alt="BREED" class="footer-logo">
+  <span>·</span>
+  <a href="https://breedstudio.com" target="_blank" rel="noopener">breedstudio.com</a>
+  <span>·</span>
+  Cotización generada automáticamente · Válida por 30 días
 </footer>
 
 <!-- MODAL -->
@@ -1019,8 +1039,8 @@
     <div id="modalFormContent">
       <div class="modal-header">
         <div>
-          <div class="modal-title">Confirmar Aprobación</div>
-          <div class="modal-subtitle">Completa tus datos para enviar la aprobación a BREED Studio</div>
+          <div class="modal-title">Solicitar Cotización Final</div>
+          <div class="modal-subtitle">Déjanos tus datos y BREED Studio te contactará con el precio exacto</div>
         </div>
         <button class="modal-close" onclick="closeApproveModal()">✕</button>
       </div>
@@ -1048,7 +1068,7 @@
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M11.5 3.5L5.75 9.25L2.5 6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            Confirmar y Aprobar
+            Enviar Solicitud
           </button>
         </div>
       </div>
@@ -1057,9 +1077,9 @@
     <div id="modalSuccessContent" style="display:none">
       <div class="modal-success">
         <div class="success-icon">✓</div>
-        <div class="success-title">¡Presupuesto Aprobado!</div>
+        <div class="success-title">¡Solicitud Enviada!</div>
         <div class="success-total" id="successTotal"></div>
-        <div class="success-desc">Tu aprobación fue enviada correctamente. El equipo de BREED Studio se pondrá en contacto contigo pronto.</div>
+        <div class="success-desc">Tu solicitud fue enviada correctamente. El equipo de BREED Studio se pondrá en contacto contigo con la cotización final.</div>
         <button class="btn-close-success" onclick="closeApproveModal()">Cerrar</button>
       </div>
     </div>
@@ -1138,12 +1158,7 @@ function buildDays(containerId, activeArr, hoursArr, rate, labelId, totalId) {
 
     stepper.append(btnMinus, valDiv, btnPlus);
 
-    const subtotalDiv = document.createElement('div');
-    const sub = activeArr[i] ? hoursArr[i] * rate : 0;
-    subtotalDiv.className = 'day-subtotal' + (sub > 0 ? ' has-value' : '');
-    subtotalDiv.textContent = sub > 0 ? fmt(sub) : '—';
-
-    controls.append(stepper, subtotalDiv);
+    controls.append(stepper);
     row.append(toggle, dayName, controls);
     container.appendChild(row);
   });
@@ -1199,15 +1214,7 @@ function buildDeliverables() {
     });
     stepperW.append(bm, vd, bp);
 
-    const priceUnit = document.createElement('div');
-    priceUnit.className = 'deliv-price-unit';
-    priceUnit.textContent = fmt(d.price) + ' c/u';
-
-    const total = document.createElement('div');
-    total.className = 'deliv-total';
-    total.textContent = delivActive[i] ? fmt(d.price * delivQty[i]) : '—';
-
-    right.append(stepperW, priceUnit, total);
+    right.append(stepperW);
     item.append(info, right);
 
     item.addEventListener('click', () => {
@@ -1230,18 +1237,26 @@ function updateTotals() {
 
   document.getElementById('videoHrsLabel').textContent = totalVideoHrs + ' hr' + (totalVideoHrs !== 1 ? 's' : '') + ' seleccionada' + (totalVideoHrs !== 1 ? 's' : '');
   document.getElementById('fotoHrsLabel').textContent  = totalFotoHrs  + ' hr' + (totalFotoHrs  !== 1 ? 's' : '') + ' seleccionada' + (totalFotoHrs  !== 1 ? 's' : '');
-  document.getElementById('videoTotal').textContent = fmt(totalVideo);
-  document.getElementById('fotoTotal').textContent  = fmt(totalFoto);
-  document.getElementById('grandTotal').textContent = fmt(grand);
+
+  const rangeLow  = Math.round(grand * 0.8);
+  const rangeHigh = Math.round(grand * 1.3);
+
+  if (grand === 0) {
+    document.getElementById('grandTotal').textContent = '—';
+    document.getElementById('grandTotalNote').textContent = 'Selecciona servicios para ver el estimado · Sin IVA';
+  } else {
+    document.getElementById('grandTotal').textContent = fmt(rangeLow) + ' – ' + fmt(rangeHigh);
+    document.getElementById('grandTotalNote').textContent = 'Estimado aproximado en MXN · Sin IVA · El precio final puede variar';
+  }
 
   const breakdown = document.getElementById('summaryBreakdown');
   breakdown.innerHTML = '';
   const rows = [
-    { label:'📹 Video (' + totalVideoHrs + ' hrs)', val: fmt(totalVideo), show: totalVideo > 0 },
-    { label:'📷 Foto (' + totalFotoHrs + ' hrs)',   val: fmt(totalFoto),  show: totalFoto  > 0 },
+    { label:'📹 Video (' + totalVideoHrs + ' hrs)', show: totalVideo > 0 },
+    { label:'📷 Foto (' + totalFotoHrs + ' hrs)',   show: totalFoto  > 0 },
   ];
   DELIVERABLES.forEach((d, i) => {
-    rows.push({ label: d.icon + ' ' + d.name + ' ×' + delivQty[i], val: fmt(d.price * delivQty[i]), show: delivActive[i] });
+    rows.push({ label: d.icon + ' ' + d.name + ' ×' + delivQty[i], show: delivActive[i] });
   });
 
   const visible = rows.filter(r => r.show);
@@ -1253,7 +1268,7 @@ function updateTotals() {
   visible.forEach(r => {
     const div = document.createElement('div');
     div.className = 'breakdown-row';
-    div.innerHTML = '<span class="breakdown-label">' + r.label + '</span><span class="breakdown-val">' + r.val + '</span>';
+    div.innerHTML = '<span class="breakdown-label">' + r.label + '</span>';
     breakdown.appendChild(div);
   });
 
@@ -1263,7 +1278,7 @@ function updateTotals() {
 
   const totalRow = document.createElement('div');
   totalRow.className = 'breakdown-row highlight';
-  totalRow.innerHTML = '<span class="breakdown-label">Total estimado</span><span class="breakdown-val">' + fmt(grand) + '</span>';
+  totalRow.innerHTML = '<span class="breakdown-label">Rango estimado</span><span class="breakdown-val" style="font-size:11px">' + fmt(rangeLow) + ' – ' + fmt(rangeHigh) + '</span>';
   breakdown.appendChild(totalRow);
 }
 
@@ -1306,10 +1321,15 @@ function getApprovalData() {
     if (delivActive[i]) lineItems.push({ label: d.icon + ' ' + d.name + ' ×' + delivQty[i], val: fmt(d.price * delivQty[i]) });
   });
 
+  const rangeLow  = Math.round(grand * 0.8);
+  const rangeHigh = Math.round(grand * 1.3);
+
   return {
     totalVideoHrs, totalFotoHrs, totalVideo, totalFoto, totalDeliv, grand,
     videoDaysStr, fotoDaysStr, delivStr, lineItems,
-    grandFmt: fmt(grand)
+    grandFmt: fmt(grand),
+    rangeLow, rangeHigh,
+    rangeFmt: fmt(rangeLow) + ' – ' + fmt(rangeHigh)
   };
 }
 
@@ -1326,12 +1346,12 @@ function openApproveModal() {
     data.lineItems.forEach(item => {
       const row = document.createElement('div');
       row.className = 'preview-row';
-      row.innerHTML = '<span>' + item.label + '</span><span>' + item.val + '</span>';
+      row.innerHTML = '<span>' + item.label + '</span>';
       previewRows.appendChild(row);
     });
     const totalRow = document.createElement('div');
     totalRow.className = 'preview-row total-row';
-    totalRow.innerHTML = '<span>Total General</span><span>' + data.grandFmt + '</span>';
+    totalRow.innerHTML = '<span>Rango Estimado</span><span style="font-size:12px">' + data.rangeFmt + '</span>';
     previewRows.appendChild(totalRow);
   }
 
@@ -1361,6 +1381,79 @@ function closeApproveModal() {
   setTimeout(() => { overlay.style.display = 'none'; }, 220);
 }
 
+function buildEmailHTML(name, company, data, dateStr, timeStr) {
+  const lineItemsHTML = data.lineItems.map(item =>
+    `<tr>
+      <td style="padding:8px 0;font-size:14px;color:#cccccc;border-bottom:1px solid #2a2a2a;">${item.label}</td>
+      <td style="padding:8px 0;font-size:14px;color:#d4935a;font-weight:600;text-align:right;border-bottom:1px solid #2a2a2a;">${item.val}</td>
+    </tr>`
+  ).join('');
+
+  return `<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#0a0a0a;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0a;padding:40px 20px;">
+    <tr><td align="center">
+      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:580px;background:#111111;border-radius:12px;border:1px solid #2a2a2a;overflow:hidden;">
+
+        <!-- Header stripe -->
+        <tr><td style="height:3px;background:linear-gradient(90deg,#B87333,#d4935a,transparent);"></td></tr>
+
+        <!-- Logo + heading -->
+        <tr><td style="padding:32px 36px 24px;">
+          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/256b2a20-064b-40f3-81a4-41741571b2fe_1600w.png" alt="BREED" height="24" style="display:block;margin-bottom:24px;opacity:0.9;">
+          <p style="margin:0 0 4px;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#B87333;">Nueva Solicitud de Cotización</p>
+          <h1 style="margin:0;font-size:22px;font-weight:700;color:#F0EEEB;letter-spacing:-0.02em;">TEC Monterrey</h1>
+          <p style="margin:6px 0 0;font-size:13px;color:#888;">${dateStr} · ${timeStr}</p>
+        </td></tr>
+
+        <!-- Client info -->
+        <tr><td style="padding:0 36px 24px;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#161616;border-radius:8px;border:1px solid #2a2a2a;">
+            <tr><td style="padding:16px 20px;">
+              <p style="margin:0 0 2px;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#555;">Cliente</p>
+              <p style="margin:0;font-size:15px;font-weight:600;color:#F0EEEB;">${name}</p>
+              ${company ? `<p style="margin:4px 0 0;font-size:13px;color:#888;">${company}</p>` : ''}
+            </td></tr>
+          </table>
+        </td></tr>
+
+        <!-- Line items -->
+        <tr><td style="padding:0 36px 24px;">
+          <p style="margin:0 0 12px;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#555;">Servicios Solicitados</p>
+          <table width="100%" cellpadding="0" cellspacing="0">
+            ${lineItemsHTML}
+          </table>
+        </td></tr>
+
+        <!-- Totals -->
+        <tr><td style="padding:0 36px 32px;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#161616;border-radius:8px;border:1px solid rgba(184,115,51,0.3);">
+            <tr><td style="padding:20px 20px 16px;">
+              <p style="margin:0 0 4px;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#B87333;">Precio Real Calculado</p>
+              <p style="margin:0;font-size:28px;font-weight:700;color:#F0EEEB;letter-spacing:-0.02em;">${data.grandFmt} MXN</p>
+            </td></tr>
+            <tr><td style="padding:0 20px 20px;border-top:1px solid #2a2a2a;">
+              <p style="margin:12px 0 4px;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#555;">Rango Mostrado al Cliente</p>
+              <p style="margin:0;font-size:18px;font-weight:600;color:#d4935a;">${data.rangeFmt} MXN</p>
+              <p style="margin:4px 0 0;font-size:11px;color:#555;">−20% / +30% sobre precio base · Sin IVA</p>
+            </td></tr>
+          </table>
+        </td></tr>
+
+        <!-- Footer -->
+        <tr><td style="padding:20px 36px;border-top:1px solid #1c1c1c;">
+          <p style="margin:0;font-size:11px;color:#555;text-align:center;">BREED Studio · <a href="https://breedstudio.com" style="color:#B87333;text-decoration:none;">breedstudio.com</a> · Cotización generada automáticamente</p>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+}
+
 async function submitApproval() {
   const name = document.getElementById('clientName').value.trim();
   const company = document.getElementById('clientCompany').value.trim();
@@ -1379,49 +1472,22 @@ async function submitApproval() {
   confirmBtn.disabled = true;
   confirmBtn.textContent = 'Enviando…';
 
-  // Build form data for Formsubmit.co
   const now = new Date();
   const dateStr = now.toLocaleDateString('es-MX', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
   const timeStr = now.toLocaleTimeString('es-MX', { hour:'2-digit', minute:'2-digit' });
 
-  const formData = new FormData();
-  formData.append('_subject', '✅ Presupuesto Aprobado — ' + name + (company ? ' · ' + company : '') + ' — ' + data.grandFmt);
-  formData.append('_template', 'box');
-  formData.append('_captcha', 'false');
-  formData.append('Cliente', name);
-  if (company) formData.append('Empresa', company);
-  formData.append('Fecha de Aprobación', dateStr + ' a las ' + timeStr);
-
-  if (data.totalVideoHrs > 0) {
-    formData.append('📹 Cobertura en Video', data.videoDaysStr + ' — ' + data.totalVideoHrs + ' hrs en total');
-    formData.append('Subtotal Video', data.grandFmt === data.grandFmt ? fmt(data.totalVideo) : fmt(data.totalVideo));
-  }
-  if (data.totalFotoHrs > 0) {
-    formData.append('📷 Cobertura Fotográfica', data.fotoDaysStr + ' — ' + data.totalFotoHrs + ' hrs en total');
-    formData.append('Subtotal Fotografía', fmt(data.totalFoto));
-  }
-  if (data.totalDeliv > 0) {
-    formData.append('🎬 Entregables', data.delivStr);
-    formData.append('Subtotal Entregables', fmt(data.totalDeliv));
-  }
-  formData.append('━━━━━━━━━━━━━━━━━━━━', '─────────────────');
-  formData.append('TOTAL GENERAL (Sin IVA)', data.grandFmt + ' MXN');
-  formData.append('Vigencia de la Cotización', 'Válida por 30 días a partir de la aprobación');
+  const htmlEmail = buildEmailHTML(name, company, data, dateStr, timeStr);
 
   try {
-    const res = await fetch('https://formsubmit.co/hello@breedstudio.com', {
-      method: 'POST',
-      body: formData
+    await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+      to_email: 'hello@breedstudio.com',
+      subject: '🎬 Nueva solicitud — ' + name + (company ? ' · ' + company : '') + ' — Tec Monterrey',
+      message_html: htmlEmail
     });
 
-    if (res.ok || res.status === 200 || res.redirected) {
-      // Show success
-      document.getElementById('modalFormContent').style.display = 'none';
-      document.getElementById('successTotal').textContent = data.grandFmt;
-      document.getElementById('modalSuccessContent').style.display = '';
-    } else {
-      throw new Error('HTTP ' + res.status);
-    }
+    document.getElementById('modalFormContent').style.display = 'none';
+    document.getElementById('successTotal').textContent = data.rangeFmt + ' MXN';
+    document.getElementById('modalSuccessContent').style.display = '';
   } catch (err) {
     confirmBtn.disabled = false;
     confirmBtn.innerHTML = `
@@ -1445,7 +1511,7 @@ document.addEventListener('keydown', function(e) {
 
 // INIT
 buildDays('videoDays', videoActive, videoHours, RATE_VIDEO, 'videoHrsLabel', 'videoTotal');
-buildDays('fotoDays', fotoActive, fotoHours, RATE_FOTO, 'fotoHrsLabel', 'fotoTotal');
+buildDays('fotoDays', fotoActive, fotoHours, RATE_FOTO, 'fotoHrsLabel','fotoTotal');
 buildDeliverables();
 updateTotals();
 </script>
