@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BREED — Calculadora de Cobertura</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  (function(){ emailjs.init({ publicKey: 'YOUR_PUBLIC_KEY' }); })();
+</script>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface-2: #161616;
+    --surface-3: #1c1c1c;
+    --border: rgba(255,255,255,0.07);
+    --border-copper: rgba(184,115,51,0.35);
+    --copper: #B87333;
+    --copper-light: #d4935a;
+    --copper-dim: rgba(184,115,51,0.15);
+    --silver: #C0C0C0;
+    --silver-dim: #888888;
+    --white: #F5F5F5;
+    --white-muted: #999999;
+    --white-faint: #555555;
+    --text: #F0EEEB;
+    --text-muted: #888;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --transition: 160ms cubic-bezier(0.16,1,0.3,1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100dvh;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── HEADER ── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-img {
+    height: 28px;
+    width: auto;
+    flex-shrink: 0;
+    display: block;
+  }
+
+  .logo-sep {
+    width: 1px;
+    height: 16px;
+    background: var(--border);
+    margin: 0 4px;
+  }
+
+  .logo-sub {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--white-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--white-muted);
+  }
+
+  .tec-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 11px;
+    color: var(--silver-dim);
+    letter-spacing: 0.03em;
+  }
+
+  .tec-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--copper);
+    opacity: 0.7;
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .page-title {
+    margin-bottom: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--copper);
+  }
+
+  .page-heading {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+  }
+
+  .page-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    max-width: 56ch;
+  }
+
+  /* ── GRID ── */
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 620px) {
+    .calc-grid { grid-template-columns: 1fr; }
+    header { padding: 16px 20px; }
+    main { padding: 28px 16px 60px; }
+    .logo-sub { display: none; }
+    .logo-sep { display: none; }
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    position: relative;
+    transition: border-color var(--transition);
+  }
+
+  .card:hover {
+    border-color: rgba(255,255,255,0.11);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .card-icon-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--copper-dim);
+    border: 1px solid var(--border-copper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.01em;
+    margin-bottom: 2px;
+  }
+
+  .card-rate {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .card-rate span {
+    color: var(--copper-light);
+    font-weight: 500;
+  }
+
+  /* ── DAYS ── */
+  .days-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white-faint);
+    margin-bottom: 10px;
+  }
+
+  .day-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .day-row:last-child { border-bottom: none; }
+
+  .day-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--silver-dim);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    width: 60px;
+    flex-shrink: 0;
+  }
+
+  /* ── STEPPER ── */
+  .stepper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--surface-2);
+  }
+
+  .stepper button {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--silver-dim);
+    font-size: 15px;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition), color var(--transition);
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .stepper button:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--white);
+  }
+
+  .stepper button:active {
+    background: rgba(255,255,255,0.1);
+  }
+
+  .stepper-val {
+    min-width: 38px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    font-variant-numeric: tabular-nums;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    padding: 0 4px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .day-subtotal {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--silver-dim);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    min-width: 60px;
+  }
+
+  .day-subtotal.has-value {
+    color: var(--copper-light);
+  }
+
+  /* ── TOGGLE (enable/disable day) ── */
+  .day-toggle {
+    width: 28px;
+    height: 16px;
+    background: var(--surface-3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    transition: background var(--transition), border-color var(--transition);
+    flex-shrink: 0;
+  }
+
+  .day-toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--white-faint);
+    transition: transform var(--transition), background var(--transition);
+  }
+
+  .day-toggle.active {
+    background: var(--copper-dim);
+    border-color: var(--border-copper);
+  }
+
+  .day-toggle.active::after {
+    transform: translateX(12px);
+    background: var(--copper);
+  }
+
+  .day-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  /* ── CARD FOOTER TOTAL ── */
+  .card-total-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  .card-total-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--white-muted);
+  }
+
+  .card-total-hrs {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+
+  .card-total-amount {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--copper-light);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── ENTREGABLES ── */
+  .card.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 620px) {
+    .deliverables-grid { grid-template-columns: 1fr; }
+  }
+
+  .deliverable-item {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: border-color var(--transition);
+  }
+
+  .deliverable-item:hover {
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .deliv-info { flex: 1; min-width: 0; }
+
+  .deliv-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .deliv-note {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .deliv-price-unit {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: right;
+    margin-bottom: 1px;
+  }
+
+  .deliv-total {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--copper-light);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .deliv-right { flex-shrink: 0; text-align: right; }
+
+  /* ── RESUMEN TOTAL ── */
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border-copper);
+    border-radius: var(--radius);
+    padding: 28px 28px 24px;
+    margin-top: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .summary-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--copper) 0%, transparent 100%);
+  }
+
+  .summary-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .summary-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 8px;
+  }
+
+  .summary-total {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--white);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .summary-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .summary-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 200px;
+  }
+
+  .breakdown-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    font-size: 12px;
+  }
+
+  .breakdown-label { color: var(--text-muted); }
+  .breakdown-val {
+    font-weight: 500;
+    color: var(--silver);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  .breakdown-row.highlight .breakdown-label { color: var(--white); }
+  .breakdown-row.highlight .breakdown-val { color: var(--copper-light); font-size: 13px; }
+
+  .breakdown-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 4px 0;
+  }
+
+  /* ── APPROVE SECTION ── */
+  .approve-section {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .approve-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #B87333 0%, #d4935a 100%);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: opacity var(--transition), transform var(--transition), box-shadow var(--transition);
+    box-shadow: 0 4px 20px rgba(184,115,51,0.35);
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+  }
+
+  .approve-btn:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 28px rgba(184,115,51,0.45);
+  }
+
+  .approve-btn:active {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .approve-btn svg {
+    flex-shrink: 0;
+  }
+
+  .approve-note {
+    font-size: 11px;
+    color: var(--white-faint);
+    text-align: center;
+    max-width: 360px;
+    line-height: 1.6;
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(8px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+
+  .modal-overlay.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal {
+    background: #141414;
+    border: 1px solid rgba(184,115,51,0.3);
+    border-radius: 14px;
+    width: 100%;
+    max-width: 520px;
+    overflow: hidden;
+    transform: translateY(12px) scale(0.98);
+    transition: transform 220ms cubic-bezier(0.16,1,0.3,1);
+    position: relative;
+  }
+
+  .modal-overlay.visible .modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .modal::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--copper) 0%, var(--copper-light) 60%, transparent 100%);
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 24px 24px 0;
+    gap: 12px;
+  }
+
+  .modal-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 3px;
+  }
+
+  .modal-subtitle {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .modal-close {
+    width: 28px;
+    height: 28px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--silver-dim);
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background var(--transition), color var(--transition);
+  }
+
+  .modal-close:hover {
+    background: rgba(255,255,255,0.09);
+    color: var(--white);
+  }
+
+  .modal-body {
+    padding: 20px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Fields */
+  .fields-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  @media (max-width: 480px) {
+    .fields-row { grid-template-columns: 1fr; }
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .field-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--white-faint);
+  }
+
+  .field-input {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 9px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--white);
+    outline: none;
+    transition: border-color var(--transition);
+    width: 100%;
+  }
+
+  .field-input::placeholder { color: var(--white-faint); }
+
+  .field-input:focus {
+    border-color: rgba(184,115,51,0.5);
+  }
+
+  .field-input.error {
+    border-color: rgba(220,60,60,0.6);
+  }
+
+  /* Modal budget preview */
+  .modal-budget-preview {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .preview-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white-faint);
+    margin-bottom: 4px;
+  }
+
+  .preview-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .preview-row.total-row {
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+    margin-top: 4px;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--white);
+  }
+
+  .preview-row.total-row span:last-child {
+    color: var(--copper-light);
+  }
+
+  .preview-empty {
+    font-size: 12px;
+    color: var(--white-faint);
+    text-align: center;
+    padding: 4px 0;
+  }
+
+  /* Modal actions */
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding-top: 4px;
+  }
+
+  .btn-cancel {
+    padding: 9px 18px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--silver-dim);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background var(--transition), color var(--transition);
+  }
+
+  .btn-cancel:hover {
+    background: rgba(255,255,255,0.05);
+    color: var(--white);
+  }
+
+  .btn-confirm {
+    padding: 9px 20px;
+    background: var(--copper);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: opacity var(--transition), background var(--transition);
+  }
+
+  .btn-confirm:hover { opacity: 0.88; }
+  .btn-confirm:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Success state */
+  .modal-success {
+    padding: 40px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .success-icon {
+    width: 56px;
+    height: 56px;
+    background: rgba(184,115,51,0.15);
+    border: 1px solid rgba(184,115,51,0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+
+  .success-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .success-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    max-width: 34ch;
+    line-height: 1.6;
+  }
+
+  .success-total {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--copper-light);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    margin: 4px 0;
+  }
+
+  .btn-close-success {
+    margin-top: 8px;
+    padding: 9px 24px;
+    background: rgba(184,115,51,0.15);
+    border: 1px solid rgba(184,115,51,0.35);
+    border-radius: var(--radius-sm);
+    color: var(--copper-light);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background var(--transition);
+  }
+
+  .btn-close-success:hover { background: rgba(184,115,51,0.22); }
+
+  /* ── FOOTER ── */
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px;
+    font-size: 11px;
+    color: var(--white-faint);
+    border-top: 1px solid var(--border);
+    letter-spacing: 0.04em;
+    flex-wrap: wrap;
+  }
+
+  footer .footer-logo {
+    height: 16px;
+    width: auto;
+    display: block;
+    opacity: 0.75;
+  }
+
+  footer a {
+    color: var(--copper);
+    text-decoration: none;
+  }
+
+  footer a:hover { text-decoration: underline; }
+
+  /* ── TRANSITIONS ── */
+  .animated-num {
+    display: inline-block;
+    transition: opacity 120ms ease;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img
+      src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/256b2a20-064b-40f3-81a4-41741571b2fe_1600w.png"
+      alt="BREED"
+      class="logo-img"
+    >
+    <div class="logo-sep"></div>
+    <span class="logo-sub">Calculadora de Cobertura</span>
+  </div>
+  <div class="tec-badge">
+    <div class="tec-dot"></div>
+    Tecnológico de Monterrey
+  </div>
+</header>
+
+<main>
+  <div class="page-title">Cotización de Servicios Audiovisuales</div>
+  <h1 class="page-heading">¿Cuánta cobertura necesitas?</h1>
+  <p class="page-desc">Selecciona los días y ajusta las horas de cobertura. El total se actualiza en tiempo real.</p>
+
+  <div class="calc-grid">
+
+    <!-- VIDEO CARD -->
+    <div class="card" id="videoCard">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="card-icon-wrap">📹</div>
+          <div>
+            <div class="card-title">Cobertura en Video</div>
+          </div>
+        </div>
+      </div>
+      <div class="days-label">Selección por día</div>
+      <div id="videoDays"></div>
+      <div class="card-total-bar">
+        <div>
+          <div class="card-total-label">Subtotal Video</div>
+          <div class="card-total-hrs" id="videoHrsLabel">0 hrs seleccionadas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOTO CARD -->
+    <div class="card" id="fotoCard">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="card-icon-wrap">📷</div>
+          <div>
+            <div class="card-title">Cobertura Fotográfica</div>
+          </div>
+        </div>
+      </div>
+      <div class="days-label">Selección por día</div>
+      <div id="fotoDays"></div>
+      <div class="card-total-bar">
+        <div>
+          <div class="card-total-label">Subtotal Foto</div>
+          <div class="card-total-hrs" id="fotoHrsLabel">0 hrs seleccionadas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENTREGABLES CARD -->
+    <div class="card full-width">
+      <div class="card-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="card-icon-wrap">🎬</div>
+          <div>
+            <div class="card-title">Entregables</div>
+            <div class="card-rate">Selecciona qué piezas incluir</div>
+          </div>
+        </div>
+      </div>
+      <div class="deliverables-grid" id="delivGrid"></div>
+    </div>
+
+  </div>
+
+  <!-- RESUMEN -->
+  <div class="summary-card">
+    <div class="summary-top">
+      <div>
+        <div class="summary-label">Rango Estimado</div>
+        <div class="summary-total" id="grandTotal" style="font-size:26px;">—</div>
+        <div class="summary-note" id="grandTotalNote">Selecciona servicios para ver el estimado · Sin IVA</div>
+      </div>
+      <div class="summary-breakdown" id="summaryBreakdown"></div>
+    </div>
+  </div>
+
+  <!-- APPROVE BUTTON -->
+  <div class="approve-section">
+    <button class="approve-btn" id="approveBtnMain" onclick="openApproveModal()">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M15 5L7.5 12.5L3 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Conocer Cotización Final
+    </button>
+    <div class="approve-note">Al enviar, BREED Studio recibirá tu solicitud y te contactará con la cotización exacta.</div>
+  </div>
+</main>
+
+<footer>
+  <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/256b2a20-064b-40f3-81a4-41741571b2fe_1600w.png" alt="BREED" class="footer-logo">
+  <span>·</span>
+  <a href="https://breedstudio.com" target="_blank" rel="noopener">breedstudio.com</a>
+  <span>·</span>
+  Cotización generada automáticamente · Válida por 30 días
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalBox">
+    <div id="modalFormContent">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title">Solicitar Cotización Final</div>
+          <div class="modal-subtitle">Déjanos tus datos y BREED Studio te contactará con el precio exacto</div>
+        </div>
+        <button class="modal-close" onclick="closeApproveModal()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="fields-row">
+          <div class="field-group">
+            <label class="field-label" for="clientName">Nombre *</label>
+            <input class="field-input" id="clientName" type="text" placeholder="Tu nombre completo" autocomplete="name">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="clientCompany">Empresa (opcional)</label>
+            <input class="field-input" id="clientCompany" type="text" placeholder="Nombre de empresa">
+          </div>
+        </div>
+
+        <div class="modal-budget-preview" id="modalPreview">
+          <div class="preview-label">Resumen del presupuesto aprobado</div>
+          <div id="previewRows"></div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeApproveModal()">Cancelar</button>
+          <button class="btn-confirm" id="confirmBtn" onclick="submitApproval()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M11.5 3.5L5.75 9.25L2.5 6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Enviar Solicitud
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="modalSuccessContent" style="display:none">
+      <div class="modal-success">
+        <div class="success-icon">✓</div>
+        <div class="success-title">¡Solicitud Enviada!</div>
+        <div class="success-total" id="successTotal"></div>
+        <div class="success-desc">Tu solicitud fue enviada correctamente. El equipo de BREED Studio se pondrá en contacto contigo con la cotización final.</div>
+        <button class="btn-close-success" onclick="closeApproveModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DAYS = ['Lunes','Martes','Miércoles','Jueves','Viernes'];
+const RATE_VIDEO = 1600;
+const RATE_FOTO  = 1200;
+
+const DELIVERABLES = [
+  { name:'Aftermovie General',  note:'Entrega al final del evento', price:25000, icon:'🎞', defaultQty:1 },
+  { name:'Highlight Reel',      note:'Entrega el mismo día',        price:2500,  icon:'✂️', defaultQty:5 },
+  { name:'Fotos del Día',       note:'Entrega el mismo día',        price:2500,  icon:'🖼', defaultQty:5 },
+];
+
+let videoHours = Array(5).fill(0);
+let videoActive = Array(5).fill(false);
+let fotoHours  = Array(5).fill(0);
+let fotoActive = Array(5).fill(false);
+let delivQty   = DELIVERABLES.map(d => d.defaultQty);
+let delivActive = Array(DELIVERABLES.length).fill(false);
+
+function fmt(n) {
+  return '$' + n.toLocaleString('es-MX');
+}
+
+function buildDays(containerId, activeArr, hoursArr, rate, labelId, totalId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  DAYS.forEach((day, i) => {
+    const row = document.createElement('div');
+    row.className = 'day-row';
+
+    const toggle = document.createElement('button');
+    toggle.className = 'day-toggle' + (activeArr[i] ? ' active' : '');
+    toggle.setAttribute('aria-label', (activeArr[i] ? 'Desactivar ' : 'Activar ') + day);
+    toggle.addEventListener('click', () => {
+      activeArr[i] = !activeArr[i];
+      if (!activeArr[i]) hoursArr[i] = 0;
+      else if (hoursArr[i] === 0) hoursArr[i] = 1;
+      buildDays(containerId, activeArr, hoursArr, rate, labelId, totalId);
+      updateTotals();
+    });
+
+    const dayName = document.createElement('div');
+    dayName.className = 'day-name';
+    dayName.textContent = day.substring(0,3).toUpperCase();
+
+    const controls = document.createElement('div');
+    controls.className = 'day-controls';
+
+    const stepper = document.createElement('div');
+    stepper.className = 'stepper';
+    stepper.style.opacity = activeArr[i] ? '1' : '0.3';
+    stepper.style.pointerEvents = activeArr[i] ? 'auto' : 'none';
+
+    const btnMinus = document.createElement('button');
+    btnMinus.textContent = '−';
+    btnMinus.setAttribute('aria-label', 'Reducir hora');
+    btnMinus.addEventListener('click', () => {
+      if (hoursArr[i] > 1) { hoursArr[i]--; buildDays(containerId, activeArr, hoursArr, rate, labelId, totalId); updateTotals(); }
+    });
+
+    const valDiv = document.createElement('div');
+    valDiv.className = 'stepper-val';
+    valDiv.textContent = hoursArr[i] + 'h';
+
+    const btnPlus = document.createElement('button');
+    btnPlus.textContent = '+';
+    btnPlus.setAttribute('aria-label', 'Aumentar hora');
+    btnPlus.addEventListener('click', () => {
+      if (hoursArr[i] < 24) { hoursArr[i]++; buildDays(containerId, activeArr, hoursArr, rate, labelId, totalId); updateTotals(); }
+    });
+
+    stepper.append(btnMinus, valDiv, btnPlus);
+
+    controls.append(stepper);
+    row.append(toggle, dayName, controls);
+    container.appendChild(row);
+  });
+}
+
+function buildDeliverables() {
+  const grid = document.getElementById('delivGrid');
+  grid.innerHTML = '';
+  DELIVERABLES.forEach((d, i) => {
+    const item = document.createElement('div');
+    item.className = 'deliverable-item';
+    item.style.cursor = 'pointer';
+    item.style.opacity = delivActive[i] ? '1' : '0.45';
+    item.style.borderColor = delivActive[i] ? 'rgba(184,115,51,0.4)' : '';
+    item.style.transition = 'opacity 160ms, border-color 160ms';
+
+    const info = document.createElement('div');
+    info.className = 'deliv-info';
+    const nameEl = document.createElement('div');
+    nameEl.className = 'deliv-name';
+    nameEl.textContent = d.icon + ' ' + d.name;
+    const noteEl = document.createElement('div');
+    noteEl.className = 'deliv-note';
+    noteEl.textContent = d.note;
+    info.append(nameEl, noteEl);
+
+    const right = document.createElement('div');
+    right.className = 'deliv-right';
+
+    const stepperW = document.createElement('div');
+    stepperW.className = 'stepper';
+    stepperW.style.opacity = delivActive[i] ? '1' : '0.3';
+    stepperW.style.pointerEvents = delivActive[i] ? 'auto' : 'none';
+    stepperW.style.marginBottom = '4px';
+
+    const bm = document.createElement('button');
+    bm.textContent = '−';
+    bm.setAttribute('aria-label', 'Reducir cantidad');
+    bm.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (delivQty[i] > 1) { delivQty[i]--; buildDeliverables(); updateTotals(); }
+    });
+    const vd = document.createElement('div');
+    vd.className = 'stepper-val';
+    vd.style.minWidth = '32px';
+    vd.textContent = 'x' + delivQty[i];
+    const bp = document.createElement('button');
+    bp.textContent = '+';
+    bp.setAttribute('aria-label', 'Aumentar cantidad');
+    bp.addEventListener('click', (e) => {
+      e.stopPropagation();
+      delivQty[i]++; buildDeliverables(); updateTotals();
+    });
+    stepperW.append(bm, vd, bp);
+
+    right.append(stepperW);
+    item.append(info, right);
+
+    item.addEventListener('click', () => {
+      delivActive[i] = !delivActive[i];
+      buildDeliverables();
+      updateTotals();
+    });
+
+    grid.appendChild(item);
+  });
+}
+
+function updateTotals() {
+  const totalVideoHrs = videoHours.reduce((a, h, i) => a + (videoActive[i] ? h : 0), 0);
+  const totalFotoHrs  = fotoHours.reduce((a, h, i)  => a + (fotoActive[i]  ? h : 0), 0);
+  const totalVideo    = totalVideoHrs * RATE_VIDEO;
+  const totalFoto     = totalFotoHrs  * RATE_FOTO;
+  const totalDeliv    = DELIVERABLES.reduce((a, d, i) => a + (delivActive[i] ? d.price * delivQty[i] : 0), 0);
+  const grand         = totalVideo + totalFoto + totalDeliv;
+
+  document.getElementById('videoHrsLabel').textContent = totalVideoHrs + ' hr' + (totalVideoHrs !== 1 ? 's' : '') + ' seleccionada' + (totalVideoHrs !== 1 ? 's' : '');
+  document.getElementById('fotoHrsLabel').textContent  = totalFotoHrs  + ' hr' + (totalFotoHrs  !== 1 ? 's' : '') + ' seleccionada' + (totalFotoHrs  !== 1 ? 's' : '');
+
+  const rangeLow  = Math.round(grand * 0.8);
+  const rangeHigh = Math.round(grand * 1.3);
+
+  if (grand === 0) {
+    document.getElementById('grandTotal').textContent = '—';
+    document.getElementById('grandTotalNote').textContent = 'Selecciona servicios para ver el estimado · Sin IVA';
+  } else {
+    document.getElementById('grandTotal').textContent = fmt(rangeLow) + ' – ' + fmt(rangeHigh);
+    document.getElementById('grandTotalNote').textContent = 'Estimado aproximado en MXN · Sin IVA · El precio final puede variar';
+  }
+
+  const breakdown = document.getElementById('summaryBreakdown');
+  breakdown.innerHTML = '';
+  const rows = [
+    { label:'📹 Video (' + totalVideoHrs + ' hrs)', show: totalVideo > 0 },
+    { label:'📷 Foto (' + totalFotoHrs + ' hrs)',   show: totalFoto  > 0 },
+  ];
+  DELIVERABLES.forEach((d, i) => {
+    rows.push({ label: d.icon + ' ' + d.name + ' ×' + delivQty[i], show: delivActive[i] });
+  });
+
+  const visible = rows.filter(r => r.show);
+  if (visible.length === 0) {
+    breakdown.innerHTML = '<div style="font-size:12px;color:var(--white-faint)">Selecciona días o entregables para ver el desglose.</div>';
+    return;
+  }
+
+  visible.forEach(r => {
+    const div = document.createElement('div');
+    div.className = 'breakdown-row';
+    div.innerHTML = '<span class="breakdown-label">' + r.label + '</span>';
+    breakdown.appendChild(div);
+  });
+
+  const divider = document.createElement('div');
+  divider.className = 'breakdown-divider';
+  breakdown.appendChild(divider);
+
+  const totalRow = document.createElement('div');
+  totalRow.className = 'breakdown-row highlight';
+  totalRow.innerHTML = '<span class="breakdown-label">Rango estimado</span><span class="breakdown-val" style="font-size:11px">' + fmt(rangeLow) + ' – ' + fmt(rangeHigh) + '</span>';
+  breakdown.appendChild(totalRow);
+}
+
+// ── APPROVAL MODAL ──
+
+function getApprovalData() {
+  const totalVideoHrs = videoHours.reduce((a, h, i) => a + (videoActive[i] ? h : 0), 0);
+  const totalFotoHrs  = fotoHours.reduce((a, h, i)  => a + (fotoActive[i]  ? h : 0), 0);
+  const totalVideo    = totalVideoHrs * RATE_VIDEO;
+  const totalFoto     = totalFotoHrs  * RATE_FOTO;
+  const totalDeliv    = DELIVERABLES.reduce((a, d, i) => a + (delivActive[i] ? d.price * delivQty[i] : 0), 0);
+  const grand         = totalVideo + totalFoto + totalDeliv;
+
+  // Video days detail
+  const videoDaysDetail = DAYS
+    .filter((_, i) => videoActive[i])
+    .map((day, _, arr) => {
+      const idx = DAYS.indexOf(arr[DAYS.indexOf(day)] || day);
+      const realIdx = DAYS.findIndex((d, i) => videoActive[i] && d === day);
+      return day + ' ' + videoHours[DAYS.indexOf(day)] + 'h';
+    }).join(', ') || 'Ninguno';
+
+  // Recalculate with correct indices
+  const videoDaysStr = DAYS
+    .map((day, i) => videoActive[i] ? day + ' ' + videoHours[i] + 'h' : null)
+    .filter(Boolean).join(', ') || 'Ninguno';
+
+  const fotoDaysStr = DAYS
+    .map((day, i) => fotoActive[i] ? day + ' ' + fotoHours[i] + 'h' : null)
+    .filter(Boolean).join(', ') || 'Ninguno';
+
+  const delivStr = DELIVERABLES
+    .map((d, i) => delivActive[i] ? d.name + ' x' + delivQty[i] + ' = ' + fmt(d.price * delivQty[i]) : null)
+    .filter(Boolean).join(' | ') || 'Ninguno';
+
+  const lineItems = [];
+  if (totalVideo > 0) lineItems.push({ label: '📹 Video (' + totalVideoHrs + ' hrs — ' + videoDaysStr + ')', val: fmt(totalVideo) });
+  if (totalFoto > 0)  lineItems.push({ label: '📷 Fotografía (' + totalFotoHrs + ' hrs — ' + fotoDaysStr + ')', val: fmt(totalFoto) });
+  DELIVERABLES.forEach((d, i) => {
+    if (delivActive[i]) lineItems.push({ label: d.icon + ' ' + d.name + ' ×' + delivQty[i], val: fmt(d.price * delivQty[i]) });
+  });
+
+  const rangeLow  = Math.round(grand * 0.8);
+  const rangeHigh = Math.round(grand * 1.3);
+
+  return {
+    totalVideoHrs, totalFotoHrs, totalVideo, totalFoto, totalDeliv, grand,
+    videoDaysStr, fotoDaysStr, delivStr, lineItems,
+    grandFmt: fmt(grand),
+    rangeLow, rangeHigh,
+    rangeFmt: fmt(rangeLow) + ' – ' + fmt(rangeHigh)
+  };
+}
+
+function openApproveModal() {
+  const data = getApprovalData();
+
+  // Populate preview
+  const previewRows = document.getElementById('previewRows');
+  previewRows.innerHTML = '';
+
+  if (data.lineItems.length === 0) {
+    previewRows.innerHTML = '<div class="preview-empty">No has seleccionado ningún servicio todavía.</div>';
+  } else {
+    data.lineItems.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'preview-row';
+      row.innerHTML = '<span>' + item.label + '</span>';
+      previewRows.appendChild(row);
+    });
+    const totalRow = document.createElement('div');
+    totalRow.className = 'preview-row total-row';
+    totalRow.innerHTML = '<span>Rango Estimado</span><span style="font-size:12px">' + data.rangeFmt + '</span>';
+    previewRows.appendChild(totalRow);
+  }
+
+  // Reset form state
+  document.getElementById('modalFormContent').style.display = '';
+  document.getElementById('modalSuccessContent').style.display = 'none';
+  document.getElementById('clientName').value = '';
+  document.getElementById('clientCompany').value = '';
+  document.getElementById('clientName').classList.remove('error');
+  document.getElementById('confirmBtn').disabled = false;
+  document.getElementById('confirmBtn').innerHTML = `
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M11.5 3.5L5.75 9.25L2.5 6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Confirmar y Aprobar`;
+
+  const overlay = document.getElementById('modalOverlay');
+  overlay.style.display = 'flex';
+  requestAnimationFrame(() => overlay.classList.add('visible'));
+
+  setTimeout(() => document.getElementById('clientName').focus(), 250);
+}
+
+function closeApproveModal() {
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.remove('visible');
+  setTimeout(() => { overlay.style.display = 'none'; }, 220);
+}
+
+function buildEmailHTML(name, company, data, dateStr, timeStr) {
+  const lineItemsHTML = data.lineItems.map(item =>
+    `<tr>
+      <td style="padding:8px 0;font-size:14px;color:#cccccc;border-bottom:1px solid #2a2a2a;">${item.label}</td>
+      <td style="padding:8px 0;font-size:14px;color:#d4935a;font-weight:600;text-align:right;border-bottom:1px solid #2a2a2a;">${item.val}</td>
+    </tr>`
+  ).join('');
+
+  return `<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#0a0a0a;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0a;padding:40px 20px;">
+    <tr><td align="center">
+      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:580px;background:#111111;border-radius:12px;border:1px solid #2a2a2a;overflow:hidden;">
+
+        <!-- Header stripe -->
+        <tr><td style="height:3px;background:linear-gradient(90deg,#B87333,#d4935a,transparent);"></td></tr>
+
+        <!-- Logo + heading -->
+        <tr><td style="padding:32px 36px 24px;">
+          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/256b2a20-064b-40f3-81a4-41741571b2fe_1600w.png" alt="BREED" height="24" style="display:block;margin-bottom:24px;opacity:0.9;">
+          <p style="margin:0 0 4px;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#B87333;">Nueva Solicitud de Cotización</p>
+          <h1 style="margin:0;font-size:22px;font-weight:700;color:#F0EEEB;letter-spacing:-0.02em;">TEC Monterrey</h1>
+          <p style="margin:6px 0 0;font-size:13px;color:#888;">${dateStr} · ${timeStr}</p>
+        </td></tr>
+
+        <!-- Client info -->
+        <tr><td style="padding:0 36px 24px;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#161616;border-radius:8px;border:1px solid #2a2a2a;">
+            <tr><td style="padding:16px 20px;">
+              <p style="margin:0 0 2px;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#555;">Cliente</p>
+              <p style="margin:0;font-size:15px;font-weight:600;color:#F0EEEB;">${name}</p>
+              ${company ? `<p style="margin:4px 0 0;font-size:13px;color:#888;">${company}</p>` : ''}
+            </td></tr>
+          </table>
+        </td></tr>
+
+        <!-- Line items -->
+        <tr><td style="padding:0 36px 24px;">
+          <p style="margin:0 0 12px;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#555;">Servicios Solicitados</p>
+          <table width="100%" cellpadding="0" cellspacing="0">
+            ${lineItemsHTML}
+          </table>
+        </td></tr>
+
+        <!-- Totals -->
+        <tr><td style="padding:0 36px 32px;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#161616;border-radius:8px;border:1px solid rgba(184,115,51,0.3);">
+            <tr><td style="padding:20px 20px 16px;">
+              <p style="margin:0 0 4px;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#B87333;">Precio Real Calculado</p>
+              <p style="margin:0;font-size:28px;font-weight:700;color:#F0EEEB;letter-spacing:-0.02em;">${data.grandFmt} MXN</p>
+            </td></tr>
+            <tr><td style="padding:0 20px 20px;border-top:1px solid #2a2a2a;">
+              <p style="margin:12px 0 4px;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#555;">Rango Mostrado al Cliente</p>
+              <p style="margin:0;font-size:18px;font-weight:600;color:#d4935a;">${data.rangeFmt} MXN</p>
+              <p style="margin:4px 0 0;font-size:11px;color:#555;">−20% / +30% sobre precio base · Sin IVA</p>
+            </td></tr>
+          </table>
+        </td></tr>
+
+        <!-- Footer -->
+        <tr><td style="padding:20px 36px;border-top:1px solid #1c1c1c;">
+          <p style="margin:0;font-size:11px;color:#555;text-align:center;">BREED Studio · <a href="https://breedstudio.com" style="color:#B87333;text-decoration:none;">breedstudio.com</a> · Cotización generada automáticamente</p>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+}
+
+async function submitApproval() {
+  const name = document.getElementById('clientName').value.trim();
+  const company = document.getElementById('clientCompany').value.trim();
+  const nameInput = document.getElementById('clientName');
+
+  if (!name) {
+    nameInput.classList.add('error');
+    nameInput.focus();
+    nameInput.placeholder = 'Este campo es obligatorio';
+    return;
+  }
+  nameInput.classList.remove('error');
+
+  const data = getApprovalData();
+  const confirmBtn = document.getElementById('confirmBtn');
+  confirmBtn.disabled = true;
+  confirmBtn.textContent = 'Enviando…';
+
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('es-MX', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  const timeStr = now.toLocaleTimeString('es-MX', { hour:'2-digit', minute:'2-digit' });
+
+  const htmlEmail = buildEmailHTML(name, company, data, dateStr, timeStr);
+
+  try {
+    await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+      to_email: 'hello@breedstudio.com',
+      subject: '🎬 Nueva solicitud — ' + name + (company ? ' · ' + company : '') + ' — Tec Monterrey',
+      message_html: htmlEmail
+    });
+
+    document.getElementById('modalFormContent').style.display = 'none';
+    document.getElementById('successTotal').textContent = data.rangeFmt + ' MXN';
+    document.getElementById('modalSuccessContent').style.display = '';
+  } catch (err) {
+    confirmBtn.disabled = false;
+    confirmBtn.innerHTML = `
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M11.5 3.5L5.75 9.25L2.5 6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Reintentar`;
+    alert('Hubo un error al enviar. Verifica tu conexión e intenta de nuevo.');
+  }
+}
+
+// Close on overlay click
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeApproveModal();
+});
+
+// Close on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeApproveModal();
+});
+
+// INIT
+buildDays('videoDays', videoActive, videoHours, RATE_VIDEO, 'videoHrsLabel', 'videoTotal');
+buildDays('fotoDays', fotoActive, fotoHours, RATE_FOTO, 'fotoHrsLabel','fotoTotal');
+buildDeliverables();
+updateTotals();
+</script>
+</body>
+</html>
