@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  (function(){ emailjs.init({ publicKey: 'YOUR_PUBLIC_KEY' }); })();
+  (function(){ emailjs.init({ publicKey: 'mNoIVuYsih4N8Yxa5' }); })();
 </script>
 <style>
   :root {
@@ -1479,7 +1479,7 @@ async function submitApproval() {
   const htmlEmail = buildEmailHTML(name, company, data, dateStr, timeStr);
 
   try {
-    await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+    await emailjs.send('service_ov1w6f9', 'template_bqc6gqq', {
       to_email: 'hello@breedstudio.com',
       subject: '🎬 Nueva solicitud — ' + name + (company ? ' · ' + company : '') + ' — Tec Monterrey',
       message_html: htmlEmail
