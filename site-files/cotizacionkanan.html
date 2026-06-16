@@ -800,76 +800,45 @@ document.getElementById('send-btn').addEventListener('click', function() {
   var rangeLow  = Math.round(totals.total * 0.8);
   var rangeHigh = Math.round(totals.total * 1.3);
   var postLabel = state.edition === 'visual' ? 'Post-prod con apoyo visual' : 'Post-prod sin apoyo visual';
-  var prodLabel = state.cameras === 1 ? 'Grabación 1 cámara' : 'Grabación 2 cámaras';
+  var prodLabel = state.cameras === 1 ? 'Grabacion 1 camara' : 'Grabacion 2 camaras';
 
-  var htmlEmail =
-    '<div style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;max-width:600px;margin:0 auto;background:#111111;color:#f5f5f5;border-radius:16px;overflow:hidden;border:1px solid #2a2a2a;">' +
-
-    // Header
-    '<div style="padding:32px 36px 28px;">' +
-    '<img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/256b2a20-064b-40f3-81a4-41741571b2fe_1600w.png" height="24" style="display:block;margin-bottom:24px;opacity:0.9;">' +
-    '<p style="margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#C8651B;">Nueva solicitud de cotización</p>' +
-    '<h1 style="margin:0 0 6px;font-size:26px;font-weight:800;color:#ffffff;letter-spacing:-0.02em;">KANAN × ASOFOM</h1>' +
-    '<p style="margin:0;font-size:13px;color:#6a6a6a;">' + dateStr + '</p>' +
-    '</div>' +
-
-    // Divider
-    '<div style="height:1px;background:#222222;margin:0 36px;"></div>' +
-
-    // Client card
-    '<div style="padding:24px 36px;">' +
-    '<div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:20px;">' +
-    '<p style="margin:0 0 10px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6a6a6a;">Cliente</p>' +
-    '<p style="margin:0 0 4px;font-size:16px;font-weight:700;color:#f5f5f5;">' + name + '</p>' +
-    '<p style="margin:0;font-size:13px;color:#9a9a9a;">' + email + '</p>' +
-    '</div>' +
-    '</div>' +
-
-    // Services
-    '<div style="padding:0 36px 24px;">' +
-    '<p style="margin:0 0 14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6a6a6a;">Servicios solicitados</p>' +
-
-    '<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #1e1e1e;">' +
-    '<span style="font-size:14px;color:#c0c0c0;">📋 Pre-producción</span>' +
-    '<span style="font-size:14px;font-weight:700;color:#f5f5f5;">$' + fmt(totals.pre) + '</span>' +
-    '</div>' +
-
-    '<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #1e1e1e;">' +
-    '<span style="font-size:14px;color:#c0c0c0;">🎥 ' + prodLabel + ' — ' + state.capsules + ' caps × 0.8 hrs</span>' +
-    '<span style="font-size:14px;font-weight:700;color:#f5f5f5;">$' + fmt(totals.prod) + '</span>' +
-    '</div>' +
-
-    '<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;">' +
-    '<span style="font-size:14px;color:#c0c0c0;">💻 ' + postLabel + ' × ' + state.capsules + '</span>' +
-    '<span style="font-size:14px;font-weight:700;color:#f5f5f5;">$' + fmt(totals.post) + '</span>' +
-    '</div>' +
-    '</div>' +
-
-    // Divider
-    '<div style="height:1px;background:#222222;margin:0 36px;"></div>' +
-
-    // Total block
-    '<div style="padding:24px 36px;">' +
-    '<div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:24px;">' +
-    '<p style="margin:0 0 8px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#C8651B;">Precio real calculado</p>' +
-    '<p style="margin:0 0 20px;font-size:38px;font-weight:900;color:#ffffff;letter-spacing:-0.03em;">$' + fmt(totals.total) + ' <span style="font-size:18px;font-weight:600;color:#6a6a6a;">MXN</span></p>' +
-    '<div style="height:1px;background:#2a2a2a;margin-bottom:20px;"></div>' +
-    '<p style="margin:0 0 8px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6a6a6a;">Rango mostrado al cliente</p>' +
-    '<p style="margin:0 0 4px;font-size:22px;font-weight:800;color:#C8651B;">$' + fmt(rangeLow) + ' – $' + fmt(rangeHigh) + ' MXN</p>' +
-    '<p style="margin:0;font-size:12px;color:#5a5a5a;">–20% / +30% sobre precio base · Sin IVA</p>' +
-    '</div>' +
-    '</div>' +
-
-    // Footer
-    '<div style="padding:20px 36px;border-top:1px solid #1e1e1e;text-align:center;">' +
-    '<p style="margin:0;font-size:12px;color:#5a5a5a;">BREED Studio · <a href="https://breedstudio.com" style="color:#C8651B;text-decoration:none;">breedstudio.com</a> · Cotización generada automáticamente</p>' +
-    '</div>' +
-
-    '</div>';
+  var logoUrl = 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/256b2a20-064b-40f3-81a4-41741571b2fe_1600w.png';
+  var s = ';'; var q = '"';
+  var H = [];
+  H.push('<div style=' + q + 'font-family:Arial,sans-serif' + s + 'max-width:600px' + s + 'margin:0 auto' + s + 'background:#111111' + s + 'color:#f5f5f5' + s + 'border-radius:16px' + s + 'overflow:hidden' + s + 'border:1px solid #2a2a2a' + q + '>');
+  H.push('<div style=' + q + 'padding:32px 36px 28px' + q + '>');
+  H.push('<img src=' + q + logoUrl + q + ' height=' + q + '24' + q + ' style=' + q + 'display:block' + s + 'margin-bottom:24px' + s + 'opacity:0.9' + q + '>');
+  H.push('<p style=' + q + 'margin:0 0 8px' + s + 'font-size:11px' + s + 'font-weight:700' + s + 'letter-spacing:0.12em' + s + 'text-transform:uppercase' + s + 'color:#C8651B' + q + '>Nueva solicitud de cotizacion</p>');
+  H.push('<h1 style=' + q + 'margin:0 0 6px' + s + 'font-size:26px' + s + 'font-weight:800' + s + 'color:#ffffff' + q + '>KANAN x ASOFOM</h1>');
+  H.push('<p style=' + q + 'margin:0' + s + 'font-size:13px' + s + 'color:#6a6a6a' + q + '>' + dateStr + '</p></div>');
+  H.push('<div style=' + q + 'height:1px' + s + 'background:#222222' + s + 'margin:0 36px' + q + '></div>');
+  H.push('<div style=' + q + 'padding:24px 36px' + q + '><div style=' + q + 'background:#1a1a1a' + s + 'border:1px solid #2a2a2a' + s + 'border-radius:12px' + s + 'padding:20px' + q + '>');
+  H.push('<p style=' + q + 'margin:0 0 10px' + s + 'font-size:10px' + s + 'font-weight:700' + s + 'letter-spacing:0.1em' + s + 'text-transform:uppercase' + s + 'color:#6a6a6a' + q + '>Cliente</p>');
+  H.push('<p style=' + q + 'margin:0 0 4px' + s + 'font-size:16px' + s + 'font-weight:700' + s + 'color:#f5f5f5' + q + '>' + name + '</p>');
+  H.push('<p style=' + q + 'margin:0' + s + 'font-size:13px' + s + 'color:#9a9a9a' + q + '>' + email + '</p></div></div>');
+  H.push('<div style=' + q + 'padding:0 36px 24px' + q + '>');
+  H.push('<p style=' + q + 'margin:0 0 14px' + s + 'font-size:10px' + s + 'font-weight:700' + s + 'letter-spacing:0.1em' + s + 'text-transform:uppercase' + s + 'color:#6a6a6a' + q + '>Servicios solicitados</p>');
+  var rowSt = 'display:flex' + s + 'justify-content:space-between' + s + 'padding:14px 0' + s + 'border-bottom:1px solid #1e1e1e';
+  var lastSt = 'display:flex' + s + 'justify-content:space-between' + s + 'padding:14px 0';
+  var lSt = 'font-size:14px' + s + 'color:#c0c0c0'; var aSt = 'font-size:14px' + s + 'font-weight:700' + s + 'color:#f5f5f5';
+  H.push('<div style=' + q + rowSt + q + '><span style=' + q + lSt + q + '>Pre-produccion</span><span style=' + q + aSt + q + '>$' + fmt(totals.pre) + '</span></div>');
+  H.push('<div style=' + q + rowSt + q + '><span style=' + q + lSt + q + '>' + prodLabel + ' x ' + state.capsules + ' caps</span><span style=' + q + aSt + q + '>$' + fmt(totals.prod) + '</span></div>');
+  H.push('<div style=' + q + lastSt + q + '><span style=' + q + lSt + q + '>' + postLabel + ' x ' + state.capsules + '</span><span style=' + q + aSt + q + '>$' + fmt(totals.post) + '</span></div></div>');
+  H.push('<div style=' + q + 'height:1px' + s + 'background:#222222' + s + 'margin:0 36px' + q + '></div>');
+  H.push('<div style=' + q + 'padding:24px 36px' + q + '><div style=' + q + 'background:#1a1a1a' + s + 'border:1px solid #2a2a2a' + s + 'border-radius:12px' + s + 'padding:24px' + q + '>');
+  H.push('<p style=' + q + 'margin:0 0 8px' + s + 'font-size:10px' + s + 'font-weight:700' + s + 'text-transform:uppercase' + s + 'color:#C8651B' + q + '>Precio real calculado</p>');
+  H.push('<p style=' + q + 'margin:0 0 20px' + s + 'font-size:38px' + s + 'font-weight:900' + s + 'color:#ffffff' + q + '>$' + fmt(totals.total) + ' MXN</p>');
+  H.push('<div style=' + q + 'height:1px' + s + 'background:#2a2a2a' + s + 'margin-bottom:20px' + q + '></div>');
+  H.push('<p style=' + q + 'margin:0 0 8px' + s + 'font-size:10px' + s + 'font-weight:700' + s + 'text-transform:uppercase' + s + 'color:#6a6a6a' + q + '>Rango mostrado al cliente</p>');
+  H.push('<p style=' + q + 'margin:0 0 4px' + s + 'font-size:22px' + s + 'font-weight:800' + s + 'color:#C8651B' + q + '>$' + fmt(rangeLow) + ' - $' + fmt(rangeHigh) + ' MXN</p>');
+  H.push('<p style=' + q + 'margin:0' + s + 'font-size:12px' + s + 'color:#5a5a5a' + q + '>-20% / +30% sobre precio base - Sin IVA</p></div></div>');
+  H.push('<div style=' + q + 'padding:20px 36px' + s + 'border-top:1px solid #1e1e1e' + s + 'text-align:center' + q + '>');
+  H.push('<p style=' + q + 'margin:0' + s + 'font-size:12px' + s + 'color:#5a5a5a' + q + '>BREED Studio - breedstudio.com - Cotizacion generada automaticamente</p></div></div>');
+  var htmlEmail = H.join('');
 
   emailjs.send('service_ov1w6f9', 'template_bqc6gqq', {
     to_email: 'luiscarlos@breedstudio.com',
-    subject: '🎬 Cotización KANAN × ASOFOM — ' + name,
+    subject: 'Cotizacion KANAN x ASOFOM - ' + name,
     message_html: htmlEmail
   }).then(function() {
     st.className = 'form-status success';
