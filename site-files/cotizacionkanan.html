@@ -679,10 +679,9 @@ function update() {
   document.getElementById('m-cap').textContent = s.capsules + ' cápsulas';
   document.getElementById('m-total').textContent = '$' + fmt(totals.total) + ' MXN';
 
-  // mailto
+  // mailto (mail-link in result panel)
   var href = buildMailto(totals);
   document.getElementById('mail-link').href = href;
-  document.getElementById('modal-mail').href = href;
 }
 
 function setSliderFill(val) {
