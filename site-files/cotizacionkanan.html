@@ -300,65 +300,10 @@ input[type="range"]:active::-webkit-slider-thumb { transform:scale(1.15); cursor
       <!-- CONFIG -->
       <div class="config-stack">
 
-        <!-- CARD 1: EDICIÓN -->
+        <!-- CARD 1: CÁMARAS -->
         <div class="config-card anim">
           <div class="config-card-header">
             <div class="config-step" aria-hidden="true">1</div>
-            <h2 class="config-card-title">Tipo de edición</h2>
-            <span class="config-card-sub">Selecciona uno</span>
-          </div>
-          <div class="config-card-body">
-            <fieldset style="border:none;padding:0;margin:0;">
-              <legend class="sr-only">Tipo de edición</legend>
-              <div class="edition-grid">
-
-                <label class="edition-option" for="ed-visual">
-                  <input type="radio" id="ed-visual" name="edition" value="visual" checked>
-                  <div class="edition-card">
-                    <div class="edition-icon">🎨</div>
-                    <div class="edition-name">Con apoyo visual</div>
-                    <div class="edition-desc">Gráficos animados, títulos en pantalla, lower thirds, transiciones de marca, integración de slides.</div>
-                    <div class="edition-includes">
-                      <div class="inc-item">Screen recording / slides integrados</div>
-                      <div class="inc-item">Lower thirds animados</div>
-                      <div class="inc-item">Motion graphics de marca</div>
-                      <div class="inc-item">Subtitulado</div>
-                    </div>
-                    <div class="edition-price">$5,500 / cápsula</div>
-                  </div>
-                  <div class="edition-check" aria-hidden="true">
-                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </div>
-                </label>
-
-                <label class="edition-option" for="ed-basic">
-                  <input type="radio" id="ed-basic" name="edition" value="basic">
-                  <div class="edition-card">
-                    <div class="edition-icon">✂️</div>
-                    <div class="edition-name">Sin apoyo visual</div>
-                    <div class="edition-desc">Edición limpia: cortes, musicalización, corrección de color y audio limpio. Sin gráficos adicionales.</div>
-                    <div class="edition-includes">
-                      <div class="inc-item">Cortes y timing profesional</div>
-                      <div class="inc-item">Corrección de color</div>
-                      <div class="inc-item">Limpieza y mezcla de audio</div>
-                      <div class="inc-item">Subtitulado</div>
-                    </div>
-                    <div class="edition-price">$3,000 / cápsula</div>
-                  </div>
-                  <div class="edition-check" aria-hidden="true">
-                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </div>
-                </label>
-
-              </div>
-            </fieldset>
-          </div>
-        </div>
-
-        <!-- CARD 2: CÁMARAS -->
-        <div class="config-card anim anim-d1">
-          <div class="config-card-header">
-            <div class="config-step" aria-hidden="true">2</div>
             <h2 class="config-card-title">Número de cámaras</h2>
             <span class="config-card-sub">Cobertura de producción</span>
           </div>
@@ -388,6 +333,61 @@ input[type="range"]:active::-webkit-slider-thumb { transform:scale(1.15); cursor
                       <div class="camera-sub">Multicámara: frontal + detalle/recurso. Cortes dinámicos entre ángulos</div>
                     </div>
                     <div class="camera-rate">$2,200/hr</div>
+                  </div>
+                </label>
+
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <!-- CARD 2: EDICIÓN -->
+        <div class="config-card anim anim-d1">
+          <div class="config-card-header">
+            <div class="config-step" aria-hidden="true">2</div>
+            <h2 class="config-card-title">Tipo de edición</h2>
+            <span class="config-card-sub">Selecciona uno</span>
+          </div>
+          <div class="config-card-body">
+            <fieldset style="border:none;padding:0;margin:0;">
+              <legend class="sr-only">Tipo de edición</legend>
+              <div class="edition-grid">
+
+                <label class="edition-option" for="ed-basic">
+                  <input type="radio" id="ed-basic" name="edition" value="basic" checked>
+                  <div class="edition-card">
+                    <div class="edition-icon">✂️</div>
+                    <div class="edition-name">Sin apoyo visual</div>
+                    <div class="edition-desc">Edición limpia: cortes, musicalización, corrección de color y audio limpio. Sin gráficos adicionales.</div>
+                    <div class="edition-includes">
+                      <div class="inc-item">Cortes y timing profesional</div>
+                      <div class="inc-item">Corrección de color</div>
+                      <div class="inc-item">Limpieza y mezcla de audio</div>
+                      <div class="inc-item">Subtitulado</div>
+                    </div>
+                    <div class="edition-price">$3,000 / cápsula</div>
+                  </div>
+                  <div class="edition-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                </label>
+
+                <label class="edition-option" for="ed-visual">
+                  <input type="radio" id="ed-visual" name="edition" value="visual">
+                  <div class="edition-card">
+                    <div class="edition-icon">🎨</div>
+                    <div class="edition-name">Con apoyo visual</div>
+                    <div class="edition-desc">Gráficos animados, títulos en pantalla, lower thirds, transiciones de marca, integración de slides.</div>
+                    <div class="edition-includes">
+                      <div class="inc-item">Screen recording / slides integrados</div>
+                      <div class="inc-item">Lower thirds animados</div>
+                      <div class="inc-item">Motion graphics de marca</div>
+                      <div class="inc-item">Subtitulado</div>
+                    </div>
+                    <div class="edition-price">$5,500 / cápsula</div>
+                  </div>
+                  <div class="edition-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </div>
                 </label>
 
@@ -446,7 +446,7 @@ input[type="range"]:active::-webkit-slider-thumb { transform:scale(1.15); cursor
         <div class="result-body">
 
           <div class="pills" aria-live="polite" aria-label="Configuración activa">
-            <span class="pill"><span class="pill-dot"></span><span id="pill-ed">Con apoyo visual</span></span>
+            <span class="pill"><span class="pill-dot"></span><span id="pill-ed">Sin apoyo visual</span></span>
             <span class="pill"><span class="pill-dot"></span><span id="pill-cam">1 cámara</span></span>
             <span class="pill"><span class="pill-dot"></span><span id="pill-cap">30 cápsulas</span></span>
           </div>
@@ -583,7 +583,7 @@ var PRICE = {
   shootHrs: 0.8
 };
 
-var state = { edition: 'visual', cameras: 1, capsules: 30 };
+var state = { edition: 'basic', cameras: 1, capsules: 30 };
 var anim = { pre: 0, prod: 0, post: 0, total: 0 };
 var rafId = null;
 
