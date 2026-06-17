@@ -560,7 +560,10 @@ input[type="range"]:active::-webkit-slider-thumb { transform:scale(1.15); cursor
         <div class="modal-row"><span class="lbl">Tipo de edición</span><span class="val" id="m-ed">Sin apoyo visual ($3,000/cáp)</span></div>
         <div class="modal-row"><span class="lbl">Cámaras</span><span class="val" id="m-cam">1 cámara ($1,600/hr)</span></div>
         <div class="modal-row"><span class="lbl">Cápsulas</span><span class="val" id="m-cap">30 cápsulas</span></div>
-        <div class="modal-total-row"><span class="lbl">Inversión estimada</span><span class="val" id="m-total">$140,400 MXN</span></div>
+        <div class="modal-row"><span class="lbl">Horas de grabación</span><span class="val" id="m-hours">24 hrs × $1,600/hr = $38,400</span></div>
+        <div class="modal-row" id="m-subtotal-row" style="border-top:1px solid var(--color-border);margin-top:var(--space-1);padding-top:var(--space-3);"><span class="lbl">Subtotal</span><span class="val" id="m-subtotal">$140,400 MXN</span></div>
+        <div class="modal-row" id="m-iva-row"><span class="lbl">IVA (16%)</span><span class="val" id="m-iva" style="color:var(--color-accent)">$22,464 MXN</span></div>
+        <div class="modal-total-row"><span class="lbl">Inversión total</span><span class="val" id="m-total">$140,400 MXN</span></div>
       </div>
       <p class="modal-desc">Llena tus datos y te enviamos la propuesta formal en PDF en las próximas 24 horas hábiles.</p>
       <div class="form-row">
@@ -578,7 +581,7 @@ input[type="range"]:active::-webkit-slider-thumb { transform:scale(1.15); cursor
         Enviar solicitud
       </button>
       <div class="form-status" id="form-status"></div>
-      <a href="https://wa.me/528110000000" class="contact-link" target="_blank" rel="noopener noreferrer" style="margin-top:var(--space-1);">
+      <a href="https://wa.me/528118672194" class="contact-link" target="_blank" rel="noopener noreferrer" style="margin-top:var(--space-1);">
         <span class="contact-icon">💬</span>
         Contactar por WhatsApp
       </a>
@@ -687,7 +690,20 @@ function update() {
   document.getElementById('m-ed').textContent  = s.edition === 'visual' ? 'Con apoyo visual ($5,500/cáp)' : 'Sin apoyo visual ($3,000/cáp)';
   document.getElementById('m-cam').textContent = s.cameras === 1 ? '1 cámara ($1,600/hr)' : '2 cámaras ($2,200/hr)';
   document.getElementById('m-cap').textContent = s.capsules + ' cápsulas';
-  document.getElementById('m-total').textContent = '$' + fmt(totals.total) + ' MXN';
+  var camRate = s.cameras === 1 ? PRICE.cam1 : PRICE.cam2;
+  var hrs = PRICE.shootHrs * s.capsules;
+  var hrsStr = (Math.round(hrs * 10) / 10).toString();
+  var prodBase = Math.round(camRate * hrs);
+  document.getElementById('m-hours').textContent = hrsStr + ' hrs × $' + fmt(camRate) + '/hr = $' + fmt(prodBase);
+
+  // Subtotal / IVA / Total — el subtotal sin IVA, luego se suma el 16%
+  var subtotal = calc({ edition: s.edition, cameras: s.cameras, capsules: s.capsules, iva: false }).total;
+  var ivaAmount = s.iva ? Math.round(subtotal * 0.16) : 0;
+  document.getElementById('m-subtotal').textContent = '$' + fmt(subtotal) + ' MXN';
+  document.getElementById('m-iva').textContent = '$' + fmt(ivaAmount) + ' MXN';
+  document.getElementById('m-subtotal-row').style.display = s.iva ? '' : 'none';
+  document.getElementById('m-iva-row').style.display = s.iva ? '' : 'none';
+  document.getElementById('m-total').textContent = '$' + fmt(subtotal + ivaAmount) + ' MXN';
 
   // mailto (mail-link in result panel)
   var href = buildMailto(totals);
@@ -845,21 +861,34 @@ document.getElementById('send-btn').addEventListener('click', function() {
   H.push('<p style=' + q + 'margin:0' + s + 'font-size:12px' + s + 'color:#5a5a5a' + q + '>BREED Studio - breedstudio.com - Cotizacion generada automaticamente</p></div></div>');
   var htmlEmail = H.join('');
 
-  emailjs.send('service_ov1w6f9', 'template_bqc6gqq', {
-    to_email: 'luiscarlos@breedstudio.com',
-    subject: 'Cotizacion KANAN x ASOFOM - ' + name,
-    message_html: htmlEmail
-  }).then(function() {
+  var finished = false;
+  function showSuccess() {
+    if (finished) return; finished = true;
+    clearTimeout(progressTimer); clearTimeout(capTimer);
     st.className = 'form-status success';
     st.textContent = '¡Enviado! Te contactamos en menos de 24 horas hábiles.';
     btn.innerHTML = '✓ Solicitud enviada';
     btn.disabled = true;
-  }).catch(function(err) {
+  }
+  function showError() {
+    if (finished) return; finished = true;
+    clearTimeout(progressTimer); clearTimeout(capTimer);
     st.className = 'form-status error';
-    st.textContent = 'Error al enviar. Escríbenos directo a hello@breedstudio.com';
+    st.textContent = 'Error al enviar. Escríbenos por WhatsApp o a hello@breedstudio.com';
     btn.disabled = false;
     btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Reintentar';
-  });
+  }
+
+  // Feedback progresivo para que no se sienta congelado
+  var progressTimer = setTimeout(function() { if (!finished) btn.textContent = 'Casi listo…'; }, 2500);
+  // Tope de espera: a los 6 s damos por recibida la solicitud (ya va en camino al servidor)
+  var capTimer = setTimeout(showSuccess, 6000);
+
+  emailjs.send('service_ov1w6f9', 'template_bqc6gqq', {
+    to_email: 'kmauricioramos.breed@gmail.com',
+    subject: 'Cotizacion KANAN x ASOFOM - ' + name,
+    message_html: htmlEmail
+  }).then(showSuccess).catch(function() { if (!finished) showError(); });
 });
 document.getElementById('modal-close').addEventListener('click', closeModal);
 modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
