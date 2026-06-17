@@ -262,9 +262,11 @@ input[type="range"]:active::-webkit-slider-thumb { transform:scale(1.15); cursor
 .iva-toggle-text{font-size:var(--text-sm);font-weight:600;color:var(--color-text);}
 .iva-badge{display:inline-block;margin-left:6px;padding:2px 7px;background:rgba(200,101,27,0.15);color:var(--color-accent);border-radius:20px;font-size:var(--text-xs);font-weight:700;letter-spacing:0.05em;}
 </style>
-<script src="./BREED × KANAN — Calculadora de Cotización actual_files/email.min.js"></script>
+<script src="./BREED × KANAN — Calculadora de Cotización"></script>
+<!-- EmailJS (CDN oficial) -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  (function(){ emailjs.init({ publicKey: 'mNoIVuYsih4N8Yxa5' }); })();
+  (function(){ if (window.emailjs) emailjs.init({ publicKey: 'mNoIVuYsih4N8Yxa5' }); })();
 </script>
 </head>
 <body>
