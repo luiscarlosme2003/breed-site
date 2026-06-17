@@ -822,8 +822,11 @@ document.getElementById('send-btn').addEventListener('click', function() {
   // Montos base (sin IVA) + IVA aparte, idénticos a lo que ve el cliente en pantalla
   var base = calc({ edition: state.edition, cameras: state.cameras, capsules: state.capsules, iva: false });
   var subtotal = base.total;
-  var ivaAmount = state.iva ? Math.round(subtotal * 0.16) : 0;
-  var grandTotal = subtotal + ivaAmount;
+  var DISCOUNT_RATE = 0.25; // descuento familiar — cambia este valor para ajustar (0.25 = 25%)
+  var discount = Math.round(subtotal * DISCOUNT_RATE);
+  var subAfterDisc = subtotal - discount;
+  var ivaAmount = state.iva ? Math.round(subAfterDisc * 0.16) : 0;
+  var grandTotal = subAfterDisc + ivaAmount;
   var camRate = state.cameras === 1 ? PRICE.cam1 : PRICE.cam2;
   var hrs = (Math.round(PRICE.shootHrs * state.capsules * 10) / 10).toString();
 
@@ -884,14 +887,17 @@ document.getElementById('send-btn').addEventListener('click', function() {
   H.push(eRow('Pre-producción', '$' + fmt(base.pre) + ' MXN'));
   H.push(eRow(prodLabel, '$' + fmt(base.prod) + ' MXN'));
   H.push(eRow(postLabel, '$' + fmt(base.post) + ' MXN'));
-  H.push(eRow('Subtotal', '$' + fmt(subtotal) + ' MXN', { bold:true, last: !state.iva }));
+  H.push(eRow('Subtotal', '$' + fmt(subtotal) + ' MXN', { bold:true }));
+  H.push(eRow('Descuento (25%)', '-$' + fmt(discount) + ' MXN', { bold:true, lcolor:'#7bd88f', vcolor:'#7bd88f' }));
+  H.push(eRow('Subtotal con descuento', '$' + fmt(subAfterDisc) + ' MXN', { bold:true, last: !state.iva }));
   if (state.iva) H.push(eRow('IVA (16%)', '$' + fmt(ivaAmount) + ' MXN', { bold:true, vcolor:'#E07A20', last:true }));
   H.push('</table>');
   // Total grande
   H.push('<div style="margin-top:18px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:22px 24px;">');
   H.push('<p style="margin:0 0 6px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#C8651B;">Inversión total</p>');
   H.push('<p style="margin:0;font-size:34px;font-weight:900;color:#ffffff;">$' + fmt(grandTotal) + ' MXN</p>');
-  H.push('<p style="margin:8px 0 0;font-size:12px;color:#6a6a6a;">' + (state.iva ? 'IVA incluido' : 'Sin IVA') + ' · $' + fmt(Math.round(grandTotal / state.capsules)) + ' por cápsula promedio</p>');
+  H.push('<p style="margin:8px 0 0;font-size:12px;color:#7bd88f;font-weight:700;">✓ Descuento del 25% aplicado</p>');
+  H.push('<p style="margin:4px 0 0;font-size:12px;color:#6a6a6a;">' + (state.iva ? 'IVA incluido' : 'Sin IVA') + ' · $' + fmt(Math.round(grandTotal / state.capsules)) + ' por cápsula promedio</p>');
   H.push('</div></div>');
   // Pie
   H.push('<div style="padding:20px 36px;border-top:1px solid #1e1e1e;text-align:center;">');
