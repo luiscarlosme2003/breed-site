@@ -266,7 +266,7 @@ input[type="range"]:active::-webkit-slider-thumb { transform:scale(1.15); cursor
 <!-- EmailJS (CDN oficial) -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  (function(){ if (window.emailjs) emailjs.init({ publicKey: 'mNoIVuYsih4N8Yxa5' }); })();
+  (function(){ if (window.emailjs) emailjs.init({ publicKey: 'GkPI1D4LPe17eGfVN' }); })();
 </script>
 </head>
 <body>
@@ -901,7 +901,7 @@ document.getElementById('send-btn').addEventListener('click', function() {
   var failTimer = setTimeout(function() { showError('tiempo de espera agotado'); }, 10000);
 
   if (!window.emailjs) { showError('EmailJS no cargó (revisa tu conexión)'); return; }
-  emailjs.send('service_ov1w6f9', 'template_bqc6gqq', {
+  emailjs.send('service_aw68mxg', 'template_2rhg80b', {
     to_email: 'kmauricioramos.breed@gmail.com',
     reply_to: email,
     from_name: name,
