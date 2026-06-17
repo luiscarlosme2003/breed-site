@@ -262,9 +262,11 @@ input[type="range"]:active::-webkit-slider-thumb { transform:scale(1.15); cursor
 .iva-toggle-text{font-size:var(--text-sm);font-weight:600;color:var(--color-text);}
 .iva-badge{display:inline-block;margin-left:6px;padding:2px 7px;background:rgba(200,101,27,0.15);color:var(--color-accent);border-radius:20px;font-size:var(--text-xs);font-weight:700;letter-spacing:0.05em;}
 </style>
-<script src="./BREED × KANAN — Calculadora de Cotización actual_files/email.min.js"></script>
+<script src="./BREED × KANAN — Calculadora de Cotización"></script>
+<!-- EmailJS (CDN oficial) -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  (function(){ emailjs.init({ publicKey: 'mNoIVuYsih4N8Yxa5' }); })();
+  (function(){ if (window.emailjs) emailjs.init({ publicKey: 'mNoIVuYsih4N8Yxa5' }); })();
 </script>
 </head>
 <body>
@@ -581,7 +583,7 @@ input[type="range"]:active::-webkit-slider-thumb { transform:scale(1.15); cursor
         Enviar solicitud
       </button>
       <div class="form-status" id="form-status"></div>
-      <a href="https://wa.me/528118672194" class="contact-link" target="_blank" rel="noopener noreferrer" style="margin-top:var(--space-1);">
+      <a id="wa-link" href="https://wa.me/528118672194" class="contact-link" target="_blank" rel="noopener noreferrer" style="margin-top:var(--space-1);">
         <span class="contact-icon">💬</span>
         Contactar por WhatsApp
       </a>
@@ -861,20 +863,52 @@ document.getElementById('send-btn').addEventListener('click', function() {
   H.push('<p style=' + q + 'margin:0' + s + 'font-size:12px' + s + 'color:#5a5a5a' + q + '>BREED Studio - breedstudio.com - Cotizacion generada automaticamente</p></div></div>');
   var htmlEmail = H.join('');
 
-  emailjs.send('service_ov1w6f9', 'template_bqc6gqq', {
-    to_email: 'kmauricioramos.breed@gmail.com',
-    subject: 'Cotizacion KANAN x ASOFOM - ' + name,
-    message_html: htmlEmail
-  }).then(function() {
+  var finished = false;
+  function stop() { if (finished) return true; finished = true; clearTimeout(progressTimer); clearTimeout(failTimer); return false; }
+
+  // Respaldo por WhatsApp con TODOS los datos pre-llenados (garantiza que el lead llegue)
+  var waMsg = encodeURIComponent(
+    'Hola BREED, soy ' + name + ' (' + email + ').\n' +
+    'Quiero la propuesta formal KANAN x ASOFOM:\n' +
+    '• Edicion: ' + (state.edition === 'visual' ? 'Con apoyo visual' : 'Sin apoyo visual') + '\n' +
+    '• Camaras: ' + state.cameras + '\n' +
+    '• Capsulas: ' + state.capsules + '\n' +
+    '• Inversion total: $' + fmt(totals.total) + ' MXN' + (state.iva ? ' (IVA incluido)' : ' (sin IVA)')
+  );
+  var waUrl = 'https://wa.me/528118672194?text=' + waMsg;
+  var waLink = document.getElementById('wa-link');
+  if (waLink) waLink.href = waUrl;
+
+  function showSuccess() {
+    if (stop()) return;
     st.className = 'form-status success';
     st.textContent = '¡Enviado! Te contactamos en menos de 24 horas hábiles.';
     btn.innerHTML = '✓ Solicitud enviada';
     btn.disabled = true;
-  }).catch(function(err) {
+  }
+  function showError(errMsg) {
+    if (stop()) return;
+    console.error('EmailJS error:', errMsg);
+    if (waLink) { waLink.href = waUrl; waLink.innerHTML = '<span class="contact-icon">💬</span> Enviar por WhatsApp (recomendado)'; waLink.style.borderColor = 'var(--color-accent)'; waLink.style.color = 'var(--color-text)'; }
     st.className = 'form-status error';
-    st.textContent = 'Error al enviar. Escríbenos directo a hello@breedstudio.com';
+    st.innerHTML = 'No se pudo enviar el correo' + (errMsg ? ' (' + String(errMsg).slice(0, 80) + ')' : '') + '. Usa el botón de WhatsApp de abajo 👇';
     btn.disabled = false;
-    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Reintentar';
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Reintentar correo';
+  }
+
+  // Feedback progresivo + timeout real (no enmascara fallos)
+  var progressTimer = setTimeout(function() { if (!finished) btn.textContent = 'Casi listo…'; }, 2500);
+  var failTimer = setTimeout(function() { showError('tiempo de espera agotado'); }, 10000);
+
+  if (!window.emailjs) { showError('EmailJS no cargó (revisa tu conexión)'); return; }
+  emailjs.send('service_ov1w6f9', 'template_bqc6gqq', {
+    to_email: 'kmauricioramos.breed@gmail.com',
+    reply_to: email,
+    from_name: name,
+    subject: 'Cotizacion KANAN x ASOFOM - ' + name,
+    message_html: htmlEmail
+  }).then(showSuccess).catch(function(err) {
+    showError(err && (err.text || err.message || JSON.stringify(err)));
   });
 });
 document.getElementById('modal-close').addEventListener('click', closeModal);
