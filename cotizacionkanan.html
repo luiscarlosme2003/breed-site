@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)https://breedstudio.com/cotizacionkanan -->
+<html lang="es" data-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BREED × KANAN — Calculadora de Cotización</title>
+<link href="./BREED × KANAN — Calculadora de Cotización_files/css" rel="stylesheet">
+<style>
+:root {
+  --color-bg:           #0D0D0D;
+  --color-surface:      #1A1A1A;
+  --color-surface-2:    #222222;
+  --color-border:       rgba(255,255,255,0.08);
+  --color-border-hover: rgba(255,255,255,0.14);
+  --color-text:         #F5F5F5;
+  --color-text-muted:   #9A9A9A;
+  --color-text-faint:   #5A5A5A;
+  --color-accent:       #C8651B;
+  --color-accent-hover: #E07A20;
+  --color-accent-glow:  rgba(200,101,27,0.15);
+  --color-accent-dim:   rgba(200,101,27,0.10);
+  --color-accent-border: rgba(200,101,27,0.5);
+  --font-display:       'Cabinet Grotesk', 'Helvetica Neue', sans-serif;
+  --font-body:          'Satoshi', 'Inter', sans-serif;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
+  --space-12: 3rem; --space-16: 4rem;
+  --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+  --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
+  --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
+  --shadow-glow: 0 8px 32px rgba(200,101,27,0.15);
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.5);
+  --shadow-active: 0 4px 24px rgba(200,101,27,0.2), 0 1px 4px rgba(0,0,0,0.5);
+  --transition: 180ms cubic-bezier(0.16,1,0.3,1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
+body { min-height: 100dvh; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); font-size: var(--text-base); line-height: 1.6; }
+img, svg { display: block; max-width: 100%; }
+input, button, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: none; }
+h1,h2,h3,h4 { font-family: var(--font-display); line-height: 1.15; text-wrap: balance; }
+p { text-wrap: pretty; max-width: 72ch; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: var(--radius-sm); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border-width:0; }
+.page-wrapper { min-height:100dvh; display:flex; flex-direction:column; }
+.container { width:100%; max-width:1280px; margin-inline:auto; padding-inline:var(--space-6); }
+
+/* HEADER */
+.site-header { position:sticky; top:0; z-index:100; background:rgba(13,13,13,0.9); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom:1px solid var(--color-border); }
+.header-inner { display:flex; align-items:center; justify-content:space-between; gap:var(--space-4); padding-block:var(--space-4); }
+.logo-wrap { display:flex; align-items:center; gap:var(--space-3); text-decoration:none; }
+.logo-text { display:flex; flex-direction:column; }
+.logo-name { font-family:var(--font-display); font-weight:800; font-size:var(--text-lg); color:var(--color-text); letter-spacing:-0.02em; line-height:1; }
+.logo-tagline { font-size:var(--text-xs); color:var(--color-text-muted); letter-spacing:0.04em; font-weight:500; }
+.header-badge { display:flex; align-items:center; gap:var(--space-2); padding:var(--space-2) var(--space-3); background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); font-size:var(--text-xs); color:var(--color-text-muted); font-weight:500; white-space:nowrap; }
+.badge-dot { width:6px; height:6px; border-radius:50%; background:var(--color-accent); flex-shrink:0; animation:blink 2.4s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+/* CONTEXT */
+.context-section { padding-block:var(--space-12) var(--space-8); border-bottom:1px solid var(--color-border); }
+.context-inner { display:grid; gap:var(--space-6); }
+@media(min-width:768px){ .context-inner { grid-template-columns:1fr auto; align-items:start; } }
+.context-eyebrow { font-size:var(--text-xs); font-weight:700; letter-spacing:0.1em; color:var(--color-accent); text-transform:uppercase; margin-bottom:var(--space-3); }
+.context-title { font-size:var(--text-xl); font-weight:800; letter-spacing:-0.02em; color:var(--color-text); margin-bottom:var(--space-3); }
+.context-desc { font-size:var(--text-base); color:var(--color-text-muted); line-height:1.7; max-width:58ch; }
+.context-meta { display:flex; flex-direction:column; gap:var(--space-2); min-width:200px; }
+.meta-item { display:flex; flex-direction:column; gap:2px; padding:var(--space-3) var(--space-4); background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); }
+.meta-label { font-size:var(--text-xs); color:var(--color-text-faint); font-weight:500; letter-spacing:0.05em; text-transform:uppercase; }
+.meta-value { font-size:var(--text-sm); font-weight:600; color:var(--color-text); }
+
+/* MAIN GRID */
+.main-section { padding-block:var(--space-10); flex:1; }
+.calc-grid { display:grid; gap:var(--space-8); align-items:start; }
+@media(min-width:1024px){ .calc-grid { grid-template-columns:1fr 400px; } }
+
+/* CONFIG CARDS */
+.config-stack { display:flex; flex-direction:column; gap:var(--space-5); }
+.config-card { background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-xl); overflow:hidden; box-shadow:var(--shadow-card); }
+.config-card-header { display:flex; align-items:center; gap:var(--space-3); padding:var(--space-5) var(--space-6); border-bottom:1px solid var(--color-border); background:var(--color-surface-2); }
+.config-step { width:28px; height:28px; border-radius:50%; background:var(--color-accent-dim); border:1px solid var(--color-accent-border); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:var(--font-display); font-weight:800; font-size:var(--text-xs); color:var(--color-accent); }
+.config-card-title { font-family:var(--font-display); font-size:var(--text-base); font-weight:700; color:var(--color-text); }
+.config-card-sub { font-size:var(--text-xs); color:var(--color-text-muted); margin-left:auto; }
+.config-card-body { padding:var(--space-6); }
+
+/* EDITION */
+.edition-grid { display:grid; gap:var(--space-3); }
+@media(min-width:600px){ .edition-grid { grid-template-columns:1fr 1fr; } }
+.edition-option { position:relative; cursor:pointer; }
+.edition-option input[type="radio"] { position:absolute; opacity:0; width:0; height:0; }
+.edition-card { display:flex; flex-direction:column; gap:var(--space-2); padding:var(--space-5); background:var(--color-surface-2); border:1.5px solid var(--color-border); border-radius:var(--radius-lg); cursor:pointer; transition:border-color var(--transition), box-shadow var(--transition), background var(--transition); }
+.edition-card:hover { border-color:var(--color-border-hover); background:#252525; }
+.edition-option input:checked + .edition-card { border-color:var(--color-accent); background:rgba(200,101,27,0.06); box-shadow:var(--shadow-active); }
+.edition-icon { font-size:1.5rem; line-height:1; }
+.edition-name { font-family:var(--font-display); font-weight:700; font-size:var(--text-base); color:var(--color-text); }
+.edition-desc { font-size:var(--text-xs); color:var(--color-text-muted); line-height:1.5; }
+.edition-includes { margin-top:var(--space-3); padding-top:var(--space-3); border-top:1px solid var(--color-border); display:flex; flex-direction:column; gap:var(--space-1); }
+.inc-item { font-size:var(--text-xs); color:var(--color-text-muted); display:flex; align-items:center; gap:var(--space-2); }
+.inc-item::before { content:''; width:4px; height:4px; border-radius:50%; background:var(--color-accent); flex-shrink:0; }
+.edition-price { margin-top:var(--space-2); font-family:var(--font-display); font-weight:700; font-size:var(--text-sm); color:var(--color-accent); }
+.edition-check { position:absolute; top:var(--space-3); right:var(--space-3); width:20px; height:20px; border-radius:50%; border:1.5px solid var(--color-border-hover); background:var(--color-surface); display:flex; align-items:center; justify-content:center; transition:background var(--transition), border-color var(--transition); pointer-events:none; }
+.edition-option input:checked ~ .edition-check { background:var(--color-accent); border-color:var(--color-accent); }
+.edition-check svg { display:none; }
+.edition-option input:checked ~ .edition-check svg { display:block; }
+
+/* CAMERAS */
+.camera-options { display:grid; gap:var(--space-3); }
+@media(min-width:480px){ .camera-options { grid-template-columns:1fr 1fr; } }
+.camera-option { position:relative; cursor:pointer; }
+.camera-option input[type="radio"] { position:absolute; opacity:0; width:0; height:0; }
+.camera-card { display:flex; align-items:center; gap:var(--space-4); padding:var(--space-4) var(--space-5); background:var(--color-surface-2); border:1.5px solid var(--color-border); border-radius:var(--radius-lg); cursor:pointer; min-height:72px; transition:border-color var(--transition), box-shadow var(--transition), background var(--transition); }
+.camera-card:hover { border-color:var(--color-border-hover); background:#252525; }
+.camera-option input:checked + .camera-card { border-color:var(--color-accent); background:rgba(200,101,27,0.06); box-shadow:var(--shadow-active); }
+.camera-icon { font-size:1.75rem; flex-shrink:0; }
+.camera-info { display:flex; flex-direction:column; gap:2px; }
+.camera-label { font-family:var(--font-display); font-weight:700; font-size:var(--text-sm); color:var(--color-text); }
+.camera-sub { font-size:var(--text-xs); color:var(--color-text-muted); line-height:1.4; }
+.camera-rate { margin-left:auto; font-size:var(--text-xs); color:var(--color-accent); font-weight:700; white-space:nowrap; }
+
+/* CAPSULES */
+.capsules-control { display:flex; flex-direction:column; gap:var(--space-4); }
+.cap-header { display:flex; align-items:baseline; justify-content:space-between; }
+.cap-label { font-size:var(--text-sm); color:var(--color-text-muted); }
+.cap-val-wrap { display:flex; align-items:baseline; gap:var(--space-2); }
+.cap-num { font-family:var(--font-display); font-weight:800; font-size:var(--text-xl); color:var(--color-accent); line-height:1; transition:color var(--transition); }
+.cap-unit { font-size:var(--text-sm); color:var(--color-text-muted); }
+.slider-wrap { position:relative; padding-block:var(--space-2); }
+.slider-bg { position:absolute; top:50%; left:0; right:0; height:4px; border-radius:2px; background:var(--color-surface-2); transform:translateY(-50%); pointer-events:none; }
+.slider-fill { position:absolute; top:0; left:0; height:100%; border-radius:2px; background:var(--color-accent); pointer-events:none; transition:width 100ms ease; }
+input[type="range"] { position:relative; z-index:1; -webkit-appearance:none; appearance:none; width:100%; height:4px; background:transparent; outline:none; cursor:pointer; touch-action:manipulation; }
+input[type="range"]::-webkit-slider-runnable-track { height:4px; border-radius:2px; background:transparent; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:var(--color-accent); border:2px solid var(--color-bg); box-shadow:0 0 0 3px rgba(200,101,27,0.25); margin-top:-9px; cursor:grab; transition:box-shadow var(--transition), transform var(--transition); }
+input[type="range"]::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:var(--color-accent); border:2px solid var(--color-bg); box-shadow:0 0 0 3px rgba(200,101,27,0.25); cursor:grab; }
+input[type="range"]:active::-webkit-slider-thumb { transform:scale(1.15); cursor:grabbing; }
+.slider-marks { display:flex; justify-content:space-between; margin-top:var(--space-2); }
+.slider-mark { font-size:var(--text-xs); color:var(--color-text-faint); }
+.stepper-row { display:flex; align-items:center; gap:var(--space-3); }
+.stepper-btn { width:44px; height:44px; border-radius:var(--radius-md); background:var(--color-surface-2); border:1px solid var(--color-border); color:var(--color-text); font-size:1.25rem; display:flex; align-items:center; justify-content:center; transition:background var(--transition), border-color var(--transition), color var(--transition); flex-shrink:0; user-select:none; }
+.stepper-btn:hover { background:var(--color-accent-dim); border-color:var(--color-accent-border); color:var(--color-accent); }
+.stepper-btn:active { background:var(--color-accent); color:white; border-color:var(--color-accent); }
+.stepper-input { flex:1; text-align:center; background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:var(--radius-md); padding:var(--space-2) var(--space-3); font-family:var(--font-display); font-size:var(--text-lg); font-weight:700; color:var(--color-text); height:44px; transition:border-color var(--transition); -moz-appearance:textfield; }
+.stepper-input:focus { outline:none; border-color:var(--color-accent); }
+.stepper-input::-webkit-outer-spin-button,.stepper-input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+.cap-hint { font-size:var(--text-xs); color:var(--color-text-faint); }
+
+/* RESULT PANEL */
+.result-panel { background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-xl); overflow:hidden; box-shadow:var(--shadow-glow), var(--shadow-card); }
+@media(min-width:1024px){ .result-panel { position:sticky; top:88px; } }
+.result-header { padding:var(--space-5) var(--space-6); border-bottom:1px solid var(--color-border); background:var(--color-surface-2); display:flex; align-items:center; justify-content:space-between; }
+.result-header-title { font-family:var(--font-display); font-weight:700; font-size:var(--text-base); color:var(--color-text); }
+.result-validity { font-size:var(--text-xs); color:var(--color-text-faint); }
+.result-body { padding:var(--space-6); display:flex; flex-direction:column; gap:var(--space-5); }
+.pills { display:flex; flex-wrap:wrap; gap:var(--space-2); }
+.pill { display:flex; align-items:center; gap:var(--space-1); padding:var(--space-1) var(--space-3); background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:var(--radius-full); font-size:var(--text-xs); color:var(--color-text-muted); font-weight:500; }
+.pill-dot { width:5px; height:5px; border-radius:50%; background:var(--color-accent); }
+.divider { height:1px; background:var(--color-border); }
+.stages { display:flex; flex-direction:column; gap:var(--space-2); }
+.stage-row { display:flex; align-items:center; justify-content:space-between; padding:var(--space-3) var(--space-4); background:var(--color-surface-2); border-radius:var(--radius-md); gap:var(--space-3); }
+.stage-left { display:flex; align-items:center; gap:var(--space-3); min-width:0; }
+.stage-ico { width:32px; height:32px; border-radius:var(--radius-sm); background:var(--color-accent-dim); border:1px solid rgba(200,101,27,0.2); display:flex; align-items:center; justify-content:center; font-size:0.85rem; flex-shrink:0; }
+.stage-name { font-size:var(--text-sm); font-weight:600; color:var(--color-text); }
+.stage-detail { font-size:var(--text-xs); color:var(--color-text-muted); }
+.stage-amount { font-family:var(--font-display); font-weight:700; font-size:var(--text-base); color:var(--color-text); white-space:nowrap; font-variant-numeric:tabular-nums; }
+.total-block { padding:var(--space-5); background:rgba(200,101,27,0.06); border:1px solid rgba(200,101,27,0.2); border-radius:var(--radius-lg); text-align:center; }
+.total-label { font-size:var(--text-xs); font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent); margin-bottom:var(--space-2); }
+.total-amount { font-family:var(--font-display); font-weight:900; font-size:var(--text-2xl); color:var(--color-text); letter-spacing:-0.03em; line-height:1; font-variant-numeric:tabular-nums; }
+.total-currency { font-size:var(--text-base); font-weight:600; color:var(--color-text-muted); vertical-align:super; margin-right:2px; }
+.total-note { font-size:var(--text-xs); color:var(--color-text-faint); margin-top:var(--space-2); }
+.total-range { margin-top:var(--space-3); padding-top:var(--space-3); border-top:1px solid rgba(200,101,27,0.2); display:flex; flex-direction:column; gap:4px; }
+.range-label { font-size:var(--text-xs); font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--color-text-faint); }
+.range-values { font-family:var(--font-display); font-size:var(--text-base); font-weight:700; color:var(--color-text-muted); font-variant-numeric:tabular-nums; }
+.cta-subtext { font-size:var(--text-xs); color:var(--color-text-faint); text-align:center; line-height:1.5; }
+.per-cap { text-align:center; font-size:var(--text-xs); color:var(--color-text-muted); }
+.per-cap strong { color:var(--color-text); font-weight:600; }
+.cta-btn { display:flex; align-items:center; justify-content:center; gap:var(--space-2); width:100%; padding:var(--space-4) var(--space-6); background:var(--color-accent); color:white; font-family:var(--font-body); font-size:var(--text-sm); font-weight:700; border-radius:var(--radius-lg); border:none; cursor:pointer; min-height:52px; transition:background var(--transition), box-shadow var(--transition), transform var(--transition); letter-spacing:0.01em; text-decoration:none; }
+.cta-btn:hover { background:var(--color-accent-hover); box-shadow:0 4px 24px rgba(200,101,27,0.35); transform:translateY(-1px); }
+.cta-btn:active { transform:translateY(0); box-shadow:none; }
+.cta-sec { display:flex; align-items:center; justify-content:center; gap:var(--space-2); width:100%; padding:var(--space-3) var(--space-6); background:transparent; color:var(--color-text-muted); font-size:var(--text-sm); font-weight:500; border-radius:var(--radius-lg); border:1px solid var(--color-border); cursor:pointer; min-height:44px; transition:border-color var(--transition), color var(--transition), background var(--transition); text-decoration:none; }
+.cta-sec:hover { border-color:var(--color-border-hover); color:var(--color-text); background:var(--color-surface-2); }
+
+/* MODAL */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.75); backdrop-filter:blur(4px); z-index:200; display:flex; align-items:center; justify-content:center; padding:var(--space-4); opacity:0; pointer-events:none; transition:opacity 240ms ease; }
+.modal-overlay.open { opacity:1; pointer-events:all; }
+.modal-box { background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-2xl); width:100%; max-width:480px; box-shadow:0 24px 80px rgba(0,0,0,0.6),var(--shadow-glow); transform:translateY(16px) scale(0.97); transition:transform 280ms cubic-bezier(0.16,1,0.3,1); }
+.modal-overlay.open .modal-box { transform:translateY(0) scale(1); }
+.modal-header { display:flex; align-items:center; justify-content:space-between; padding:var(--space-5) var(--space-6); border-bottom:1px solid var(--color-border); }
+.modal-title { font-family:var(--font-display); font-weight:700; font-size:var(--text-lg); color:var(--color-text); }
+.modal-close { width:36px; height:36px; border-radius:var(--radius-md); background:var(--color-surface-2); border:1px solid var(--color-border); color:var(--color-text-muted); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background var(--transition), color var(--transition); font-size:1.1rem; }
+.modal-close:hover { color:var(--color-text); background:#2a2a2a; }
+.modal-body { padding:var(--space-6); display:flex; flex-direction:column; gap:var(--space-4); }
+.modal-summary { background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:var(--radius-lg); padding:var(--space-4); display:flex; flex-direction:column; gap:var(--space-2); }
+.modal-row { display:flex; justify-content:space-between; font-size:var(--text-sm); }
+.modal-row .lbl { color:var(--color-text-muted); }
+.modal-row .val { font-weight:600; color:var(--color-text); }
+.modal-total-row { display:flex; justify-content:space-between; padding-top:var(--space-3); border-top:1px solid var(--color-border); margin-top:var(--space-1); }
+.modal-total-row .lbl { font-weight:700; color:var(--color-text); font-size:var(--text-base); }
+.modal-total-row .val { font-family:var(--font-display); font-weight:800; font-size:var(--text-lg); color:var(--color-accent); }
+.modal-desc { font-size:var(--text-sm); color:var(--color-text-muted); line-height:1.6; }
+.contact-links { display:flex; flex-direction:column; gap:var(--space-3); }
+.contact-link { display:flex; align-items:center; gap:var(--space-3); padding:var(--space-3) var(--space-4); background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:var(--radius-lg); color:var(--color-text-muted); text-decoration:none; font-size:var(--text-sm); font-weight:500; min-height:48px; transition:border-color var(--transition), color var(--transition), background var(--transition); }
+.contact-link:hover { border-color:var(--color-accent-border); color:var(--color-text); background:var(--color-accent-dim); }
+.contact-icon { font-size:1rem; flex-shrink:0; }
+
+/* FOOTER */
+.site-footer { border-top:1px solid var(--color-border); padding-block:var(--space-8); }
+.footer-inner { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:var(--space-4); }
+.footer-brand { font-family:var(--font-display); font-weight:700; font-size:var(--text-sm); color:var(--color-text-muted); }
+.footer-brand span { color:var(--color-accent); }
+.footer-links { display:flex; gap:var(--space-6); flex-wrap:wrap; }
+.footer-link { font-size:var(--text-xs); color:var(--color-text-faint); text-decoration:none; transition:color var(--transition); }
+.footer-link:hover { color:var(--color-text-muted); }
+.footer-legal { width:100%; font-size:var(--text-xs); color:var(--color-text-faint); margin-top:var(--space-3); }
+
+/* ANIMATIONS */
+@keyframes slideUp { from{opacity:0;transform:translateY(12px);} to{opacity:1;transform:translateY(0);} }
+.anim { animation:slideUp 400ms cubic-bezier(0.16,1,0.3,1) both; }
+.anim-d1 { animation-delay:60ms; }
+.anim-d2 { animation-delay:120ms; }
+.anim-d3 { animation-delay:180ms; }
+
+/* MOBILE */
+@media(max-width:480px){
+  .container { padding-inline:var(--space-4); }
+  .context-section { padding-block:var(--space-8) var(--space-6); }
+  .config-card-header,.config-card-body,.result-header,.result-body { padding:var(--space-4); }
+  .header-badge { display:none; }
+}
+
+/* FORM INPUTS */
+.form-group { display:flex; flex-direction:column; gap:var(--space-2); }
+.form-label { font-size:var(--text-xs); font-weight:600; color:var(--color-text-muted); letter-spacing:0.05em; text-transform:uppercase; }
+.form-input { background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:var(--radius-md); padding:var(--space-3) var(--space-4); font-family:var(--font-body); font-size:var(--text-sm); color:var(--color-text); height:44px; transition:border-color var(--transition); width:100%; }
+.form-input:focus { outline:none; border-color:var(--color-accent); }
+.form-input::placeholder { color:var(--color-text-faint); }
+.form-row { display:grid; gap:var(--space-3); }
+@media(min-width:480px){ .form-row { grid-template-columns:1fr 1fr; } }
+.send-btn { display:flex; align-items:center; justify-content:center; gap:var(--space-2); width:100%; padding:var(--space-4) var(--space-6); background:var(--color-accent); color:white; font-family:var(--font-body); font-size:var(--text-sm); font-weight:700; border-radius:var(--radius-lg); border:none; cursor:pointer; min-height:52px; transition:background var(--transition), box-shadow var(--transition); letter-spacing:0.01em; }
+.send-btn:hover { background:var(--color-accent-hover); box-shadow:0 4px 24px rgba(200,101,27,0.35); }
+.send-btn:disabled { opacity:0.6; cursor:not-allowed; }
+.form-status { font-size:var(--text-sm); text-align:center; padding:var(--space-3); border-radius:var(--radius-md); display:none; }
+.form-status.success { display:block; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.3); color:#4ade80; }
+.form-status.error { display:block; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); color:#f87171; }
+</style>
+<script src="./BREED × KANAN — Calculadora de Cotización_files/email.min.js"></script>
+<script>
+  (function(){ emailjs.init({ publicKey: 'mNoIVuYsih4N8Yxa5' }); })();
+</script>
+</head>
+<body>
+<div class="page-wrapper">
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="https://breedstudio.com/" class="logo-wrap" aria-label="BREED Studio">
+        <img src="./BREED × KANAN — Calculadora de Cotización_files/256b2a20-064b-40f3-81a4-41741571b2fe_1600w.png" alt="BREED" style="height:28px;width:auto;display:block;">
+      </a>
+      <div class="header-badge">
+        <div class="badge-dot"></div>
+        Cotización en tiempo real
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- CONTEXT -->
+<section class="context-section">
+  <div class="container">
+    <div class="context-inner">
+      <div>
+        <p class="context-eyebrow">Propuesta de producción</p>
+        <h1 class="context-title">KANAN × ASOFOM<br>Cápsulas de video educativo</h1>
+        <p class="context-desc">Producción de 30 cápsulas de video educativo (máx. 15 min c/u) para distribuir a los agremiados de ASOFOM a través de una plataforma de acceso en línea. Grabaciones en oficinas KANAN, Chepevera, Monterrey — presentadores Leo y Edgar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="main-section" id="main-content">
+  <div class="container">
+    <div class="calc-grid">
+
+      <!-- CONFIG -->
+      <div class="config-stack">
+
+        <!-- CARD 1: CÁMARAS -->
+        <div class="config-card anim">
+          <div class="config-card-header">
+            <div class="config-step" aria-hidden="true">1</div>
+            <h2 class="config-card-title">Número de cámaras</h2>
+            <span class="config-card-sub">Cobertura de producción</span>
+          </div>
+          <div class="config-card-body">
+            <fieldset style="border:none;padding:0;margin:0;">
+              <legend class="sr-only">Número de cámaras</legend>
+              <div class="camera-options">
+
+                <label class="camera-option" for="cam-1">
+                  <input type="radio" id="cam-1" name="cameras" value="1" checked="">
+                  <div class="camera-card">
+                    <div class="camera-icon">📹</div>
+                    <div class="camera-info">
+                      <div class="camera-label">1 Cámara</div>
+                      <div class="camera-sub">Encuadre fijo, plano frontal del presentador</div>
+                    </div>
+                    <div class="camera-rate">$1,600/hr</div>
+                  </div>
+                </label>
+
+                <label class="camera-option" for="cam-2">
+                  <input type="radio" id="cam-2" name="cameras" value="2">
+                  <div class="camera-card">
+                    <div class="camera-icon">🎬</div>
+                    <div class="camera-info">
+                      <div class="camera-label">2 Cámaras</div>
+                      <div class="camera-sub">Multicámara: frontal + detalle/recurso. Cortes dinámicos entre ángulos</div>
+                    </div>
+                    <div class="camera-rate">$2,200/hr</div>
+                  </div>
+                </label>
+
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <!-- CARD 2: EDICIÓN -->
+        <div class="config-card anim anim-d1">
+          <div class="config-card-header">
+            <div class="config-step" aria-hidden="true">2</div>
+            <h2 class="config-card-title">Tipo de edición</h2>
+            <span class="config-card-sub">Selecciona uno</span>
+          </div>
+          <div class="config-card-body">
+            <fieldset style="border:none;padding:0;margin:0;">
+              <legend class="sr-only">Tipo de edición</legend>
+              <div class="edition-grid">
+
+                <label class="edition-option" for="ed-basic">
+                  <input type="radio" id="ed-basic" name="edition" value="basic" checked="">
+                  <div class="edition-card">
+                    <div class="edition-icon">✂️</div>
+                    <div class="edition-name">Sin apoyo visual</div>
+                    <div class="edition-desc">Edición limpia: cortes, musicalización, corrección de color y audio limpio. Sin gráficos adicionales.</div>
+                    <div class="edition-includes">
+                      <div class="inc-item">Cortes y timing profesional</div>
+                      <div class="inc-item">Corrección de color</div>
+                      <div class="inc-item">Limpieza y mezcla de audio</div>
+                      <div class="inc-item">Subtitulado</div>
+                    </div>
+                    <div class="edition-price">$3,000 / cápsula</div>
+                  </div>
+                  <div class="edition-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                  </div>
+                </label>
+
+                <label class="edition-option" for="ed-visual">
+                  <input type="radio" id="ed-visual" name="edition" value="visual">
+                  <div class="edition-card">
+                    <div class="edition-icon">🎨</div>
+                    <div class="edition-name">Con apoyo visual</div>
+                    <div class="edition-desc">Gráficos animados, títulos en pantalla, lower thirds, transiciones de marca, integración de slides.</div>
+                    <div class="edition-includes">
+                      <div class="inc-item">Screen recording / slides integrados</div>
+                      <div class="inc-item">Lower thirds animados</div>
+                      <div class="inc-item">Motion graphics de marca</div>
+                      <div class="inc-item">Subtitulado</div>
+                    </div>
+                    <div class="edition-price">$5,500 / cápsula</div>
+                  </div>
+                  <div class="edition-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                  </div>
+                </label>
+
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <!-- CARD 3: CÁPSULAS -->
+        <div class="config-card anim anim-d2">
+          <div class="config-card-header">
+            <div class="config-step" aria-hidden="true">3</div>
+            <h2 class="config-card-title">Número de cápsulas</h2>
+            <span class="config-card-sub">Default: 30 · Máx. 30</span>
+          </div>
+          <div class="config-card-body">
+            <div class="capsules-control">
+              <div class="cap-header">
+                <span class="cap-label">¿Cuántas cápsulas cotizar?</span>
+                <div class="cap-val-wrap">
+                  <span class="cap-num" id="cap-display">30</span>
+                  <span class="cap-unit">cápsulas</span>
+                </div>
+              </div>
+              <div class="slider-wrap">
+                <div class="slider-bg">
+                  <div class="slider-fill" id="slider-fill" style="width:100%"></div>
+                </div>
+                <input type="range" id="cap-slider" min="1" max="30" value="30" aria-label="Número de cápsulas" aria-valuemin="1" aria-valuemax="30" aria-valuenow="30">
+              </div>
+              <div class="slider-marks" aria-hidden="true">
+                <span class="slider-mark">1</span>
+                <span class="slider-mark">10</span>
+                <span class="slider-mark">20</span>
+                <span class="slider-mark">30</span>
+              </div>
+              <div class="stepper-row">
+                <button class="stepper-btn" id="btn-minus" type="button" aria-label="Reducir número de cápsulas">−</button>
+                <input type="number" id="cap-input" class="stepper-input" min="1" max="30" value="30" aria-label="Número de cápsulas (editable)">
+                <button class="stepper-btn" id="btn-plus" type="button" aria-label="Aumentar número de cápsulas">+</button>
+              </div>
+              <p class="cap-hint">Ajusta si deseas cotizar un paquete parcial antes del proyecto completo de 30.</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /config-stack -->
+
+      <!-- RESULT PANEL -->
+      <aside class="result-panel anim anim-d3" aria-label="Panel de cotización">
+        <div class="result-header">
+          <span class="result-header-title">📊 Desglose de inversión</span>
+          <span class="result-validity">Sin IVA · MXN</span>
+        </div>
+        <div class="result-body">
+
+          <div class="pills" aria-live="polite" aria-label="Configuración activa">
+            <span class="pill"><span class="pill-dot"></span><span id="pill-ed">Sin apoyo visual</span></span>
+            <span class="pill"><span class="pill-dot"></span><span id="pill-cam">1 cámara</span></span>
+            <span class="pill"><span class="pill-dot"></span><span id="pill-cap">30 cápsulas</span></span>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="stages" role="list">
+            <div class="stage-row" role="listitem">
+              <div class="stage-left">
+                <div class="stage-ico" aria-hidden="true">📋</div>
+                <div>
+                  <div class="stage-name">Pre-producción</div>
+                  <div class="stage-detail" id="d-pre">Planeación, guiones, logística</div>
+                </div>
+              </div>
+              <div class="stage-amount" id="amt-pre">$12,000</div>
+            </div>
+            <div class="stage-row" role="listitem">
+              <div class="stage-left">
+                <div class="stage-ico" aria-hidden="true">🎥</div>
+                <div>
+                  <div class="stage-name">Producción</div>
+                  <div class="stage-detail" id="d-prod">Grabación 1 cámara, plano frontal</div>
+                </div>
+              </div>
+              <div class="stage-amount" id="amt-prod">$38,400</div>
+            </div>
+            <div class="stage-row" role="listitem">
+              <div class="stage-left">
+                <div class="stage-ico" aria-hidden="true">💻</div>
+                <div>
+                  <div class="stage-name">Post-producción</div>
+                  <div class="stage-detail" id="d-post">Edición básica, color, audio limpio</div>
+                </div>
+              </div>
+              <div class="stage-amount" id="amt-post">$90,000</div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="total-block" aria-live="polite">
+            <div class="total-label">Total de inversión</div>
+            <div class="total-amount" style="font-size:clamp(1.4rem,1rem+2vw,2.2rem);letter-spacing:-0.02em;">
+              $<span id="range-min">112,320</span> – $<span id="range-max">182,520</span>
+            </div>
+            <div class="total-note">Precios en pesos MXN · Sin IVA · Válido 30 días</div>
+          </div>
+
+          <p class="per-cap"><strong id="per-cap">$4,680</strong> por cápsula promedio</p>
+
+          <div class="divider"></div>
+
+          <button class="cta-btn" id="cta-btn" type="button">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Conocer Cotización Final
+          </button>
+          <p class="cta-subtext">Al enviar, BREED Studio recibirá tu solicitud y te contactará con la cotización exacta.</p>
+
+          <a id="mail-link" href="mailto:hello@breedstudio.com?subject=Propuesta%20BREED%20%E2%80%94%20KANAN%20x%20ASOFOM&amp;body=Hola%20equipo%20BREED%2C%0A%0AMe%20interesa%20recibir%20la%20propuesta%20formal%20para%20el%20proyecto%20KANAN%20x%20ASOFOM%20con%20la%20siguiente%20configuracion%3A%0A%0A-%20Tipo%20de%20edicion%3A%20Sin%20apoyo%20visual%0A-%20Camaras%3A%201%0A-%20Capsulas%3A%2030%0A-%20Inversion%20estimada%3A%20%24140%2C400%20MXN%20(sin%20IVA)%0A%0AQuedo%20en%20espera.%20Gracias." class="cta-sec">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+            hello@breedstudio.com
+          </a>
+
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">BREED © 2026</div>
+      <div class="footer-links">
+        <a href="mailto:hello@breedstudio.com" class="footer-link">hello@breedstudio.com</a>
+        <a href="https://breedstudio.com/" class="footer-link" target="_blank" rel="noopener noreferrer">breedstudio.com</a>
+        <span class="footer-link">Monterrey, NL · México</span>
+      </div>
+      <p class="footer-legal">Cotización estimada · Precios en MXN sin IVA · Válida por 30 días · Sujeta a confirmación formal por escrito de BREED.</p>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modal-heading">Solicitar propuesta formal</h2>
+      <button class="modal-close" id="modal-close" type="button" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-summary">
+        <div class="modal-row"><span class="lbl">Tipo de edición</span><span class="val" id="m-ed">Sin apoyo visual ($3,000/cáp)</span></div>
+        <div class="modal-row"><span class="lbl">Cámaras</span><span class="val" id="m-cam">1 cámara ($1,600/hr)</span></div>
+        <div class="modal-row"><span class="lbl">Cápsulas</span><span class="val" id="m-cap">30 cápsulas</span></div>
+        <div class="modal-total-row"><span class="lbl">Inversión estimada</span><span class="val" id="m-total">$140,400 MXN</span></div>
+      </div>
+      <p class="modal-desc">Llena tus datos y te enviamos la propuesta formal en PDF en las próximas 24 horas hábiles.</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="f-name">Nombre</label>
+          <input class="form-input" type="text" id="f-name" placeholder="Tu nombre" autocomplete="name">
+        <div data-lastpass-icon-root="" style="position: relative !important; height: 0px !important; width: 0px !important; display: initial !important; float: left !important;"><template shadowrootmode="closed"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-lastpass-icon="true" data-testid="infield-icon" style="position: absolute; cursor: pointer; height: 22px; max-height: 22px; width: 22px; max-width: 22px; top: -40.1px; left: 159.73px; z-index: auto; color: rgb(186, 192, 202);"><rect x="0.680176" y="0.763062" width="22.6392" height="22.4737" rx="4" fill="currentColor"></rect><path fill-rule="evenodd" clip-rule="evenodd" d="M19.7935 7.9516C19.7935 7.64414 20.0427 7.3949 20.3502 7.3949C20.6576 7.3949 20.9069 7.64414 20.9069 7.9516V16.0487C20.9069 16.3562 20.6576 16.6054 20.3502 16.6054C20.0427 16.6054 19.7935 16.3562 19.7935 16.0487V7.9516Z" fill="white"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M4.76288 13.6577C5.68525 13.6577 6.43298 12.9154 6.43298 11.9998C6.43298 11.0842 5.68525 10.3419 4.76288 10.3419C3.8405 10.3419 3.09277 11.0842 3.09277 11.9998C3.09277 12.9154 3.8405 13.6577 4.76288 13.6577Z" fill="white"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M10.3298 13.6577C11.2521 13.6577 11.9999 12.9154 11.9999 11.9998C11.9999 11.0842 11.2521 10.3419 10.3298 10.3419C9.4074 10.3419 8.65967 11.0842 8.65967 11.9998C8.65967 12.9154 9.4074 13.6577 10.3298 13.6577Z" fill="white"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M15.8964 13.6577C16.8188 13.6577 17.5665 12.9154 17.5665 11.9998C17.5665 11.0842 16.8188 10.3419 15.8964 10.3419C14.974 10.3419 14.2263 11.0842 14.2263 11.9998C14.2263 12.9154 14.974 13.6577 15.8964 13.6577Z" fill="white"></path></svg></template></div></div>
+        <div class="form-group">
+          <label class="form-label" for="f-email">Correo</label>
+          <input class="form-input" type="email" id="f-email" placeholder="tu@correo.com" autocomplete="email">
+        </div>
+      </div>
+      <button class="send-btn" id="send-btn" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        Enviar solicitud
+      </button>
+      <div class="form-status" id="form-status"></div>
+      <a href="https://wa.me/528110000000" class="contact-link" target="_blank" rel="noopener noreferrer" style="margin-top:var(--space-1);">
+        <span class="contact-icon">💬</span>
+        Contactar por WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── PRICING MODEL (based on BREED Excel)
+   Post-prod per capsule:
+     Con apoyo visual  → $5,500
+     Sin apoyo visual  → $3,000
+   Shooting rate per hour:
+     1 cámara  → $1,600/hr
+     2 cámaras → $2,200/hr
+   Avg shooting: 0.8 hrs per capsule (24 hrs / 30 caps)
+   Pre-prod: scales linearly from min (1 cap) to max (30 caps)
+     Visual: $8,000 – $18,000
+     Basic:  $5,000 – $12,000
+*/
+var PRICE = {
+  visual: { post: 5500, preMin: 8000, preMax: 18000 },
+  basic:  { post: 3000, preMin: 5000, preMax: 12000 },
+  cam1: 1600, cam2: 2200,
+  shootHrs: 0.8
+};
+
+var state = { edition: 'basic', cameras: 1, capsules: 30 };
+var anim = { pre: 0, prod: 0, post: 0, total: 0 };
+var rafId = null;
+
+function calc(s) {
+  var p = PRICE[s.edition];
+  var camRate = s.cameras === 1 ? PRICE.cam1 : PRICE.cam2;
+  var ratio = s.capsules > 1 ? (s.capsules - 1) / 29 : 0;
+  var pre  = Math.round(p.preMin + (p.preMax - p.preMin) * ratio);
+  var prod = Math.round(camRate * PRICE.shootHrs * s.capsules);
+  var post = p.post * s.capsules;
+  return { pre: pre, prod: prod, post: post, total: pre + prod + post };
+}
+
+function fmt(n) {
+  return Math.round(n).toLocaleString('es-MX');
+}
+
+function lerp(a, b, t) { return a + (b - a) * t; }
+
+function animateTo(tgt) {
+  if (rafId) cancelAnimationFrame(rafId);
+  var start = { pre: anim.pre, prod: anim.prod, post: anim.post, total: anim.total };
+  var t0 = performance.now();
+  var DUR = 420;
+  function step(now) {
+    var elapsed = now - t0;
+    var rawT = Math.min(elapsed / DUR, 1);
+    var t = rawT === 1 ? 1 : 1 - Math.pow(2, -10 * rawT);
+    anim.pre   = lerp(start.pre,   tgt.pre,   t);
+    anim.prod  = lerp(start.prod,  tgt.prod,  t);
+    anim.post  = lerp(start.post,  tgt.post,  t);
+    anim.total = lerp(start.total, tgt.total, t);
+    document.getElementById('amt-pre').textContent  = '$' + fmt(anim.pre);
+    document.getElementById('amt-prod').textContent = '$' + fmt(anim.prod);
+    document.getElementById('amt-post').textContent = '$' + fmt(anim.post);
+    document.getElementById('range-min').textContent = fmt(Math.round(anim.total * 0.8));
+    document.getElementById('range-max').textContent = fmt(Math.round(anim.total * 1.3));
+    var pc = state.capsules > 0 ? Math.round(anim.total / state.capsules) : 0;
+    document.getElementById('per-cap').textContent = '$' + fmt(pc);
+    if (t < 1) rafId = requestAnimationFrame(step);
+  }
+  rafId = requestAnimationFrame(step);
+}
+
+function buildMailto(totals) {
+  var edLabel = state.edition === 'visual' ? 'Con apoyo visual' : 'Sin apoyo visual';
+  var subj = encodeURIComponent('Propuesta BREED — KANAN x ASOFOM');
+  var body = encodeURIComponent(
+    'Hola equipo BREED,\n\nMe interesa recibir la propuesta formal para el proyecto KANAN x ASOFOM con la siguiente configuracion:\n\n' +
+    '- Tipo de edicion: ' + edLabel + '\n' +
+    '- Camaras: ' + state.cameras + '\n' +
+    '- Capsulas: ' + state.capsules + '\n' +
+    '- Inversion estimada: $' + fmt(totals.total) + ' MXN (sin IVA)\n\nQuedo en espera. Gracias.'
+  );
+  return 'mailto:hello@breedstudio.com?subject=' + subj + '&body=' + body;
+}
+
+function update() {
+  var s = state;
+  var totals = calc(s);
+  animateTo(totals);
+
+  // Pills
+  document.getElementById('pill-ed').textContent  = s.edition === 'visual' ? 'Con apoyo visual' : 'Sin apoyo visual';
+  document.getElementById('pill-cam').textContent = s.cameras === 1 ? '1 cámara' : '2 cámaras';
+  document.getElementById('pill-cap').textContent = s.capsules + ' cápsulas';
+
+  // Stage details
+  document.getElementById('d-pre').textContent  = s.edition === 'visual' ? 'Planeación, guiones, assets de marca' : 'Planeación, guiones, logística';
+  document.getElementById('d-prod').textContent = s.cameras === 2 ? 'Grabación multicámara, crew completo' : 'Grabación 1 cámara, plano frontal';
+  document.getElementById('d-post').textContent = s.edition === 'visual' ? 'Edición, motion graphics, color, audio' : 'Edición básica, color, audio limpio';
+
+  // Modal summary
+  document.getElementById('m-ed').textContent  = s.edition === 'visual' ? 'Con apoyo visual ($5,500/cáp)' : 'Sin apoyo visual ($3,000/cáp)';
+  document.getElementById('m-cam').textContent = s.cameras === 1 ? '1 cámara ($1,600/hr)' : '2 cámaras ($2,200/hr)';
+  document.getElementById('m-cap').textContent = s.capsules + ' cápsulas';
+  document.getElementById('m-total').textContent = '$' + fmt(totals.total) + ' MXN';
+
+  // mailto (mail-link in result panel)
+  var href = buildMailto(totals);
+  document.getElementById('mail-link').href = href;
+}
+
+function setSliderFill(val) {
+  var pct = ((val - 1) / 29) * 100;
+  document.getElementById('slider-fill').style.width = pct + '%';
+}
+
+// Edition
+document.querySelectorAll('input[name="edition"]').forEach(function(r) {
+  r.addEventListener('change', function() { state.edition = this.value; update(); });
+});
+
+// Cameras
+document.querySelectorAll('input[name="cameras"]').forEach(function(r) {
+  r.addEventListener('change', function() { state.cameras = parseInt(this.value); update(); });
+});
+
+// Slider
+var slider = document.getElementById('cap-slider');
+var numIn  = document.getElementById('cap-input');
+
+slider.addEventListener('input', function() {
+  var v = parseInt(this.value);
+  state.capsules = v;
+  numIn.value = v;
+  document.getElementById('cap-display').textContent = v;
+  slider.setAttribute('aria-valuenow', v);
+  setSliderFill(v);
+  update();
+});
+
+numIn.addEventListener('input', function() {
+  var raw = parseInt(this.value);
+  if (isNaN(raw)) return;
+  var v = Math.max(1, Math.min(30, raw));
+  state.capsules = v;
+  slider.value = v;
+  document.getElementById('cap-display').textContent = v;
+  setSliderFill(v);
+  update();
+});
+numIn.addEventListener('blur', function() {
+  if (!this.value || parseInt(this.value) < 1) {
+    this.value = 1; state.capsules = 1;
+    slider.value = 1; setSliderFill(1); update();
+  }
+});
+
+document.getElementById('btn-minus').addEventListener('click', function() {
+  if (state.capsules > 1) { state.capsules--; sync(); }
+});
+document.getElementById('btn-plus').addEventListener('click', function() {
+  if (state.capsules < 30) { state.capsules++; sync(); }
+});
+function sync() {
+  slider.value = state.capsules;
+  numIn.value  = state.capsules;
+  document.getElementById('cap-display').textContent = state.capsules;
+  setSliderFill(state.capsules);
+  update();
+}
+
+// Modal
+var modal = document.getElementById('modal');
+document.getElementById('cta-btn').addEventListener('click', function() {
+  update();
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() { document.getElementById('modal-close').focus(); }, 50);
+});
+function closeModal() {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('cta-btn').focus();
+  // Reset form
+  var st = document.getElementById('form-status');
+  st.className = 'form-status';
+  st.textContent = '';
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-email').value = '';
+  document.getElementById('send-btn').disabled = false;
+  document.getElementById('send-btn').textContent = '';
+  document.getElementById('send-btn').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Enviar solicitud';
+}
+
+// EmailJS send
+document.getElementById('send-btn').addEventListener('click', function() {
+  var name  = document.getElementById('f-name').value.trim();
+  var email = document.getElementById('f-email').value.trim();
+  var st    = document.getElementById('form-status');
+  var btn   = document.getElementById('send-btn');
+
+  if (!name || !email) {
+    st.className = 'form-status error';
+    st.textContent = 'Por favor llena nombre y correo.';
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    st.className = 'form-status error';
+    st.textContent = 'Correo inválido.';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Enviando…';
+  st.className = 'form-status';
+  st.textContent = '';
+
+  var totals = calc(state);
+  var edLabel = state.edition === 'visual' ? 'Con apoyo visual ($5,500/cáp)' : 'Sin apoyo visual ($3,000/cáp)';
+  var camLabel = state.cameras === 1 ? '1 cámara ($1,600/hr)' : '2 cámaras ($2,200/hr)';
+
+  var now = new Date();
+  var dateStr = now.toLocaleDateString('es-MX', { weekday:'long', year:'numeric', month:'long', day:'numeric' }) + ' · ' + now.toLocaleTimeString('es-MX', { hour:'2-digit', minute:'2-digit' });
+  var rangeLow  = Math.round(totals.total * 0.8);
+  var rangeHigh = Math.round(totals.total * 1.3);
+  var postLabel = state.edition === 'visual' ? 'Post-prod con apoyo visual' : 'Post-prod sin apoyo visual';
+  var prodLabel = state.cameras === 1 ? 'Grabacion 1 camara' : 'Grabacion 2 camaras';
+
+  var logoUrl = 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/256b2a20-064b-40f3-81a4-41741571b2fe_1600w.png';
+  var s = ';'; var q = '"';
+  var H = [];
+  H.push('<div style=' + q + 'font-family:Arial,sans-serif' + s + 'max-width:600px' + s + 'margin:0 auto' + s + 'background:#111111' + s + 'color:#f5f5f5' + s + 'border-radius:16px' + s + 'overflow:hidden' + s + 'border:1px solid #2a2a2a' + q + '>');
+  H.push('<div style=' + q + 'padding:32px 36px 28px' + q + '>');
+  H.push('<img src=' + q + logoUrl + q + ' height=' + q + '24' + q + ' style=' + q + 'display:block' + s + 'margin-bottom:24px' + s + 'opacity:0.9' + q + '>');
+  H.push('<p style=' + q + 'margin:0 0 8px' + s + 'font-size:11px' + s + 'font-weight:700' + s + 'letter-spacing:0.12em' + s + 'text-transform:uppercase' + s + 'color:#C8651B' + q + '>Nueva solicitud de cotizacion</p>');
+  H.push('<h1 style=' + q + 'margin:0 0 6px' + s + 'font-size:26px' + s + 'font-weight:800' + s + 'color:#ffffff' + q + '>KANAN x ASOFOM</h1>');
+  H.push('<p style=' + q + 'margin:0' + s + 'font-size:13px' + s + 'color:#6a6a6a' + q + '>' + dateStr + '</p></div>');
+  H.push('<div style=' + q + 'height:1px' + s + 'background:#222222' + s + 'margin:0 36px' + q + '></div>');
+  H.push('<div style=' + q + 'padding:24px 36px' + q + '><div style=' + q + 'background:#1a1a1a' + s + 'border:1px solid #2a2a2a' + s + 'border-radius:12px' + s + 'padding:20px' + q + '>');
+  H.push('<p style=' + q + 'margin:0 0 10px' + s + 'font-size:10px' + s + 'font-weight:700' + s + 'letter-spacing:0.1em' + s + 'text-transform:uppercase' + s + 'color:#6a6a6a' + q + '>Cliente</p>');
+  H.push('<p style=' + q + 'margin:0 0 4px' + s + 'font-size:16px' + s + 'font-weight:700' + s + 'color:#f5f5f5' + q + '>' + name + '</p>');
+  H.push('<p style=' + q + 'margin:0' + s + 'font-size:13px' + s + 'color:#9a9a9a' + q + '>' + email + '</p></div></div>');
+  H.push('<div style=' + q + 'padding:0 36px 24px' + q + '>');
+  H.push('<p style=' + q + 'margin:0 0 14px' + s + 'font-size:10px' + s + 'font-weight:700' + s + 'letter-spacing:0.1em' + s + 'text-transform:uppercase' + s + 'color:#6a6a6a' + q + '>Servicios solicitados</p>');
+  var rowSt = 'display:flex' + s + 'justify-content:space-between' + s + 'padding:14px 0' + s + 'border-bottom:1px solid #1e1e1e';
+  var lastSt = 'display:flex' + s + 'justify-content:space-between' + s + 'padding:14px 0';
+  var lSt = 'font-size:14px' + s + 'color:#c0c0c0'; var aSt = 'font-size:14px' + s + 'font-weight:700' + s + 'color:#f5f5f5';
+  H.push('<div style=' + q + rowSt + q + '><span style=' + q + lSt + q + '>Pre-produccion</span><span style=' + q + aSt + q + '>$' + fmt(totals.pre) + '</span></div>');
+  H.push('<div style=' + q + rowSt + q + '><span style=' + q + lSt + q + '>' + prodLabel + ' x ' + state.capsules + ' caps</span><span style=' + q + aSt + q + '>$' + fmt(totals.prod) + '</span></div>');
+  H.push('<div style=' + q + lastSt + q + '><span style=' + q + lSt + q + '>' + postLabel + ' x ' + state.capsules + '</span><span style=' + q + aSt + q + '>$' + fmt(totals.post) + '</span></div></div>');
+  H.push('<div style=' + q + 'height:1px' + s + 'background:#222222' + s + 'margin:0 36px' + q + '></div>');
+  H.push('<div style=' + q + 'padding:24px 36px' + q + '><div style=' + q + 'background:#1a1a1a' + s + 'border:1px solid #2a2a2a' + s + 'border-radius:12px' + s + 'padding:24px' + q + '>');
+  H.push('<p style=' + q + 'margin:0 0 8px' + s + 'font-size:10px' + s + 'font-weight:700' + s + 'text-transform:uppercase' + s + 'color:#C8651B' + q + '>Precio real calculado</p>');
+  H.push('<p style=' + q + 'margin:0 0 20px' + s + 'font-size:38px' + s + 'font-weight:900' + s + 'color:#ffffff' + q + '>$' + fmt(totals.total) + ' MXN</p>');
+  H.push('<div style=' + q + 'height:1px' + s + 'background:#2a2a2a' + s + 'margin-bottom:20px' + q + '></div>');
+  H.push('<p style=' + q + 'margin:0 0 8px' + s + 'font-size:10px' + s + 'font-weight:700' + s + 'text-transform:uppercase' + s + 'color:#6a6a6a' + q + '>Rango mostrado al cliente</p>');
+  H.push('<p style=' + q + 'margin:0 0 4px' + s + 'font-size:22px' + s + 'font-weight:800' + s + 'color:#C8651B' + q + '>$' + fmt(rangeLow) + ' - $' + fmt(rangeHigh) + ' MXN</p>');
+  H.push('<p style=' + q + 'margin:0' + s + 'font-size:12px' + s + 'color:#5a5a5a' + q + '>-20% / +30% sobre precio base - Sin IVA</p></div></div>');
+  H.push('<div style=' + q + 'padding:20px 36px' + s + 'border-top:1px solid #1e1e1e' + s + 'text-align:center' + q + '>');
+  H.push('<p style=' + q + 'margin:0' + s + 'font-size:12px' + s + 'color:#5a5a5a' + q + '>BREED Studio - breedstudio.com - Cotizacion generada automaticamente</p></div></div>');
+  var htmlEmail = H.join('');
+
+  emailjs.send('service_ov1w6f9', 'template_bqc6gqq', {
+    to_email: 'luiscarlos@breedstudio.com',
+    subject: 'Cotizacion KANAN x ASOFOM - ' + name,
+    message_html: htmlEmail
+  }).then(function() {
+    st.className = 'form-status success';
+    st.textContent = '¡Enviado! Te contactamos en menos de 24 horas hábiles.';
+    btn.innerHTML = '✓ Solicitud enviada';
+    btn.disabled = true;
+  }).catch(function(err) {
+    st.className = 'form-status error';
+    st.textContent = 'Error al enviar. Escríbenos directo a hello@breedstudio.com';
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Reintentar';
+  });
+});
+document.getElementById('modal-close').addEventListener('click', closeModal);
+modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+// Init
+setSliderFill(30);
+anim = { pre: 0, prod: 0, post: 0, total: 0 };
+update();
+</script>
+
+<div class="calendly-frame-tag" manager_id="d8ed3a6e-dd2d-4614-acec-adb002bf9c98" id="d8ed3a6e-dd2d-4614-acec-adb002bf9c98" style="height: 0px; width: 0px; visibility: hidden;"></div><div class="calendly-lifecycle-optibutton_singleton"><template shadowrootmode="closed"><div class="calendly-opti-root"></div></template></div></body></html>
