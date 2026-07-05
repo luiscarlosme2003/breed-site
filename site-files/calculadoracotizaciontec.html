@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  (function(){ emailjs.init({ publicKey: 'YOUR_PUBLIC_KEY' }); })();
+  (function(){ emailjs.init({ publicKey: 'mNoIVuYsih4N8Yxa5' }); })();
 </script>
 <style>
   :root {
@@ -1023,6 +1023,34 @@
     </button>
     <div class="approve-note">Al enviar, BREED Studio recibirá tu solicitud y te contactará con la cotización exacta.</div>
   </div>
+
+<section style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px;margin-top:32px;">
+  <div style="max-width:760px;margin:0 auto;">
+    <p style="font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--copper);margin-bottom:8px;">Referencia de Trabajo</p>
+    <h2 style="font-size:22px;font-weight:600;color:var(--white);letter-spacing:-0.02em;margin-bottom:6px;">Así cubrimos un evento</h2>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:28px;max-width:52ch;">Un vistazo a la calidad y estilo de producción que recibirás en tu evento de Tec Monterrey.</p>
+    <div style="display:flex;flex-direction:column;gap:0;">
+      <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;border:1px solid var(--border);background:#000;">
+        <iframe src="https://player.vimeo.com/video/1201460971?badge=0&autopause=0&player_id=0&app_id=58479&color=B87333" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:10px;" title="BREED Studio — Video 1" allowfullscreen></iframe>
+      </div>
+      <div style="height:1px;background:var(--border);margin:20px 0;"></div>
+      <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;border:1px solid var(--border);background:#000;">
+        <iframe src="https://player.vimeo.com/video/1201467183?badge=0&autopause=0&player_id=0&app_id=58479&color=B87333" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:10px;" title="BREED Studio — Video 2" allowfullscreen></iframe>
+      </div>
+      <div style="height:1px;background:var(--border);margin:20px 0;"></div>
+      <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;border:1px solid var(--border);background:#000;">
+        <iframe src="https://player.vimeo.com/video/1201468125?badge=0&autopause=0&player_id=0&app_id=58479&color=B87333" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:10px;" title="BREED Studio — Video 3" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+    <div style="text-align:center;margin-top:28px;">
+      <a href="https://breedstudio.com/portafolio" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--border-copper);border-radius:var(--radius);background:var(--copper-dim);color:var(--copper-light);font-size:13px;font-weight:600;letter-spacing:0.02em;text-decoration:none;transition:background 160ms,border-color 160ms;" onmouseover="this.style.background='rgba(184,115,51,0.25)'" onmouseout="this.style.background='var(--copper-dim)'">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7h10M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Ver más videos
+      </a>
+    </div>
+</section>
+
 </main>
 
 <footer>
@@ -1479,7 +1507,7 @@ async function submitApproval() {
   const htmlEmail = buildEmailHTML(name, company, data, dateStr, timeStr);
 
   try {
-    await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+    await emailjs.send('service_ov1w6f9', 'template_bqc6gqq', {
       to_email: 'hello@breedstudio.com',
       subject: '🎬 Nueva solicitud — ' + name + (company ? ' · ' + company : '') + ' — Tec Monterrey',
       message_html: htmlEmail
