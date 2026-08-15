@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth antialiased selection:bg-white/20 selection:text-white overflow-x-hidden">
+<html lang="en" class="scroll-smooth antialiased selection:bg-white/20 selection:text-white">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -557,6 +557,12 @@ pointer-events: none;
         <script>
 (function () {
   function updateIntroAnimations() {
+    // Siempre reprogramamos el siguiente frame primero: así, aunque
+    // cualquier rama de abajo termine antes de tiempo (elemento no
+    // encontrado, prefers-reduced-motion, etc.), el bucle nunca muere
+    // permanentemente y la animación se sigue evaluando en cada scroll.
+    requestAnimationFrame(updateIntroAnimations);
+
     const viewportHeight = window.innerHeight;
     const text = document.getElementById("anim-intro-text-v2");
     if (!text) return;
@@ -594,14 +600,7 @@ pointer-events: none;
     text.style.transform = `scale(${0.9 + 0.1 * combinedP}) translateY(${(1 - combinedP) * -20}px)`;
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", updateIntroAnimations);
-  } else {
-    updateIntroAnimations();
-  }
-
-  window.addEventListener("scroll", updateIntroAnimations);
-  window.addEventListener("resize", updateIntroAnimations);
+  requestAnimationFrame(updateIntroAnimations);
 })();
         </script>
       </div>
